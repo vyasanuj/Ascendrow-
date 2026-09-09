@@ -1,0 +1,79 @@
+---
+import { projects } from '../../data/content';
+
+// {{ projects }} orbit maths, from the design:
+//   ang = (i - (len - 1) / 2) * 27
+const placed = projects.map((p, i) => ({
+  ...p,
+  orbit: `rotate(${(i - (projects.length - 1) / 2) * 27}deg) translateY(clamp(-860px, -51vw, -474px))`,
+}));
+---
+
+<section
+  id="work"
+  style="margin-top: -2px; background: linear-gradient(180deg, #6E56CF 0%, #5C48BC 14%, #40347F 34%, #241F44 46%, #0F0F14 56%, #0F0F14 100%); color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; position: relative; overflow: hidden; padding: clamp(30px, 3.2vw, 52px) clamp(20px, 4vw, 56px) clamp(56px, 6.5vw, 96px);"
+>
+  <div style="position: relative; max-width: 1320px; margin: 0 auto; min-height: clamp(560px, 58vw, 800px);">
+    <div
+      style="position: absolute; left: 50%; top: calc(clamp(474px, 51vw, 860px) + 40px); width: 0; height: 0; animation: ascSway 15s cubic-bezier(.35, .12, .65, .88) infinite alternate;"
+    >
+      {
+        placed.map((p) => (
+          <div
+            style={`position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: ${p.orbit}; border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);`}
+          >
+            <div
+              role="img"
+              aria-label={p.alt}
+              style={`border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url("${p.img}"); background-size: contain; background-position: center; background-repeat: no-repeat;`}
+            />
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      style="position: absolute; left: 50%; top: 68%; transform: translate(-50%, -50%); width: min(680px, 100%); text-align: center;"
+    >
+      <div
+        style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 150%; height: 190%; background: radial-gradient(closest-side, rgba(15,15,20,.82) 46%, rgba(15,15,20,.5) 70%, rgba(15,15,20,0)); pointer-events: none;"
+      >
+      </div>
+      <div style="position: relative;">
+        <h2
+          style="margin: 14px 0 0; font-size: clamp(28px, 3.6vw, 50px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.06; text-wrap: balance;"
+        >
+          Here's the work. Now let's talk about yours.
+        </h2>
+        <p
+          class="asc-body"
+          style="margin: clamp(14px, 1.8vw, 20px) auto 0; max-width: 50ch; color: #D6D4E4;"
+        >
+          Websites, campaigns and brands we've built for businesses across industries. Tell us about your project and we'll show you what we'd do.
+        </p>
+        <a
+          href="#contact"
+          class="asc-cta-btn"
+          style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; margin-top: clamp(20px, 2.4vw, 30px); padding: 0 30px; border-radius: 4px; font-size: 15.5px; font-weight: 700; white-space: nowrap; box-shadow: 0 18px 44px -18px rgba(255,107,74,.75);"
+        >
+          Book a call
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            style="flex: 0 0 auto;"
+            aria-hidden="true"
+          >
+            <path
+              d="M5 12h13M12.5 6l6 6-6 6"
+              stroke="#17110E"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

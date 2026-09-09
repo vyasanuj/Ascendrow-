@@ -1,0 +1,120 @@
+---
+import FunnelIsland from './Funnel';
+---
+
+<section
+  id="funnel"
+  class="asc-funnel-section"
+>
+  <div
+    style="position: absolute; top: -180px; left: 50%; transform: translateX(-50%); width: min(900px, 120%); height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(110,86,207,.14), rgba(110,86,207,0) 68%); pointer-events: none;"
+  >
+  </div>
+
+  <div style="position: relative; max-width: 1220px; margin: 0 auto;">
+    <div style="text-align: center; max-width: 60ch; margin: 0 auto;">
+      <h2
+        style="margin: 0; font-size: clamp(26px, 3.2vw, 44px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.06; text-wrap: balance;"
+      >
+        See what we fix at every stage of your funnel <span style="color: #C9C2EC;"
+          >and what it unlocks.</span
+        >
+      </h2>
+      <p
+        class="asc-body"
+        style="margin: clamp(16px, 2vw, 22px) auto 0; max-width: 56ch; color: var(--asc-text-muted);"
+      >
+        Most funnels do not leak in one place. We audit visibility, attention, trust and conversion
+        together, then fix the stage that is actually costing you buyers.
+      </p>
+    </div>
+
+    <FunnelIsland client:visible />
+  </div>
+</section>
+
+<style is:global>
+  .asc-funnel-section {
+    background: #0f0f14;
+    color: #f8f7fb;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    position: relative;
+    overflow: hidden;
+    padding: clamp(64px, 8vw, 120px) clamp(20px, 4vw, 56px) clamp(72px, 9vw, 132px);
+
+    /* Curved top corners. The section is pulled up by exactly the radius so the
+       curve sits over the purple approach section above it — otherwise the
+       rounding would reveal the identical page background and be invisible. */
+    --asc-funnel-radius: clamp(22px, 3vw, 44px);
+    border-top-left-radius: var(--asc-funnel-radius);
+    border-top-right-radius: var(--asc-funnel-radius);
+    margin-top: calc(-1 * var(--asc-funnel-radius));
+    z-index: 1;
+  }
+
+  /* Services left · funnel centre · headline and paragraph right.
+     DOM order is copy → services → funnel so the heading is still read first;
+     the columns are placed explicitly. */
+  .asc-funnel-grid {
+    margin-top: clamp(34px, 4.2vw, 62px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 400px) minmax(0, 1fr);
+    gap: clamp(20px, 3vw, 48px);
+    align-items: center;
+  }
+  .asc-funnel-services {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .asc-funnel-viz {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .asc-funnel-copy {
+    grid-column: 3;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .asc-funnel-cta {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: clamp(34px, 4.2vw, 58px);
+  }
+
+  @media (max-width: 900px) {
+    .asc-funnel-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .asc-funnel-copy,
+    .asc-funnel-viz,
+    .asc-funnel-services {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    /* Stack as headline → funnel → services, so the control comes before the
+       list it changes rather than after it. */
+    .asc-funnel-copy {
+      order: 1;
+      text-align: center;
+    }
+    .asc-funnel-viz {
+      order: 2;
+    }
+    .asc-funnel-services {
+      order: 3;
+    }
+    .asc-funnel-copy p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+</style>

@@ -1,0 +1,126 @@
+---
+import { footerCols } from '../../data/content';
+---
+
+<footer
+  id="footer"
+  style="background: #0C0C10; color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; position: relative; overflow: hidden; padding: clamp(48px, 6vw, 88px) clamp(20px, 4vw, 56px) clamp(28px, 3vw, 40px); border-top: 1px solid rgba(248,247,251,.08);"
+>
+  <div style="position: relative; max-width: 1220px; margin: 0 auto;">
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: clamp(28px, 3.4vw, 56px);"
+    >
+      <div style="min-width: 0; display: flex; flex-direction: column; gap: 18px;">
+        <div style="display: flex; align-items: center; gap: 11px;">
+          <div
+            style="width: 30px; height: 30px; border-radius: 8px; background: linear-gradient(150deg, var(--asc-accent, #6E56CF), #4B3AA0); display: flex; align-items: center; justify-content: center;"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M4 19L11 6l3.2 6.2L17 8l3 11"
+                stroke="#F8F7FB"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <span
+            style="font-size: 16px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;"
+            >Ascendrow</span
+          >
+        </div>
+        <p
+          class="asc-body-sm"
+          style="margin: 0; max-width: 34ch; color: #A6A5B6;"
+        >
+          A technology and growth agency making businesses visible on Google, memorable on social,
+          and discoverable in AI answers.
+        </p>
+        <a
+          href="#contact"
+          class="asc-cta-btn"
+          style="display: inline-flex; align-items: center; gap: 9px; align-self: flex-start; min-height: 46px; padding: 0 20px; border-radius: 4px; font-size: 14.5px; font-weight: 700; white-space: nowrap;"
+        >
+          Work with us
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            style="flex: 0 0 auto;"
+            aria-hidden="true"
+          >
+            <path
+              d="M5 12h13M12.5 6l6 6-6 6"
+              stroke="#17110E"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </div>
+
+      <div
+        style="min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 45%), 1fr)); gap: clamp(22px, 2.6vw, 40px);"
+      >
+        {
+          footerCols.map((col) => (
+            <div style="min-width: 0; display: flex; flex-direction: column; gap: 14px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #C9C2EC;">
+                {col.title}
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                {col.links.map((link) => (
+                  <a href="#contact" class="asc-footer-link">
+                    {link}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px; margin-top: clamp(36px, 4.4vw, 64px); padding-top: clamp(20px, 2.4vw, 28px); border-top: 1px solid rgba(248,247,251,.08);"
+    >
+      <div
+        style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; color: #8A8A9A;"
+      >
+        © 2026 Ascendrow
+      </div>
+      <div
+        style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; font-size: 13.5px;"
+      >
+        <!-- TODO: these need real destinations. Privacy and Terms need real pages. -->
+        <a href="#contact" class="asc-footer-meta">Privacy</a>
+        <a href="#contact" class="asc-footer-meta">Terms</a>
+        <a href="#contact" class="asc-footer-meta">LinkedIn</a>
+        <a href="#contact" class="asc-footer-meta">Instagram</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style is:global>
+  .asc-footer-link {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: #a2a2b0;
+    text-wrap: pretty;
+    transition: color 0.18s ease;
+  }
+  .asc-footer-link:hover {
+    color: #f8f7fb;
+  }
+
+  .asc-footer-meta {
+    font-size: 13.5px;
+    color: #8a8a9a;
+    transition: color 0.18s ease;
+  }
+  .asc-footer-meta:hover {
+    color: #f8f7fb;
+  }
+</style>

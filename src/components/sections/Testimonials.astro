@@ -1,0 +1,22 @@
+---
+import TestimonialsIsland from './Testimonials';
+---
+
+<section
+  id="testimonials"
+  style="background: #0F0F14; color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; position: relative; overflow: hidden; padding: clamp(48px, 6vw, 92px) clamp(20px, 4vw, 56px) clamp(56px, 7vw, 104px);"
+>
+  <div style="position: relative; max-width: 1080px; margin: clamp(30px, 4vw, 64px) auto 0; padding-top: 30px;">
+    <!-- stacked paper behind the card -->
+    <div
+      style="position: absolute; left: -4.5%; right: -4.5%; top: -26px; bottom: 4%; border-radius: 6px; background: rgba(201,194,236,.16); transform: rotate(-1.2deg);"
+    >
+    </div>
+    <div
+      style="position: absolute; left: -2%; right: -2%; top: -13px; bottom: 2%; border-radius: 6px; background: rgba(201,194,236,.28); transform: rotate(.8deg);"
+    >
+    </div>
+
+    <TestimonialsIsland client:visible />
+  </div>
+</section>

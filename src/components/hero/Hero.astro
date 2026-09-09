@@ -1,0 +1,266 @@
+---
+import { nav, logos, ctaLabel } from '../../data/site';
+import ServicePicker from './ServicePicker';
+
+// Give every logo the same optical AREA rather than the same height:
+//   h = sqrt(AREA / ratio)
+// A 5.6:1 wordmark and a 1:1 roundel then read as equally weighted. The clamp
+// stops very wide marks from getting spindly and roundels from towering.
+const AREA = 4400;
+const MIN_H = 26;
+const MAX_H = 42;
+
+const sized = logos.map((logo) => ({
+  ...logo,
+  h: Math.round(Math.min(MAX_H, Math.max(MIN_H, Math.sqrt(AREA / logo.ratio))) * 10) / 10,
+}));
+---
+
+<section
+  style="background: #0F0F14; color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; min-height: 100%; position: relative; overflow: hidden; padding: clamp(18px, 2.4vw, 32px) clamp(20px, 4vw, 56px) clamp(36px, 4vw, 60px);"
+>
+  <!-- ambient glows -->
+  <div
+    style="position: absolute; top: -300px; left: 50%; transform: translateX(-50%); width: min(1100px, 130%); height: 780px; border-radius: 50%; background: radial-gradient(circle, rgba(110,86,207,.20), rgba(110,86,207,0) 66%); pointer-events: none; animation: ascGlow 9s ease-in-out infinite;"
+  >
+  </div>
+  <div
+    style="position: absolute; bottom: -320px; right: -180px; width: 720px; height: 640px; border-radius: 50%; background: radial-gradient(circle, rgba(255,107,74,.13), rgba(255,107,74,0) 68%); pointer-events: none;"
+  >
+  </div>
+  <div
+    style="position: absolute; bottom: -320px; left: -220px; width: 640px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(110,86,207,.10), rgba(110,86,207,0) 70%); pointer-events: none;"
+  >
+  </div>
+
+  <div style="position: relative; max-width: 1280px; margin: 0 auto;">
+    <header
+      style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 28px;"
+    >
+      <div style="display: flex; align-items: center; gap: 11px;">
+        <div
+          style="width: 30px; height: 30px; border-radius: 8px; background: linear-gradient(150deg, var(--asc-accent, #6E56CF), #4B3AA0); display: flex; align-items: center; justify-content: center;"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M4 19L11 6l3.2 6.2L17 8l3 11"
+              stroke="#F8F7FB"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <span
+          style="font-size: 16px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; white-space: nowrap;"
+          >Ascendrow</span
+        >
+      </div>
+
+      <nav
+        style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px 30px; font-size: 15px; font-weight: 500;"
+        aria-label="Primary"
+      >
+        {nav.map((item) => <a href={item.href} class="asc-navlink">{item.label}</a>)}
+      </nav>
+    </header>
+
+    <div
+      style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: clamp(18px, 2.2vw, 34px) 0 0;"
+    >
+      <h1
+        style="margin: 0; max-width: 22ch; font-size: clamp(28px, 3.4vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 800; text-wrap: balance; color: #F8F7FB;"
+      >
+        We make sure your customers find you on <span style="color: #C9C2EC;">Google</span>,
+        remember you on social, and see you in <span style="color: var(--asc-cta, #FF6B4A);"
+          >AI answers</span
+        >.
+      </h1>
+
+      <p
+        class="asc-body"
+        style="margin: clamp(16px, 1.8vw, 22px) 0 0; max-width: 62ch; color: var(--asc-text-muted);"
+      >
+        Paid ads, SEO, branding, and design run as one system that puts you in front of ready
+        buyers, makes you the name they trust, and turns that trust into qualified leads.
+      </p>
+
+      <a
+        href="#contact"
+        class="asc-cta-btn"
+        style="display: inline-flex; align-items: center; gap: 10px; min-height: 52px; margin-top: clamp(20px, 2.4vw, 30px); padding: 0 30px; border-radius: 4px; font-size: 15.5px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; box-shadow: 0 18px 44px -18px rgba(255,107,74,.75);"
+      >
+        Work with us
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          style="flex: 0 0 auto;"
+          aria-hidden="true"
+        >
+          <path
+            d="M5 12h13M12.5 6l6 6-6 6"
+            stroke="#17110E"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </a>
+    </div>
+
+    <div
+      style="margin-top: clamp(44px, 6vw, 88px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 3vw, 48px); align-items: center;"
+    >
+      <div style="min-width: 0;">
+        <div
+          style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: clamp(74px, 6.2vw, 88px); gap: clamp(10px, 1.4vw, 18px); align-items: stretch;"
+        >
+          {
+            sized.map((logo) => (
+              <div class="asc-logo-slot">
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  loading="eager"
+                  decoding="async"
+                  style={`--asc-logo-h: ${logo.h}px;`}
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div
+        style="min-width: 0; border-radius: 0; background: #F8F7FB; padding: clamp(22px, 2.6vw, 34px); display: flex; flex-direction: column; box-shadow: 0 40px 90px -50px rgba(0,0,0,.95);"
+      >
+        <h2
+          style="margin: 0; font-size: clamp(22px, 2.1vw, 30px); line-height: 1.15; letter-spacing: -0.025em; font-weight: 800; color: #0F0F14; text-wrap: balance; text-align: center;"
+        >
+          Choose what you want to improve.
+        </h2>
+
+        <!-- Island: hydrates only when scrolled into view -->
+        <ServicePicker client:visible />
+
+        <a
+          href="#contact"
+          class="asc-cta-btn"
+          style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; margin: clamp(20px, 2.4vw, 28px) auto 0; padding: 0 28px; border-radius: 4px; font-size: 15.5px; font-weight: 700; white-space: nowrap; box-shadow: 0 16px 40px -18px rgba(255,107,74,.7);"
+        >
+          {ctaLabel}
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            style="flex: 0 0 auto;"
+            aria-hidden="true"
+          >
+            <path
+              d="M5 12h13M12.5 6l6 6-6 6"
+              stroke="#17110E"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  /* --- Client logo strip -------------------------------------------------
+     Every logo is rendered as flat white at a common optical size, so a mix
+     of colours and aspect ratios reads as one row. Alignment comes from a
+     shared cap height, not from stretching each file to fill its cell. */
+  .asc-logo-slot {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .asc-logo-slot img {
+    width: auto;
+    height: auto;
+    /* Per-logo height comes from the area normalisation in the frontmatter. */
+    max-height: var(--asc-logo-h, 34px);
+    max-width: 88%;
+    object-fit: contain;
+    /* Every source is trimmed transparent artwork, so one filter does all of
+       them: flatten any colour to black, then invert to a flat white. */
+    filter: brightness(0) invert(1);
+    opacity: 0.72;
+    transition: opacity 0.2s ease;
+  }
+  .asc-logo-slot:hover img {
+    opacity: 1;
+  }
+
+  /* Service picker. Styles are global, not scoped, so they reach the island DOM. */
+  .asc-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: minmax(64px, auto);
+    gap: 10px;
+    margin-top: clamp(20px, 2.4vw, 28px);
+  }
+
+  .asc-tile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 14px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    border-radius: 0;
+    background: #ffffff;
+    border: 1px solid rgba(15, 15, 20, 0.14);
+    color: #2a2833;
+    transition:
+      border-color 0.16s ease,
+      color 0.16s ease;
+  }
+  .asc-tile:hover {
+    border-color: rgba(110, 86, 207, 0.55);
+  }
+  .asc-tile.is-on {
+    border-color: var(--asc-accent, #6e56cf);
+    color: #0f0f14;
+  }
+
+  .asc-tile-mark {
+    flex: 0 0 auto;
+    width: 17px;
+    height: 17px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(15, 15, 20, 0.32);
+    background: transparent;
+    transition:
+      background 0.16s ease,
+      border-color 0.16s ease;
+  }
+  .asc-tile-mark svg {
+    opacity: 0;
+    transition: opacity 0.16s ease;
+  }
+  .asc-tile.is-on .asc-tile-mark {
+    border-color: var(--asc-accent, #6e56cf);
+    background: var(--asc-accent, #6e56cf);
+  }
+  .asc-tile.is-on .asc-tile-mark svg {
+    opacity: 1;
+  }
+</style>
