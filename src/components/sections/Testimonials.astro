@@ -1,5 +1,18 @@
 ---
 import TestimonialsIsland from './Testimonials';
+import { quotes } from '../../data/content';
+
+// Testimonials are the one thing on this site that can't be "fixed later" —
+// publishing words a named person never said is a legal problem, not an
+// editorial one. Shout about any that are still unapproved on every build.
+const drafts = quotes.filter((q) => q.draft);
+if (drafts.length) {
+  console.warn(
+    `\n  ⚠  ${drafts.length} of ${quotes.length} testimonials are UNAPPROVED DRAFTS:\n` +
+      drafts.map((q) => `     · ${q.name} — ${q.role}`).join('\n') +
+      `\n     Get sign-off from each person, then remove \`draft: true\` in content.ts.\n`
+  );
+}
 ---
 
 <section
@@ -20,3 +33,86 @@ import TestimonialsIsland from './Testimonials';
     <TestimonialsIsland client:visible />
   </div>
 </section>
+
+<style is:global>
+  .asc-quote-photo,
+  .asc-quote-initials {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid rgba(110, 86, 207, 0.28);
+  }
+  .asc-quote-photo {
+    object-fit: cover;
+    background: rgba(110, 86, 207, 0.08);
+  }
+  .asc-quote-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, rgba(110, 86, 207, 0.16), rgba(110, 86, 207, 0.06));
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #4b3aa0;
+  }
+
+  .asc-quote-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #0f0f14;
+    transition: color 0.18s ease;
+  }
+  .asc-quote-name:hover {
+    color: #4b3aa0;
+  }
+  .asc-quote-name svg {
+    opacity: 0.55;
+  }
+
+  /* Same white-silhouette files the hero strip uses, flipped to black so they
+     read on the light testimonial card. */
+  .asc-quote-logo {
+    flex: 0 0 auto;
+    height: 26px;
+    margin-left: 4px;
+    padding-left: 14px;
+    border-left: 1px solid rgba(15, 15, 20, 0.14);
+    object-fit: contain;
+    filter: brightness(0);
+    opacity: 0.62;
+  }
+
+  @media (max-width: 620px) {
+    .asc-quote-logo {
+      display: none;
+    }
+  }
+  /* Review-platform badges. Kept in full colour — a Clutch or Trustpilot
+     badge is only recognisable as proof if it looks like the real thing. */
+  .asc-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    border: 1px solid rgba(15, 15, 20, 0.1);
+    border-radius: 4px;
+    background: #ffffff;
+  }
+  .asc-badge a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  .asc-badge-img {
+    width: auto;
+    height: auto;
+    max-width: 82%;
+    object-fit: contain;
+    opacity: 0.92;
+  }
+</style>

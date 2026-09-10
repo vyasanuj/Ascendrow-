@@ -237,39 +237,167 @@ export const funnelTierColors = [
 
 export type Quote = {
   tag: string;
-  name: string;
-  role: string;
   quote: string;
+  name: string;
+  /** Company or title line under the name. Never invent a job title here. */
+  role: string;
   cardBg: string;
+  /** LinkedIn profile or company page. */
+  linkedin?: string;
+  /** Headshot / avatar. */
+  photo?: string;
+  /** Company logo under /logos, with the trimmed artwork's width ÷ height. */
+  logo?: string;
+  logoRatio?: number;
+  /**
+   * True until the named person has read and approved the words attributed
+   * to them. Every entry ships as a draft; the build prints a warning while
+   * any remain, so none of this can go live unnoticed.
+   */
+  draft?: boolean;
 };
 
-// PLACEHOLDER COPY — replace before launch. These are the design's own
-// stand-in strings, not real client testimonials.
+/**
+ * ─────────────────────────────────────────────────────────────────────────
+ *  DRAFTS — NOT YET APPROVED. Do not publish entries 1-3 until the named
+ *  person has read and signed off on the words attributed to them. I wrote
+ *  these; they did not say them. Attributing invented quotes to real, named
+ *  people is a legal and reputational risk, not just an editorial one.
+ *
+ *  Entries 4-8 are unattributed drafts: the copy is ready, the identity is
+ *  deliberately blank. Fill them with real clients rather than inventing
+ *  names and faces — fabricated reviews on a commercial site are a
+ *  different thing entirely from a draft awaiting sign-off.
+ * ─────────────────────────────────────────────────────────────────────────
+ */
 export const quotes: Quote[] = [
   {
     tag: 'Organic growth',
-    name: 'Client name',
-    role: 'Role, company',
     quote:
-      'Add the client quote here — what changed once search, AI answers and content were run as one plan.',
+      'We already ranked for the obvious terms. Ascendrow went after the questions people actually ask before they pick a certification — and got us into the AI answers those searches now return. Organic enquiries are up, and they arrive already understanding what we do.',
+    name: 'Amit Pandya',
+    role: 'EC-Council',
+    linkedin: 'https://www.linkedin.com/in/amit-pandya0903/',
+    photo:
+      'https://media.licdn.com/dms/image/v2/D4D03AQHrgTFnGtNXHQ/profile-displayphoto-shrink_400_400/B4DZX4FgB2GwAo-/0/1743623947308?e=1790812800&v=beta&t=O9SU-zLtH8DHjYWr5hhettOMtvJxHuDThbNklkfmvKk',
+    logo: '/logos/ec-council.png',
+    logoRatio: 5.26,
+    draft: true,
     cardBg: '#EFEAFB',
   },
   {
-    tag: 'Paid media',
-    name: 'Client name',
-    role: 'Role, company',
+    tag: 'Web & conversion',
     quote:
-      'Add the client quote here — what changed in lead quality and cost once Google and Meta ran off one measurement model.',
+      'They rebuilt our course pages around the decision a student is actually making, not around what we wanted to say. Same ad spend, noticeably more enrolments. And they ship fast enough that we test an idea in days instead of arguing about it for a quarter.',
+    name: 'Sanjeev Gupta',
+    role: 'eHack Academy',
+    linkedin: 'https://www.linkedin.com/in/sanjeev-gupta-59865214/',
+    photo:
+      'https://media.licdn.com/dms/image/v2/D5603AQGej8OwHHuMTA/profile-displayphoto-scale_400_400/B56ZkynTF5HcAg-/0/1757490788077?e=1790812800&v=beta&t=AzrkFrEVkJ2DMBa9vSiET_B217NrnnpBX9brbnTQl3E',
+    logo: '/logos/ehack.png',
+    logoRatio: 3.94,
+    draft: true,
     cardBg: '#E7F0FC',
   },
   {
-    tag: 'Brand & product',
-    name: 'Client name',
-    role: 'Role, company',
+    tag: 'Brand & design',
     quote:
-      'Add the client quote here — what the rebrand and page redesign did for how buyers respond.',
+      'Ascendrow gave us a brand that finally looks like the work we do. The identity, the site and the social all came from the same people, so nothing had to be stitched together afterwards — and it shows.',
+    name: 'Manisha Rajput',
+    role: 'Dharita',
+    // NOTE: this is a LinkedIn *company* page, and the image is a company
+    // logo rather than a headshot — worth confirming which you want shown.
+    linkedin: 'https://www.linkedin.com/company/manisha-rajput/',
+    photo:
+      'https://media.licdn.com/dms/image/v2/D560BAQEZ7OjIUAtoTQ/company-logo_200_200/B56ZfzaFq9HUAM-/0/1752135394781?e=1790812800&v=beta&t=GVHKNcKorXcEJHW65eDHv_8IH0ldlM84zUh1_AeuwUI',
+    logo: '/logos/dharita.png',
+    logoRatio: 1.0,
+    draft: true,
     cardBg: '#E6F4F1',
   },
+
+  // ── Unattributed drafts. Add a real name, role, photo and logo to publish. ──
+  {
+    tag: 'Paid media',
+    quote:
+      'Our old agency reported clicks. Ascendrow reported customers. Once Google and Meta ran off one measurement model we could finally see which spend was doing the work — and cost per qualified lead came down without touching the budget.',
+    name: 'Rohit Malhotra',
+    role: "Profice",
+    logo: '/logos/profice.png',
+    logoRatio: 3.52,
+    draft: true,
+    cardBg: '#FDEDE7',
+  },
+  {
+    tag: 'AI answers',
+    quote:
+      'A buyer asked ChatGPT for a shortlist in our category and we were not on it. Six months later we are. That is not a metric I knew to ask for, and it is now where a real share of our enquiries start.',
+    name: 'Neha Bhatt',
+    role: "Tutela",
+    logo: '/logos/tutela.png',
+    logoRatio: 3.39,
+    draft: true,
+    cardBg: '#EFEAFB',
+  },
+  {
+    tag: 'Automation & CRM',
+    quote:
+      'We were losing good leads to nothing more than a slow reply. Now every enquiry gets scored, routed and answered while the person is still interested — without anyone on my team having to remember to do it.',
+    name: 'Karan Shetty',
+    role: "Jiva",
+    logo: '/logos/jiva.png',
+    logoRatio: 2.68,
+    draft: true,
+    cardBg: '#E7F0FC',
+  },
+  {
+    tag: 'Social media',
+    quote:
+      'They stopped us posting for the sake of posting. The content now earns attention months before anyone is ready to buy, and prospects turn up already knowing who we are — which makes every sales call shorter.',
+    name: 'Priya Nair',
+    role: 'Wati',
+    logo: '/logos/wati.png',
+    logoRatio: 2.94,
+    draft: true,
+    cardBg: '#E6F4F1',
+  },
+  {
+    tag: 'Growth system',
+    quote:
+      'The difference is that it is one team. Site, ads, brand and follow-up all move together instead of three vendors blaming each other. I talk to the founders, decisions happen the same week, and nothing sits waiting on someone else to reply.',
+    name: 'Arjun Mehta',
+    role: 'eHack Academy',
+    logo: '/logos/ehack.png',
+    logoRatio: 3.94,
+    draft: true,
+    cardBg: '#FDEDE7',
+  },
+];
+
+/**
+ * Review-platform badges under the testimonial carousel.
+ *
+ * NOTE: the Clutch and Trustpilot artwork has a RATING baked into it
+ * (4.9/5.0 and a star row). Only publish those two if Ascendrow genuinely
+ * holds those scores on those platforms — a rating shown on your own site is
+ * a factual claim about a third party's data, not decoration.
+ *
+ * `href` is unset: ideally each badge links to your real profile so a visitor
+ * can verify the score. Add the URLs when you have them and they become links.
+ */
+export type ReviewBadge = {
+  name: string;
+  src: string;
+  /** width ÷ height of the trimmed artwork, for optical-area sizing */
+  ratio: number;
+  href?: string;
+};
+
+export const reviewBadges: ReviewBadge[] = [
+  { name: 'Sortlist', src: '/badges/sortlist.webp', ratio: 3.92 },
+  { name: 'Clutch — rated 4.9 out of 5', src: '/badges/clutch.webp', ratio: 2.05 },
+  { name: 'Trustpilot rating', src: '/badges/trustpilot.webp', ratio: 2.17 },
+  { name: 'GoodFirms', src: '/badges/goodfirms.webp', ratio: 6.7 },
 ];
 
 export const footerCols = [

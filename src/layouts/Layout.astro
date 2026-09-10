@@ -14,7 +14,11 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- favicon.ico carries 16 + 32px and answers the bare /favicon.ico request
+         browsers make regardless of these tags. Built by scripts/build-favicon.mjs. -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Pass 1 keeps the design's Google Fonts link so the render matches exactly.
          Pass 2 self-hosts these as subset woff2 to kill the render-blocking request. -->

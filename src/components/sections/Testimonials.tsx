@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import { quotes } from '../../data/content';
+import { quotes, reviewBadges } from '../../data/content';
 
 /**
  * Island #5 — testimonial carousel.
@@ -51,15 +51,60 @@ export default function Testimonials() {
             {quote.quote}
           </blockquote>
           <div style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: clamp(22px, 2.6vw, 32px);">
-            <span style="flex: 0 0 auto; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(110,86,207,.28); background: linear-gradient(160deg, rgba(110,86,207,.16), rgba(110,86,207,.06)); font-size: 17px; font-weight: 800; letter-spacing: -0.01em; color: #4B3AA0;">
-              {initials}
-            </span>
+            {/* Photo when there is one, initials when there isn't — an
+                unattributed draft shouldn't render a broken avatar. */}
+            {quote.photo ? (
+              <img
+                class="asc-quote-photo"
+                src={quote.photo}
+                alt=""
+                width="56"
+                height="56"
+                loading="lazy"
+                decoding="async"
+                referrerpolicy="no-referrer"
+              />
+            ) : (
+              <span class="asc-quote-initials">{initials}</span>
+            )}
+
             <span style="min-width: 0; display: flex; flex-direction: column; gap: 3px; text-align: left;">
               <span style="font-size: 14.5px; font-weight: 700; letter-spacing: -0.01em; color: #0F0F14;">
-                {quote.name}
+                {quote.linkedin ? (
+                  <a
+                    class="asc-quote-name"
+                    href={quote.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {quote.name}
+                    <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
+                      <path
+                        fill="currentColor"
+                        d="M6.94 5a2 2 0 11-4 0 2 2 0 014 0zM3.2 8.5h3.5V21H3.2V8.5zm5.8 0h3.35v1.71h.05c.47-.84 1.6-1.71 3.3-1.71 3.53 0 4.18 2.2 4.18 5.06V21h-3.5v-5.73c0-1.37-.03-3.13-1.98-3.13-1.99 0-2.29 1.49-2.29 3.03V21H9V8.5z"
+                      />
+                    </svg>
+                  </a>
+                ) : (
+                  quote.name
+                )}
               </span>
               <span style="font-size: 13px; color: #4A4858; text-wrap: pretty;">{quote.role}</span>
             </span>
+
+            {/* Company logo. The shipped artwork is a white silhouette for the
+                dark hero strip, so brightness(0) flips it to black for this
+                light card — same file, no second asset. */}
+            {quote.logo && (
+              <img
+                class="asc-quote-logo"
+                src={quote.logo}
+                alt={quote.role}
+                loading="lazy"
+                decoding="async"
+                style={`width: ${Math.round(26 * (quote.logoRatio ?? 3))}px;`}
+              />
+            )}
           </div>
         </div>
 
@@ -77,14 +122,32 @@ export default function Testimonials() {
       </div>
 
       <div style="margin-top: clamp(26px, 3.2vw, 44px); padding-top: clamp(20px, 2.4vw, 30px); border-top: 1px solid rgba(15,15,20,.1); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 45%), 1fr)); grid-auto-rows: clamp(72px, 7vw, 88px); gap: clamp(10px, 1.4vw, 20px);">
-        {[1, 2, 3, 4].map((n) => (
-          <span
-            key={n}
-            style="display: flex; align-items: center; justify-content: center; border: 1px solid rgba(15,15,20,.1); border-radius: 4px; background: #FFFFFF; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: rgba(15,15,20,.28);"
-          >
-            Logo
-          </span>
-        ))}
+        {reviewBadges.map((b) => {
+          // Same softened optical-area rule used elsewhere: size by area, not
+          // height, so a 6.7:1 wordmark and a 2:1 badge carry equal weight.
+          const h = Math.round(Math.min(40, Math.max(20, 42.3 / Math.pow(b.ratio, 0.35))) * 10) / 10;
+          const img = (
+            <img
+              class="asc-badge-img"
+              src={b.src}
+              alt={b.name}
+              loading="lazy"
+              decoding="async"
+              style={`max-height: ${h}px;`}
+            />
+          );
+          return (
+            <span class="asc-badge" key={b.src}>
+              {b.href ? (
+                <a href={b.href} target="_blank" rel="noopener noreferrer">
+                  {img}
+                </a>
+              ) : (
+                img
+              )}
+            </span>
+          );
+        })}
       </div>
     </div>
   );
