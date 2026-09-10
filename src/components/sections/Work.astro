@@ -1,12 +1,46 @@
 ---
 import { projects } from '../../data/content';
 
-// {{ projects }} orbit maths, from the design:
-//   ang = (i - (len - 1) / 2) * 27
-const placed = projects.map((p, i) => ({
-  ...p,
-  orbit: `rotate(${(i - (projects.length - 1) / 2) * 27}deg) translateY(clamp(-860px, -51vw, -474px))`,
-}));
+// A ring that carries the cards around a FIXED arc, with each card
+// counter-rotated so it stays upright as it travels. The arc band never moves;
+// the pictures slide along it.
+//
+// How the angles cancel. The ring rotates by θ. A card in slot A therefore
+// inherits θ + A of rotation. Each card then gets:
+//   · a static  -(1 - k)·A   to undo its slot tilt, and
+//   · an animated -(1 - k)·θ  to undo the ring's spin.
+// leaving a visible tilt of k·(θ + A).
+//
+//   TILT_FOLLOW = 1  cards welded to the ring — the design's original fanned
+//                    arrangement, tilting to ±83° at the edges  (chosen)
+//   TILT_FOLLOW = 0.42 reproduces the reference clip, which keeps roughly 40%
+//                      of the tilt
+//   TILT_FOLLOW = 0  cards perfectly upright the whole way round
+const TILT_FOLLOW = 1;
+
+// The ring must close or its gap swings into view. 360/13 = 27.69°, within
+// 0.7° of the design's 27° spacing, so the arc sits exactly where it always
+// has: -83, -55, -28, 0, 28, 55, 83 against the design's -81 … 81.
+const SLOTS = 13;
+const STEP = 360 / SLOTS;
+
+// Seconds per revolution. Measured from the reference recording: the ring
+// there turns about 1.2°/s, so a full turn takes ~290s and a card crosses the
+// top of the arc roughly every 22 seconds.
+const SPIN = 290;
+
+const counterEnd = -(1 - TILT_FOLLOW) * 360;
+
+const placed = Array.from({ length: SLOTS }, (_, i) => {
+  const angle = (i - 6) * STEP;
+  return {
+    ...projects[i % projects.length],
+    // Indices 0-6 are the 7 unique projects; 7-12 repeat them to close the ring.
+    decorative: i >= projects.length,
+    angle: angle.toFixed(3),
+    deTilt: (-(1 - TILT_FOLLOW) * angle).toFixed(3),
+  };
+});
 ---
 
 <section
@@ -14,19 +48,40 @@ const placed = projects.map((p, i) => ({
   style="margin-top: -2px; background: linear-gradient(180deg, #6E56CF 0%, #5C48BC 14%, #40347F 34%, #241F44 46%, #0F0F14 56%, #0F0F14 100%); color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; position: relative; overflow: hidden; padding: clamp(30px, 3.2vw, 52px) clamp(20px, 4vw, 56px) clamp(56px, 6.5vw, 96px);"
 >
   <div style="position: relative; max-width: 1320px; margin: 0 auto; min-height: clamp(560px, 58vw, 800px);">
+    <!--
+      transform-origin is load-bearing. Each card is placed with
+      `rotate(A) translateY(-R)`, and a transform rotates about the element's
+      own centre — so the cards orbit a point half a card-height BELOW this
+      hub, not the hub itself. Leave this hub spinning about its own 0x0 point
+      and the two axes disagree: the arc keeps its radius but its centre swings
+      around a ~61px circle, which reads as the whole arc wandering.
+
+      So pin the hub's axis to where the cards actually orbit:
+        half card height = width / (16/10) / 2 + padding
+                         = clamp(192px, 21vw, 405px) / 3.2 + clamp(4px, .6vw, 8px)
+    -->
     <div
-      style="position: absolute; left: 50%; top: calc(clamp(474px, 51vw, 860px) + 40px); width: 0; height: 0; animation: ascSway 15s cubic-bezier(.35, .12, .65, .88) infinite alternate;"
+      class="asc-work-wheel"
+      style="position: absolute; left: 50%; top: calc(clamp(474px, 51vw, 860px) + 40px); width: 0; height: 0; transform-origin: 0 calc(clamp(192px, 21vw, 405px) / 3.2 + clamp(4px, .6vw, 8px));"
     >
       {
         placed.map((p) => (
           <div
-            style={`position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: ${p.orbit}; border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);`}
+            style={`position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(${p.angle}deg) translateY(clamp(-860px, -51vw, -474px));`}
           >
-            <div
-              role="img"
-              aria-label={p.alt}
-              style={`border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url("${p.img}"); background-size: contain; background-position: center; background-repeat: no-repeat;`}
-            />
+            <div style={`transform: rotate(${p.deTilt}deg);`}>
+              <div
+                class={TILT_FOLLOW < 1 ? 'asc-work-card' : undefined}
+                style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);"
+              >
+                <div
+                  role={p.decorative ? undefined : 'img'}
+                  aria-label={p.decorative ? undefined : p.alt}
+                  aria-hidden={p.decorative ? 'true' : undefined}
+                  style={`border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url("${p.img}"); background-size: contain; background-position: center; background-repeat: no-repeat;`}
+                />
+              </div>
+            </div>
           </div>
         ))
       }
@@ -49,7 +104,8 @@ const placed = projects.map((p, i) => ({
           class="asc-body"
           style="margin: clamp(14px, 1.8vw, 20px) auto 0; max-width: 50ch; color: #D6D4E4;"
         >
-          Websites, campaigns and brands we've built for businesses across industries. Tell us about your project and we'll show you what we'd do.
+          Websites, campaigns and brands we've built for businesses across industries. Tell us about
+          your project and we'll show you what we'd do.
         </p>
         <a
           href="#contact"
@@ -77,3 +133,44 @@ const placed = projects.map((p, i) => ({
     </div>
   </div>
 </section>
+
+<style is:global define:vars={{ ascSpin: `${SPIN}s`, ascCounterEnd: `${counterEnd}deg` }}>
+  /* Ring and cards share one duration, so the counter-rotation stays exactly
+     in step with the spin and the cards never wobble. `linear` on both — any
+     easing would desynchronise them mid-cycle. */
+  .asc-work-wheel {
+    animation: ascWheel var(--ascSpin) linear infinite;
+    will-change: transform;
+  }
+
+  .asc-work-card {
+    animation: ascCounterSpin var(--ascSpin) linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes ascWheel {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Equal and opposite to ascWheel, scaled by how much tilt should remain. */
+  @keyframes ascCounterSpin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(var(--ascCounterEnd));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .asc-work-wheel,
+    .asc-work-card {
+      animation: none !important;
+    }
+  }
+</style>
