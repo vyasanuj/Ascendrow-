@@ -25,3 +25,111 @@ import ApproachIsland from './Approach';
     <ApproachIsland client:visible />
   </div>
 </section>
+
+<style is:global>
+  /* Marketing pillar mockups. Global, not scoped, because they render inside
+     a Preact island. Percentage sizing keeps the cluster together at any
+     panel width. */
+  .asc-shots {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .asc-shot {
+    position: absolute;
+    height: auto;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow:
+      0 24px 48px -22px rgba(15, 15, 20, 0.45),
+      0 0 0 1px rgba(15, 15, 20, 0.07);
+  }
+
+  /* Paid search sits behind, as the largest of the three. */
+  .asc-shot.is-ads {
+    width: 66%;
+    top: 0;
+    left: 0;
+    transform: rotate(-2deg);
+    z-index: 1;
+  }
+
+  /* Social overlaps its right edge. */
+  .asc-shot.is-ig {
+    width: 34%;
+    top: 6%;
+    right: 0;
+    transform: rotate(3deg);
+    z-index: 2;
+  }
+
+  /* The profile people find organically sits in front, bottom-left. */
+  .asc-shot.is-gbp {
+    width: 44%;
+    bottom: 2%;
+    left: 8%;
+    transform: rotate(-4deg);
+    z-index: 3;
+  }
+
+  /* --- Tech pillar: three mockups on a crossfade loop --------------------
+     The three images have different aspect ratios (1.18, 1.55, 1.49), so the
+     stage fixes one ratio and each image is contained inside it. The white
+     stage carries the frame, which keeps the letterbox bands looking
+     deliberate rather than like gaps. */
+  .asc-craft-stack {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    aspect-ratio: 7 / 5;
+    padding: 7px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow:
+      0 24px 48px -22px rgba(15, 15, 20, 0.45),
+      0 0 0 1px rgba(15, 15, 20, 0.07);
+  }
+
+  .asc-craft-slide {
+    position: absolute;
+    inset: 7px;
+    width: calc(100% - 14px);
+    height: calc(100% - 14px);
+    object-fit: contain;
+    border-radius: 7px;
+    opacity: 0;
+    animation: ascCraftCycle 15s linear infinite;
+  }
+
+  /* 15s loop, 3 slides: each holds ~4.1s then crossfades over ~0.9s.
+     The slides are offset by negative delays of 0s, -10s and -5s. */
+  @keyframes ascCraftCycle {
+    0%,
+    27.3% {
+      opacity: 1;
+    }
+    33.3%,
+    94% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* The global reduced-motion rule only collapses the duration, which would
+     leave an arbitrary slide showing. Pin it to the first instead. */
+  @media (prefers-reduced-motion: reduce) {
+    .asc-craft-slide {
+      animation: none !important;
+      opacity: 0;
+    }
+    .asc-craft-slide:first-child {
+      opacity: 1;
+    }
+  }
+</style>

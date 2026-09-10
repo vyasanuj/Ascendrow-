@@ -5,12 +5,15 @@ export const theme = {
   cta: '#FF6B4A',
 } as const;
 
+// The design shipped links to #services and #system, which no section has —
+// they scrolled nowhere. These point at sections that actually exist:
+// the funnel lists the services, the approach section is the three founders.
 export const nav = [
-  { href: '#services', label: 'Services' },
-  { href: '#system', label: 'Growth System' },
-  { href: '#work', label: 'Work' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#funnel', label: 'Services' },
+  { href: '#approach', label: 'About us' },
 ];
+
+export const navCta = { href: '#contact', label: 'Contact us' };
 
 export type Logo = {
   id: string;

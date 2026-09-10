@@ -1,6 +1,7 @@
 ---
-import { nav, logos, ctaLabel } from '../../data/site';
+import { nav, navCta, logos, ctaLabel } from '../../data/site';
 import ServicePicker from './ServicePicker';
+
 
 // Give every logo the same optical AREA rather than the same height:
 //   h = sqrt(AREA / ratio)
@@ -17,7 +18,7 @@ const sized = logos.map((logo) => ({
 ---
 
 <section
-  style="background: #0F0F14; color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; min-height: 100%; position: relative; overflow: hidden; padding: clamp(18px, 2.4vw, 32px) clamp(20px, 4vw, 56px) clamp(36px, 4vw, 60px);"
+  style="background: #0F0F14; color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; min-height: 100%; position: relative; overflow: hidden; padding: clamp(24px, 3vw, 40px) clamp(20px, 4vw, 56px) clamp(36px, 4vw, 60px);"
 >
   <!-- ambient glows -->
   <div
@@ -35,33 +36,28 @@ const sized = logos.map((logo) => ({
 
   <div style="position: relative; max-width: 1280px; margin: 0 auto;">
     <header
-      style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 28px;"
+      style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 28px; min-height: 64px;"
     >
-      <div style="display: flex; align-items: center; gap: 11px;">
-        <div
-          style="width: 30px; height: 30px; border-radius: 8px; background: linear-gradient(150deg, var(--asc-accent, #6E56CF), #4B3AA0); display: flex; align-items: center; justify-content: center;"
-        >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M4 19L11 6l3.2 6.2L17 8l3 11"
-              stroke="#F8F7FB"
-              stroke-width="2.2"
-              stroke-linecap="round"
-              stroke-linejoin="round"></path>
-          </svg>
-        </div>
-        <span
-          style="font-size: 16px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; white-space: nowrap;"
-          >Ascendrow</span
-        >
-      </div>
+      <a href="#" class="asc-brand" aria-label="Ascendrow home">
+        <img
+          class="asc-brand-mark"
+          src="/ascendrow-logo.webp"
+          alt=""
+          width="589"
+          height="110"
+          decoding="async"
+        />
+      </a>
 
-      <nav
-        style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px 30px; font-size: 15px; font-weight: 500;"
-        aria-label="Primary"
-      >
-        {nav.map((item) => <a href={item.href} class="asc-navlink">{item.label}</a>)}
-      </nav>
+      <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px 32px;">
+        <nav
+          style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px 32px; font-size: 17px; font-weight: 500;"
+          aria-label="Primary"
+        >
+          {nav.map((item) => <a href={item.href} class="asc-navlink">{item.label}</a>)}
+        </nav>
+        <a href={navCta.href} class="asc-nav-cta">{navCta.label}</a>
+      </div>
     </header>
 
     <div

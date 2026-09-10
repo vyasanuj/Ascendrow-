@@ -11,23 +11,16 @@ import { footerCols } from '../../data/content';
       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: clamp(28px, 3.4vw, 56px);"
     >
       <div style="min-width: 0; display: flex; flex-direction: column; gap: 18px;">
-        <div style="display: flex; align-items: center; gap: 11px;">
-          <div
-            style="width: 30px; height: 30px; border-radius: 8px; background: linear-gradient(150deg, var(--asc-accent, #6E56CF), #4B3AA0); display: flex; align-items: center; justify-content: center;"
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M4 19L11 6l3.2 6.2L17 8l3 11"
-                stroke="#F8F7FB"
-                stroke-width="2.2"
-                stroke-linecap="round"
-                stroke-linejoin="round"></path>
-            </svg>
-          </div>
-          <span
-            style="font-size: 16px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;"
-            >Ascendrow</span
-          >
+        <div class="asc-brand">
+          <img
+            class="asc-brand-mark"
+            src="/ascendrow-logo.webp"
+            alt="Ascendrow"
+            width="589"
+            height="110"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
         <p
           class="asc-body-sm"

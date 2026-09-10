@@ -155,6 +155,45 @@ const { title, description } = Astro.props;
         border-color: rgba(110, 86, 207, 0.5);
       }
 
+      /* --- Brand lockup --------------------------------------------------- */
+      .asc-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        color: #f8f7fb;
+      }
+      .asc-brand:hover {
+        color: #f8f7fb;
+      }
+      .asc-brand-mark {
+        width: auto;
+        height: 38px;
+        flex: 0 0 auto;
+      }
+
+      /* Compact nav CTA — smaller than the hero button so the two don't
+         compete for the same glance. */
+      .asc-nav-cta {
+        display: inline-flex;
+        align-items: center;
+        min-height: 48px;
+        padding: 0 24px;
+        border-radius: 4px;
+        background: var(--asc-cta, #ff6b4a);
+        color: #17110e;
+        font-size: 15.5px;
+        font-weight: 700;
+        white-space: nowrap;
+        transition:
+          background 0.18s ease,
+          transform 0.18s ease;
+      }
+      .asc-nav-cta:hover {
+        background: #ff7f62;
+        color: #17110e;
+        transform: translateY(-1px);
+      }
+
       :focus-visible {
         outline: 2px solid var(--asc-cta, #ff6b4a);
         outline-offset: 3px;

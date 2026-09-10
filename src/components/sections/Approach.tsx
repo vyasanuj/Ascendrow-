@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 import type { JSX } from 'preact';
-import { pillars, podRoles, techTools, marketingTools } from '../../data/content';
+import { pillars, podRoles } from '../../data/content';
 
 /**
  * Island #3 — the three-node graph and the panel it drives.
@@ -62,22 +62,41 @@ const SLOTS = [
   },
 ];
 
-const TOOL_TILE =
-  'display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 8px; border: 1px solid rgba(15,15,20,.14); border-radius: 6px; background: #FFFFFF; font-size: 12px; letter-spacing: .04em; color: #5A5870;';
-
-function ToolGrid({ label, tools }: { label: string; tools: string[] }) {
+/**
+ * The three platform mockups for the Marketing pillar — paid search, the
+ * business profile people find organically, and a social ad. Arranged as an
+ * overlapping cluster so all three read at panel size.
+ */
+function MarketingShots() {
   return (
-    <div>
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #5A5870;">
-        {label}
-      </div>
-      <div style="margin-top: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: clamp(116px, 11vw, 132px); gap: clamp(8px, 1.1vw, 14px);">
-        {tools.map((t) => (
-          <span key={t} style={TOOL_TILE}>
-            {t}
-          </span>
-        ))}
-      </div>
+    <div class="asc-shots">
+      <img
+        class="asc-shot is-ads"
+        src="/mockups/google-ads.webp"
+        alt="A phone showing a search results page with a sponsored listing at the top"
+        width="720"
+        height="745"
+        loading="lazy"
+        decoding="async"
+      />
+      <img
+        class="asc-shot is-ig"
+        src="/mockups/instagram-ad.webp"
+        alt="A sponsored Instagram post on a phone"
+        width="560"
+        height="1044"
+        loading="lazy"
+        decoding="async"
+      />
+      <img
+        class="asc-shot is-gbp"
+        src="/mockups/business-profile.webp"
+        alt="A business profile listing with star ratings, viewed through a magnifier"
+        width="560"
+        height="560"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   );
 }
@@ -206,10 +225,43 @@ export default function Approach() {
 
         <div style="min-width: 0;">
           <div hidden={pillar !== 0}>
-            <ToolGrid label="Built with" tools={techTools} />
+            {/* Three mockups crossfading on one 15s loop — 5s each.
+                CSS-only, so it runs whether or not the island has hydrated. */}
+            <div class="asc-craft-stack">
+              <img
+                class="asc-craft-slide"
+                style="animation-delay: 0s;"
+                src="/mockups/design-craft.webp"
+                alt="Design capability board: colour palette, typography, UI design, UX design and landing page examples"
+                width="820"
+                height="692"
+                loading="lazy"
+                decoding="async"
+              />
+              <img
+                class="asc-craft-slide"
+                style="animation-delay: -10s;"
+                src="/mockups/landing-hero.webp"
+                alt="A landing page hero laid out around a single offer, with the above-the-fold structure annotated"
+                width="900"
+                height="579"
+                loading="lazy"
+                decoding="async"
+              />
+              <img
+                class="asc-craft-slide"
+                style="animation-delay: -5s;"
+                src="/mockups/wireframe-to-design.webp"
+                alt="The same product page shown twice: grey wireframe on the left, finished visual design on the right"
+                width="900"
+                height="605"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
           </div>
           <div hidden={pillar !== 1}>
-            <ToolGrid label="Runs on" tools={marketingTools} />
+            <MarketingShots />
           </div>
           <div hidden={pillar !== 2}>
             <div>

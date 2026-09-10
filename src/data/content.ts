@@ -191,16 +191,6 @@ export const podRoles = [
   { name: 'Marketing', lift: '0px' },
 ];
 
-// PLACEHOLDER logo lists for the Tech and Marketing panels — confirm or swap.
-export const techTools = ['Next.js', 'Astro', 'Figma', 'Webflow', 'HubSpot', 'Zapier'];
-export const marketingTools = [
-  'Google Ads',
-  'Meta Ads',
-  'GA4',
-  'Search Console',
-  'ChatGPT',
-  'Instagram',
-];
 
 export type FunnelStage = {
   title: string;
