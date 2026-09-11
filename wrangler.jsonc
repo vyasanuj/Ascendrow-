@@ -1,13 +1,20 @@
 {
 	"$schema": "./node_modules/wrangler/config-schema.json",
-	"compatibility_date": "2026-09-08",
-	"compatibility_flags": ["global_fetch_strictly_public"],
 	"name": "ascendrow",
-	"main": "@astrojs/cloudflare/entrypoints/server",
+	"compatibility_date": "2026-09-08",
+
+	// Static site: Cloudflare serves ./dist straight from the edge. There is no
+	// Worker script, so no `main` entry. When the contact form lands and the
+	// Cloudflare adapter is re-enabled in astro.config.mjs, restore:
+	//   "main": "@astrojs/cloudflare/entrypoints/server",
+	//   "assets": { "directory": "./dist", "binding": "ASSETS" }
 	"assets": {
 		"directory": "./dist",
-		"binding": "ASSETS"
+		// Serve /about instead of /about/index.html, and 404.html for misses
+		"html_handling": "auto-trailing-slash",
+		"not_found_handling": "404-page"
 	},
+
 	"observability": {
 		"enabled": true
 	}

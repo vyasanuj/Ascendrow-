@@ -89,13 +89,13 @@ export const stats: Stat[] = [
 
 // {{ projects }} — selected work orbit. Images came out of the design's uploads/.
 export const projects = [
-  { img: '/work/profice-cyber-security.png', alt: 'Profice cyber security training website' },
-  { img: '/work/breakthrough-expert.png', alt: 'Breakthrough Expert coaching landing page' },
-  { img: '/work/ehack-academy-diploma.png', alt: 'eHack Academy digital marketing diploma page' },
-  { img: '/work/crm-taxi-landing.png', alt: 'crm.taxi fleet management landing page' },
-  { img: '/work/crm-taxi-dashboard.png', alt: 'crm.taxi operator dashboard' },
-  { img: '/work/ehack-academy-home.png', alt: 'eHack Academy website homepage' },
-  { img: '/work/ehack-academy-career.png', alt: 'eHack Academy cybersecurity career landing page' },
+  { img: '/work/profice-cyber-security.webp', alt: 'Profice cyber security training website' },
+  { img: '/work/breakthrough-expert.webp', alt: 'Breakthrough Expert coaching landing page' },
+  { img: '/work/ehack-academy-diploma.webp', alt: 'eHack Academy digital marketing diploma page' },
+  { img: '/work/crm-taxi-landing.webp', alt: 'crm.taxi fleet management landing page' },
+  { img: '/work/crm-taxi-dashboard.webp', alt: 'crm.taxi operator dashboard' },
+  { img: '/work/ehack-academy-home.webp', alt: 'eHack Academy website homepage' },
+  { img: '/work/ehack-academy-career.webp', alt: 'eHack Academy cybersecurity career landing page' },
 ];
 
 // Each point is written as "Claim. Explanation." — kept as two fields so the

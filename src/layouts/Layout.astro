@@ -1,6 +1,22 @@
 ---
 import { theme } from '../data/site';
 
+// Self-hosted fonts. Vite copies each file to /_astro/<hash>.woff2 and hands
+// back the path, so the @font-face below can point at same-origin assets.
+// One variable file covers every Jakarta weight the site uses (400–800).
+import jakartaWoff2 from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
+import mono400Woff2 from '@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2?url';
+import mono500Woff2 from '@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2?url';
+
+// Registered under the SAME family names the rest of the CSS already uses,
+// so nothing else had to change. url() can't take a CSS variable, hence the
+// string built here and inlined below.
+const fontFaces = [
+  `@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:200 800;font-display:swap;src:url(${jakartaWoff2}) format('woff2-variations'),url(${jakartaWoff2}) format('woff2')}`,
+  `@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(${mono400Woff2}) format('woff2')}`,
+  `@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(${mono500Woff2}) format('woff2')}`,
+].join('\n');
+
 interface Props {
   title: string;
   description: string;
@@ -20,14 +36,11 @@ const { title, description } = Astro.props;
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Pass 1 keeps the design's Google Fonts link so the render matches exactly.
-         Pass 2 self-hosts these as subset woff2 to kill the render-blocking request. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts are self-hosted (see frontmatter). Preloading the body/heading
+         face lets the browser fetch it before it discovers it in CSS — it is
+         the font the LCP element is set in. -->
+    <link rel="preload" href={jakartaWoff2} as="font" type="font/woff2" crossorigin />
+    <style is:inline set:html={fontFaces}></style>
   </head>
   <body>
     <slot />
@@ -201,6 +214,276 @@ const { title, description } = Astro.props;
       :focus-visible {
         outline: 2px solid var(--asc-cta, #ff6b4a);
         outline-offset: 3px;
+      }
+
+      /* ==================================================================
+         RESPONSIVE
+         The design shipped no breakpoints. Section styles are still inline
+         (Pass 2 lifts them), so these rules target class hooks and use
+         !important where an inline declaration would otherwise win.
+         Two breakpoints: 900px stacks the side-by-side layouts, 640px is
+         the phone pass.
+         ================================================================== */
+
+      /* Off by default; shown only on phones, where it replaces the ring. */
+      .asc-work-mobile {
+        display: none;
+      }
+
+      /* ---------- ≤ 900px: tablets, stack the two-column layouts ---------- */
+      @media (max-width: 900px) {
+        .asc-hero-grid,
+        .asc-approach-card {
+          grid-template-columns: minmax(0, 1fr) !important;
+        }
+        /* Logos wanted 3-up beside the picker; alone they can afford 4. */
+        .asc-logo-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        }
+      }
+
+      /* The phone menu exists only below 640px. */
+      .asc-menu {
+        display: none;
+      }
+
+      /* ---------- ≤ 640px: phones ---------- */
+      @media (max-width: 640px) {
+        /* ----- Above the fold: one message, one action -----
+           Modelled on how the strongest agency sites handle a phone fold:
+           a single-row navbar, a large LEFT-aligned headline, and the
+           interactive picker directly under the CTA rather than pushed
+           below a logo wall. Centred multi-line text on a narrow screen
+           produces ragged edges on every line; left alignment reads as
+           editorial and scans faster. */
+
+        /* Navbar: logo + hamburger on one row, nothing else. */
+        .asc-hero-nav {
+          position: relative;
+          flex-wrap: nowrap !important;
+          min-height: 56px !important;
+          gap: 0 !important;
+        }
+        .asc-hero-nav-right {
+          display: none !important;
+        }
+        .asc-brand-mark {
+          height: 30px;
+        }
+        .asc-menu {
+          display: block;
+        }
+        .asc-menu-btn {
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 6px;
+          width: 44px;
+          height: 44px;
+          padding: 0 6px;
+          cursor: pointer;
+        }
+        .asc-menu-btn::-webkit-details-marker {
+          display: none;
+        }
+        .asc-menu-btn span {
+          display: block;
+          height: 2px;
+          border-radius: 2px;
+          background: #f8f7fb;
+          transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .asc-menu[open] .asc-menu-btn span:nth-child(1) {
+          transform: translateY(8px) rotate(45deg);
+        }
+        .asc-menu[open] .asc-menu-btn span:nth-child(2) {
+          opacity: 0;
+        }
+        .asc-menu[open] .asc-menu-btn span:nth-child(3) {
+          transform: translateY(-8px) rotate(-45deg);
+        }
+        .asc-menu-panel {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: calc(100% + 12px);
+          z-index: 30;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          padding: 10px;
+          border: 1px solid rgba(248, 247, 251, 0.1);
+          border-radius: 10px;
+          background: #17161f;
+          box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+        }
+        .asc-menu-link {
+          padding: 14px 14px;
+          border-radius: 6px;
+          font-size: 17px;
+          font-weight: 600;
+          color: #f8f7fb;
+        }
+        .asc-menu-link:hover {
+          background: rgba(248, 247, 251, 0.06);
+        }
+        .asc-menu-cta {
+          justify-content: center;
+          margin-top: 6px;
+        }
+
+        /* Copy column: left-aligned, and the headline earns its size. */
+        .asc-hero-copy {
+          align-items: flex-start !important;
+          text-align: left !important;
+          padding-top: 36px !important;
+        }
+        .asc-hero-copy h1 {
+          max-width: none !important;
+          /* 10vw = 37.5px at 375px: seven lines, and the CTA clears a 667px
+             fold. 11vw made it eight lines and pushed the CTA under. */
+          font-size: clamp(34px, 10vw, 42px) !important;
+          line-height: 1.04 !important;
+          letter-spacing: -0.035em !important;
+        }
+        .asc-hero-copy p {
+          margin-top: 22px !important;
+          font-size: 19px !important;
+          line-height: 1.55 !important;
+        }
+        .asc-hero-copy > .asc-cta-btn {
+          min-height: 56px !important;
+          margin-top: 30px !important;
+          padding: 0 34px !important;
+          font-size: 16.5px !important;
+        }
+
+        /* Picker before logos: the thing to interact with sits right under
+           the CTA; the proof wall follows. */
+        .asc-hero-grid {
+          margin-top: 48px !important;
+        }
+        .asc-hero-picker {
+          order: -1;
+        }
+        .asc-hero-logos {
+          margin-top: 8px;
+        }
+
+        .asc-logo-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+          grid-auto-rows: 64px !important;
+        }
+        .asc-picker-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+
+        /* Stat scroller: the 340vh sticky 3D sequence is a desktop device.
+           On a phone it becomes a plain stacked list — every card visible,
+           no scroll-jacking. The island still runs; these just override
+           its inline transforms. */
+        .asc-stats {
+          height: auto !important;
+        }
+        .asc-stats-sticky {
+          position: static !important;
+          height: auto !important;
+          display: block !important;
+          padding: 56px clamp(20px, 4vw, 56px) 40px !important;
+        }
+        .asc-stats-wash {
+          display: none !important;
+        }
+        .asc-stats-stage {
+          height: auto !important;
+          perspective: none !important;
+          display: flex;
+          flex-direction: column;
+          gap: 56px;
+        }
+        .asc-stat-card {
+          position: relative !important;
+          inset: auto !important;
+          opacity: 1 !important;
+          transform: none !important;
+          pointer-events: auto !important;
+          transition: none !important;
+        }
+        .asc-stat-brands span {
+          width: calc(50% - 4px) !important;
+          height: 64px !important;
+        }
+
+        /* Work: swap the ring for the strip. */
+        .asc-work-stage {
+          display: none !important;
+        }
+        .asc-work-mobile {
+          display: flex;
+          gap: 12px;
+          margin: 0 calc(-1 * clamp(20px, 4vw, 56px)) 28px;
+          padding: 4px clamp(20px, 4vw, 56px) 12px;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+        .asc-work-mobile::-webkit-scrollbar {
+          display: none;
+        }
+        .asc-work-mobile img {
+          flex: 0 0 78%;
+          width: 78%;
+          height: auto;
+          border-radius: 8px;
+          scroll-snap-align: center;
+          background: #0f0f14;
+          box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.9);
+        }
+        /* The copy was positioned over the ring; on phones it just flows. */
+        .asc-work-copy {
+          position: static !important;
+          transform: none !important;
+          width: 100% !important;
+        }
+        .asc-work-copy > div:first-child {
+          display: none;
+        }
+
+        /* Approach: pillar labels sit outside their nodes and clip on narrow
+           screens — tuck them under instead. */
+        .asc-pillar-label {
+          font-size: 11.5px !important;
+          max-width: 9ch !important;
+        }
+
+        /* Testimonials: prev/next were beside the quote; put them under it. */
+        .asc-quote-grid {
+          grid-template-columns: minmax(0, 1fr) !important;
+          gap: 18px !important;
+        }
+        /* Both buttons share one cell on row 2 and justify to opposite ends.
+           Without the explicit column, auto-placement invents a second one. */
+        .asc-quote-grid > div {
+          grid-row: 1;
+          grid-column: 1;
+        }
+        .asc-quote-grid > .asc-quote-nav {
+          grid-row: 2;
+          grid-column: 1;
+        }
+        .asc-quote-grid > .asc-quote-nav:first-child {
+          justify-self: start;
+        }
+        .asc-quote-grid > .asc-quote-nav:last-child {
+          justify-self: end;
+        }
+
+        /* Contact: two CTAs stack full-width. */
+        .asc-contact-ctas > a {
+          width: 100%;
+        }
       }
 
       @media (prefers-reduced-motion: reduce) {

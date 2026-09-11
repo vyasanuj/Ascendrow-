@@ -3,10 +3,12 @@ import { defineConfig } from 'astro/config';
 
 import preact from '@astrojs/preact';
 
+import sitemap from '@astrojs/sitemap';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://ascendrow.com',
-  integrations: [preact()],
+  integrations: [preact(), sitemap()],
 
   // Output is fully static — `astro build` emits plain HTML/CSS/JS that
   // Cloudflare serves straight from its edge. No adapter needed for that.

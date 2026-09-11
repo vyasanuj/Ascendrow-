@@ -36,6 +36,7 @@ const sized = logos.map((logo) => ({
 
   <div style="position: relative; max-width: 1280px; margin: 0 auto;">
     <header
+      class="asc-hero-nav"
       style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 28px; min-height: 64px;"
     >
       <a href="#" class="asc-brand" aria-label="Ascendrow home">
@@ -49,7 +50,7 @@ const sized = logos.map((logo) => ({
         />
       </a>
 
-      <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px 32px;">
+      <div class="asc-hero-nav-right" style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px 32px;">
         <nav
           style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px 32px; font-size: 17px; font-weight: 500;"
           aria-label="Primary"
@@ -58,9 +59,23 @@ const sized = logos.map((logo) => ({
         </nav>
         <a href={navCta.href} class="asc-nav-cta">{navCta.label}</a>
       </div>
+
+      <!-- Phone menu. <details> gives an accessible, keyboard-operable
+           disclosure with no JavaScript, so it works before hydration and
+           on the static hero. Hidden on desktop, where the inline nav shows. -->
+      <details class="asc-menu">
+        <summary class="asc-menu-btn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </summary>
+        <div class="asc-menu-panel">
+          {nav.map((item) => <a href={item.href} class="asc-menu-link">{item.label}</a>)}
+          <a href={navCta.href} class="asc-nav-cta asc-menu-cta">{navCta.label}</a>
+        </div>
+      </details>
     </header>
 
     <div
+      class="asc-hero-copy"
       style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: clamp(18px, 2.2vw, 34px) 0 0;"
     >
       <h1
@@ -105,10 +120,12 @@ const sized = logos.map((logo) => ({
     </div>
 
     <div
+      class="asc-hero-grid"
       style="margin-top: clamp(44px, 6vw, 88px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 3vw, 48px); align-items: center;"
     >
-      <div style="min-width: 0;">
+      <div class="asc-hero-logos" style="min-width: 0;">
         <div
+          class="asc-logo-grid"
           style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: clamp(74px, 6.2vw, 88px); gap: clamp(10px, 1.4vw, 18px); align-items: stretch;"
         >
           {
@@ -128,6 +145,7 @@ const sized = logos.map((logo) => ({
       </div>
 
       <div
+        class="asc-hero-picker"
         style="min-width: 0; border-radius: 0; background: #F8F7FB; padding: clamp(22px, 2.6vw, 34px); display: flex; flex-direction: column; box-shadow: 0 40px 90px -50px rgba(0,0,0,.95);"
       >
         <h2

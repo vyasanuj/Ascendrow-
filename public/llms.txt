@@ -1,0 +1,28 @@
+# Ascendrow
+
+> A technology and growth agency. Paid ads, SEO, GEO (AI answer optimisation),
+> branding, web design and CRM automation run as one system by three founders.
+
+Ascendrow makes businesses visible on Google, memorable on social, and
+recommended in AI answers (ChatGPT, Claude, Perplexity, Gemini). Clients talk
+to the founders directly; site, ads and brand are built by the same team.
+
+## Services
+
+- Paid media: Google Ads, Meta Ads, LinkedIn Ads, YouTube, Reddit — built
+  around who actually converts, measured on one model.
+- Organic growth: SEO for page-one rankings; GEO / AEO so the business is
+  named inside AI-assistant answers.
+- Web and conversion: websites and landing pages designed around the buying
+  decision; UI/UX that removes friction; CRO.
+- Brand and design: identity, positioning, messaging, design systems.
+- Automation and CRM: every lead scored, routed and answered automatically.
+- Social media: content that earns attention before buyers are ready.
+
+## Pages
+
+- [Home](https://ascendrow.com/): services, approach, selected work, contact
+
+## Contact
+
+- https://ascendrow.com/#contact

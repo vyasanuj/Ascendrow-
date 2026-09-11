@@ -27,7 +27,7 @@ export default function Testimonials() {
         Growth teams that stayed.
       </h2>
 
-      <div style="display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(10px, 2vw, 28px); margin-top: clamp(26px, 3.2vw, 44px);">
+      <div class="asc-quote-grid" style="display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(10px, 2vw, 28px); margin-top: clamp(26px, 3.2vw, 44px);">
         <button type="button" onClick={prev} aria-label="Previous testimonial" class="asc-quote-nav">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path

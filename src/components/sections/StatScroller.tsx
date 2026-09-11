@@ -74,6 +74,7 @@ export default function StatScroller() {
   return (
     <div
       id="what-we-do"
+      class="asc-stats"
       ref={wrapRef}
       style={{
         background: '#0F0F14',
@@ -84,6 +85,7 @@ export default function StatScroller() {
       }}
     >
       <div
+        class="asc-stats-sticky"
         style={{
           position: 'sticky',
           top: 0,
@@ -97,6 +99,7 @@ export default function StatScroller() {
         }}
       >
         <div
+          class="asc-stats-wash"
           style={{
             position: 'absolute',
             left: 0,
@@ -115,6 +118,7 @@ export default function StatScroller() {
         />
 
         <div
+          class="asc-stats-stage"
           style={{
             position: 'relative',
             width: '100%',
@@ -132,6 +136,7 @@ export default function StatScroller() {
             return (
               <div
                 key={stat.title}
+                class="asc-stat-card"
                 aria-hidden={!on}
                 style={{
                   position: 'absolute',
@@ -201,6 +206,7 @@ export default function StatScroller() {
                 </p>
 
                 <div
+                  class="asc-stat-brands"
                   style={{
                     display: 'flex',
                     flexWrap: 'wrap',

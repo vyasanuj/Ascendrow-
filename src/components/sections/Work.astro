@@ -47,7 +47,25 @@ const placed = Array.from({ length: SLOTS }, (_, i) => {
   id="work"
   style="margin-top: -2px; background: linear-gradient(180deg, #6E56CF 0%, #5C48BC 14%, #40347F 34%, #241F44 46%, #0F0F14 56%, #0F0F14 100%); color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; position: relative; overflow: hidden; padding: clamp(30px, 3.2vw, 52px) clamp(20px, 4vw, 56px) clamp(56px, 6.5vw, 96px);"
 >
-  <div style="position: relative; max-width: 1320px; margin: 0 auto; min-height: clamp(560px, 58vw, 800px);">
+  <!-- Phones get a swipeable strip instead of the ring: at the ring's minimum
+       radius (474px) and card width (192px), a 375px viewport would show one
+       card and clip the rest. Hidden above 640px; the ring is hidden below. -->
+  <div class="asc-work-mobile" aria-label="Selected work">
+    {
+      projects.map((p) => (
+        <img
+          src={p.img}
+          alt={p.alt}
+          width="820"
+          height="512"
+          loading="lazy"
+          decoding="async"
+        />
+      ))
+    }
+  </div>
+
+  <div class="asc-work-stage" style="position: relative; max-width: 1320px; margin: 0 auto; min-height: clamp(560px, 58vw, 800px);">
     <!--
       transform-origin is load-bearing. Each card is placed with
       `rotate(A) translateY(-R)`, and a transform rotates about the element's
@@ -88,6 +106,7 @@ const placed = Array.from({ length: SLOTS }, (_, i) => {
     </div>
 
     <div
+      class="asc-work-copy"
       style="position: absolute; left: 50%; top: 68%; transform: translate(-50%, -50%); width: min(680px, 100%); text-align: center;"
     >
       <div

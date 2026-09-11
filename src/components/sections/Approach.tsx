@@ -107,7 +107,7 @@ export default function Approach() {
 
   return (
     <>
-      <div style="position: relative; z-index: 2; height: clamp(150px, 15vw, 190px); margin-top: clamp(28px, 3.4vw, 48px);">
+      <div class="asc-pillar-graph" style="position: relative; z-index: 2; height: clamp(150px, 15vw, 190px); margin-top: clamp(28px, 3.4vw, 48px);">
         <svg
           viewBox="0 0 1000 400"
           preserveAspectRatio="none"
@@ -155,7 +155,7 @@ export default function Approach() {
                   {ICONS[i]}
                 </span>
               </span>
-              <span style={slot.label + ' color: ' + (on ? '#FFFFFF' : '#F8F7FB') + ';'}>
+              <span class="asc-pillar-label" style={slot.label + ' color: ' + (on ? '#FFFFFF' : '#F8F7FB') + ';'}>
                 {p.node}
               </span>
             </button>
@@ -163,7 +163,7 @@ export default function Approach() {
         })}
       </div>
 
-      <div style="position: relative; border: 1px solid rgba(15,15,20,.12); border-radius: 14px; background: #F8F7FB; color: #0F0F14; box-shadow: 0 44px 100px -50px rgba(15,15,20,.7); padding: clamp(34px, 4vw, 56px) clamp(24px, 3vw, 46px) clamp(24px, 3vw, 46px); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(24px, 3.2vw, 52px); align-items: center;">
+      <div class="asc-approach-card" style="position: relative; border: 1px solid rgba(15,15,20,.12); border-radius: 14px; background: #F8F7FB; color: #0F0F14; box-shadow: 0 44px 100px -50px rgba(15,15,20,.7); padding: clamp(34px, 4vw, 56px) clamp(24px, 3vw, 46px) clamp(24px, 3vw, 46px); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(24px, 3.2vw, 52px); align-items: center;">
         {/* All three panels are rendered into the DOM and the inactive ones are
             hidden, rather than only rendering the active one. Otherwise two
             thirds of this section's copy would not exist for search engines, or
