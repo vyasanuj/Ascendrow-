@@ -423,3 +423,20 @@ export const footerCols = [
     links: ['How we work', 'Growth system', 'Selected work', 'Contact'],
   },
 ];
+
+export type GlobalReachStat = {
+  value: string;
+  suffix?: string;
+  label: string;
+};
+
+export const globalReach = {
+  eyebrow: 'Global impact',
+  title: 'Trusted by high-growth teams scaling worldwide',
+  stats: [
+    { value: '16+', label: 'Countries' },
+    { value: '150+', label: 'Companies' },
+    { value: '1,000+', label: 'Campaigns' },
+  ] as GlobalReachStat[],
+};
+

@@ -18,7 +18,7 @@ const sized = logos.map((logo) => ({
 ---
 
 <section
-  style="background: #0F0F14; color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; min-height: 100%; position: relative; overflow: hidden; padding: clamp(24px, 3vw, 40px) clamp(20px, 4vw, 56px) clamp(36px, 4vw, 60px);"
+  style="background: #0F0F14; color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; min-height: 100%; position: relative; overflow: hidden; padding: clamp(12px, 1.6vw, 20px) clamp(16px, 3vw, 48px) clamp(36px, 4vw, 60px);"
 >
   <!-- ambient glows -->
   <div
@@ -34,15 +34,16 @@ const sized = logos.map((logo) => ({
   >
   </div>
 
-  <div style="position: relative; max-width: 1280px; margin: 0 auto;">
+  <!-- Navbar wrapper: spans wide across the viewport to maximize visual width -->
+  <div class="asc-hero-nav-wrapper" style="position: relative; max-width: 1440px; margin: 0 auto; width: 100%;">
     <header
       class="asc-hero-nav"
-      style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 28px; min-height: 64px;"
+      style="display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 56px; width: 100%;"
     >
       <a href="#" class="asc-brand" aria-label="Ascendrow home">
         <img
           class="asc-brand-mark"
-          src="/ascendrow-logo.webp"
+          src="/branding/ascendrow-logo.webp"
           alt=""
           width="589"
           height="110"
@@ -50,9 +51,9 @@ const sized = logos.map((logo) => ({
         />
       </a>
 
-      <div class="asc-hero-nav-right" style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px 32px;">
+      <div class="asc-hero-nav-right" style="display: flex; align-items: center; gap: 12px 32px;">
         <nav
-          style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px 32px; font-size: 17px; font-weight: 500;"
+          style="display: flex; align-items: center; gap: 10px 32px; font-size: 15px; font-weight: 500;"
           aria-label="Primary"
         >
           {nav.map((item) => <a href={item.href} class="asc-navlink">{item.label}</a>)}
@@ -73,13 +74,16 @@ const sized = logos.map((logo) => ({
         </div>
       </details>
     </header>
+  </div>
 
+  <!-- Hero Content: balanced reading measure and strong visual hierarchy -->
+  <div style="position: relative; max-width: 1280px; margin: 0 auto; width: 100%;">
     <div
       class="asc-hero-copy"
-      style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: clamp(18px, 2.2vw, 34px) 0 0;"
+      style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: clamp(28px, 3.6vw, 48px) 0 0;"
     >
       <h1
-        style="margin: 0; max-width: 22ch; font-size: clamp(28px, 3.4vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 800; text-wrap: balance; color: #F8F7FB;"
+        style="margin: 0; max-width: 22ch; font-size: clamp(32px, 4.4vw, 58px); line-height: 1.05; letter-spacing: -0.035em; font-weight: 800; text-wrap: balance; color: #F8F7FB;"
       >
         We make sure your customers find you on <span style="color: #C9C2EC;">Google</span>,
         remember you on social, and see you in <span style="color: var(--asc-cta, #FF6B4A);"
@@ -89,7 +93,7 @@ const sized = logos.map((logo) => ({
 
       <p
         class="asc-body"
-        style="margin: clamp(16px, 1.8vw, 22px) 0 0; max-width: 62ch; color: var(--asc-text-muted);"
+        style="margin: clamp(16px, 1.8vw, 22px) 0 0; max-width: 60ch; color: var(--asc-text-muted); font-size: clamp(16.5px, 1.2vw, 19.5px); line-height: 1.6;"
       >
         Paid ads, SEO, branding, and design run as one system that puts you in front of ready
         buyers, makes you the name they trust, and turns that trust into qualified leads.
@@ -98,7 +102,7 @@ const sized = logos.map((logo) => ({
       <a
         href="#contact"
         class="asc-cta-btn"
-        style="display: inline-flex; align-items: center; gap: 10px; min-height: 52px; margin-top: clamp(20px, 2.4vw, 30px); padding: 0 30px; border-radius: 4px; font-size: 15.5px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; box-shadow: 0 18px 44px -18px rgba(255,107,74,.75);"
+        style="display: inline-flex; align-items: center; gap: 10px; min-height: 52px; margin-top: clamp(22px, 2.6vw, 32px); padding: 0 32px; border-radius: 6px; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; box-shadow: 0 16px 40px -14px rgba(255,107,74,.8);"
       >
         Work with us
         <svg
@@ -121,7 +125,7 @@ const sized = logos.map((logo) => ({
 
     <div
       class="asc-hero-grid"
-      style="margin-top: clamp(44px, 6vw, 88px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 3vw, 48px); align-items: center;"
+      style="margin-top: clamp(36px, 4.4vw, 64px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 3vw, 48px); align-items: center;"
     >
       <div class="asc-hero-logos" style="min-width: 0;">
         <div

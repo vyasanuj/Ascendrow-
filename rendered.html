@@ -1,0 +1,999 @@
+<!DOCTYPE html><html lang="en" style="--accent: #6E56CF;--cta: #FF6B4A;"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ascendrow — Growth systems for search, social and AI answers</title><meta name="description" content="Paid ads, SEO, branding and design run as one system that puts you in front of ready buyers, makes you the name they trust, and turns that trust into qualified leads."><!-- favicon.ico carries 16 + 32px and answers the bare /favicon.ico request
+         browsers make regardless of these tags. Built by scripts/build-favicon.mjs. --><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- Fonts are self-hosted (see frontmatter). Preloading the body/heading
+         face lets the browser fetch it before it discovers it in CSS — it is
+         the font the LCP element is set in. --><link rel="preload" href="/node_modules/@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin><style>@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:200 800;font-display:swap;src:url(/node_modules/@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2) format('woff2-variations'),url(/node_modules/@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2) format('woff2')}</style><style data-vite-dev-id="D:/Ascendrow-final-design/ascendrow/src/layouts/Layout.astro?astro&amp;type=style&amp;index=0&amp;lang.css">/* Every section in the design set --asc-accent / --asc-cta to the same
+         two values. Hoisted to :root here — identical computed styles. */
+      :root {
+        --asc-accent: var(--accent);
+        --asc-cta: var(--cta);
+
+        /* Body copy. The design used clamp(15px, 1.05vw, 17px), but 1.05vw is
+           only ~15px at 1440px wide, so body text never actually grew past its
+           floor on a normal laptop. These scale for real between 1024–1600px.
+           Tune body size and colour here — every paragraph reads from these. */
+        --asc-body-size: clamp(17px, 1.25vw, 20px);
+        --asc-body-size-sm: clamp(16px, 1.1vw, 18px);
+        --asc-body-lh: 1.65;
+
+        --asc-text-muted: #c3c2d2; /* body on the near-black ground */
+        --asc-text-on-accent: #ece9fb; /* body on the purple ground */
+        --asc-text-on-light: #3a384a; /* body on the light cards */
+      }
+
+      .asc-body {
+        font-size: var(--asc-body-size);
+        line-height: var(--asc-body-lh);
+        text-wrap: pretty;
+      }
+      .asc-body-sm {
+        font-size: var(--asc-body-size-sm);
+        line-height: 1.6;
+        text-wrap: pretty;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #0f0f14;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      h1,
+      h2,
+      h3,
+      p,
+      span,
+      div,
+      a {
+        font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      }
+      a {
+        color: #f8f7fb;
+        text-decoration: none;
+      }
+
+      /* --- style-hover= attributes from the design, as real CSS --- */
+      .asc-navlink {
+        color: #c7c7d2;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        transition: color 0.18s ease;
+      }
+      .asc-navlink:hover {
+        color: #f8f7fb;
+      }
+
+      .asc-cta-btn {
+        background: var(--asc-cta, #ff6b4a);
+        color: #17110e;
+        transition:
+          background 0.18s ease,
+          transform 0.18s ease,
+          box-shadow 0.18s ease;
+      }
+      .asc-cta-btn:hover {
+        background: #ff7f62;
+        color: #17110e;
+        transform: translateY(-1px);
+        box-shadow: 0 20px 48px -14px rgba(255, 107, 74, 0.85);
+      }
+
+      /* Approach card's text link */
+      .asc-inline-link {
+        color: #b8341a;
+        transition: color 0.18s ease;
+      }
+      .asc-inline-link:hover {
+        color: #d9401c;
+      }
+
+      /* Funnel service rows */
+      .asc-funnel-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 11px 0;
+        border-bottom: 1px solid rgba(248, 247, 251, 0.08);
+        font-size: 15px;
+        font-weight: 600;
+        color: #e4e3ec;
+        transition:
+          color 0.18s ease,
+          border-color 0.18s ease;
+      }
+      .asc-funnel-link:hover {
+        color: #ff6b4a;
+        border-color: rgba(255, 107, 74, 0.4);
+      }
+
+      /* Testimonial prev/next */
+      .asc-quote-nav {
+        flex: 0 0 auto;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: 1px solid rgba(15, 15, 20, 0.2);
+        background: transparent;
+        color: #0f0f14;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition:
+          background 0.25s ease,
+          border-color 0.25s ease;
+      }
+      .asc-quote-nav:hover {
+        background: rgba(110, 86, 207, 0.1);
+        border-color: rgba(110, 86, 207, 0.5);
+      }
+
+      /* --- Brand lockup --------------------------------------------------- */
+      .asc-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        color: #f8f7fb;
+      }
+      .asc-brand:hover {
+        color: #f8f7fb;
+      }
+      .asc-brand-mark {
+        width: auto;
+        height: 38px;
+        flex: 0 0 auto;
+      }
+
+      /* Compact nav CTA — refined secondary glass pill so it complements the
+         primary hero CTA instead of competing for attention. */
+      .asc-nav-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 20px;
+        border-radius: 6px;
+        background: rgba(248, 247, 251, 0.06);
+        border: 1px solid rgba(248, 247, 251, 0.14);
+        color: #f8f7fb;
+        font-size: 14.5px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition:
+          background 0.18s ease,
+          border-color 0.18s ease,
+          color 0.18s ease,
+          box-shadow 0.18s ease,
+          transform 0.18s ease;
+      }
+      .asc-nav-cta:hover {
+        background: var(--asc-cta, #ff6b4a);
+        border-color: var(--asc-cta, #ff6b4a);
+        color: #17110e;
+        transform: translateY(-1px);
+        box-shadow: 0 12px 28px -10px rgba(255, 107, 74, 0.7);
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--asc-cta, #ff6b4a);
+        outline-offset: 3px;
+      }
+
+      /* ==================================================================
+         RESPONSIVE
+         The design shipped no breakpoints. Section styles are still inline
+         (Pass 2 lifts them), so these rules target class hooks and use
+         !important where an inline declaration would otherwise win.
+         Two breakpoints: 900px stacks the side-by-side layouts, 640px is
+         the phone pass.
+         ================================================================== */
+
+      /* Off by default; shown only on phones, where it replaces the ring. */
+      .asc-work-mobile {
+        display: none;
+      }
+
+      /* ---------- ≤ 900px: tablets, stack the two-column layouts ---------- */
+      @media (max-width: 900px) {
+        .asc-hero-grid,
+        .asc-approach-card {
+          grid-template-columns: minmax(0, 1fr) !important;
+        }
+        /* Logos wanted 3-up beside the picker; alone they can afford 4. */
+        .asc-logo-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        }
+      }
+
+      /* The phone menu exists only below 640px. */
+      .asc-menu {
+        display: none;
+      }
+
+      /* ---------- ≤ 640px: phones ---------- */
+      @media (max-width: 640px) {
+        /* ----- Above the fold: one message, one action -----
+           Modelled on how the strongest agency sites handle a phone fold:
+           a single-row navbar, a large LEFT-aligned headline, and the
+           interactive picker directly under the CTA rather than pushed
+           below a logo wall. Centred multi-line text on a narrow screen
+           produces ragged edges on every line; left alignment reads as
+           editorial and scans faster. */
+
+        /* Navbar: logo + hamburger on one row, nothing else. */
+        .asc-hero-nav {
+          position: relative;
+          flex-wrap: nowrap !important;
+          min-height: 56px !important;
+          gap: 0 !important;
+        }
+        .asc-hero-nav-right {
+          display: none !important;
+        }
+        .asc-brand-mark {
+          height: 30px;
+        }
+        .asc-menu {
+          display: block;
+        }
+        .asc-menu-btn {
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 6px;
+          width: 44px;
+          height: 44px;
+          padding: 0 6px;
+          cursor: pointer;
+        }
+        .asc-menu-btn::-webkit-details-marker {
+          display: none;
+        }
+        .asc-menu-btn span {
+          display: block;
+          height: 2px;
+          border-radius: 2px;
+          background: #f8f7fb;
+          transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .asc-menu[open] .asc-menu-btn span:nth-child(1) {
+          transform: translateY(8px) rotate(45deg);
+        }
+        .asc-menu[open] .asc-menu-btn span:nth-child(2) {
+          opacity: 0;
+        }
+        .asc-menu[open] .asc-menu-btn span:nth-child(3) {
+          transform: translateY(-8px) rotate(-45deg);
+        }
+        .asc-menu-panel {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: calc(100% + 12px);
+          z-index: 30;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          padding: 10px;
+          border: 1px solid rgba(248, 247, 251, 0.1);
+          border-radius: 10px;
+          background: #17161f;
+          box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+        }
+        .asc-menu-link {
+          padding: 14px 14px;
+          border-radius: 6px;
+          font-size: 17px;
+          font-weight: 600;
+          color: #f8f7fb;
+        }
+        .asc-menu-link:hover {
+          background: rgba(248, 247, 251, 0.06);
+        }
+        .asc-menu-cta {
+          justify-content: center;
+          margin-top: 8px;
+          min-height: 46px;
+          background: var(--asc-cta, #ff6b4a) !important;
+          color: #17110e !important;
+          border-color: var(--asc-cta, #ff6b4a) !important;
+          font-weight: 700;
+        }
+        .asc-menu-cta:hover {
+          background: #ff7f62 !important;
+          color: #17110e !important;
+        }
+
+        /* Copy column: left-aligned, and the headline earns its size. */
+        .asc-hero-copy {
+          align-items: flex-start !important;
+          text-align: left !important;
+          padding-top: 36px !important;
+        }
+        .asc-hero-copy h1 {
+          max-width: none !important;
+          /* 10vw = 37.5px at 375px: seven lines, and the CTA clears a 667px
+             fold. 11vw made it eight lines and pushed the CTA under. */
+          font-size: clamp(34px, 10vw, 42px) !important;
+          line-height: 1.04 !important;
+          letter-spacing: -0.035em !important;
+        }
+        .asc-hero-copy p {
+          margin-top: 22px !important;
+          font-size: 19px !important;
+          line-height: 1.55 !important;
+        }
+        .asc-hero-copy > .asc-cta-btn {
+          min-height: 56px !important;
+          margin-top: 30px !important;
+          padding: 0 34px !important;
+          font-size: 16.5px !important;
+        }
+
+        /* Picker before logos: the thing to interact with sits right under
+           the CTA; the proof wall follows. */
+        .asc-hero-grid {
+          margin-top: 48px !important;
+        }
+        .asc-hero-picker {
+          order: -1;
+        }
+        .asc-hero-logos {
+          margin-top: 8px;
+        }
+
+        .asc-logo-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+          grid-auto-rows: 64px !important;
+        }
+        .asc-picker-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+
+        /* Stat scroller: the 340vh sticky 3D sequence is a desktop device.
+           On a phone it becomes a plain stacked list — every card visible,
+           no scroll-jacking. The island still runs; these just override
+           its inline transforms. */
+        .asc-stats {
+          height: auto !important;
+        }
+        .asc-stats-sticky {
+          position: static !important;
+          height: auto !important;
+          display: block !important;
+          padding: 56px clamp(20px, 4vw, 56px) 40px !important;
+        }
+        .asc-stats-wash {
+          display: none !important;
+        }
+        .asc-stats-stage {
+          height: auto !important;
+          perspective: none !important;
+          display: flex;
+          flex-direction: column;
+          gap: 56px;
+        }
+        .asc-stat-card {
+          position: relative !important;
+          inset: auto !important;
+          opacity: 1 !important;
+          transform: none !important;
+          pointer-events: auto !important;
+          transition: none !important;
+        }
+        .asc-stat-brands span {
+          width: calc(50% - 4px) !important;
+          height: 64px !important;
+        }
+
+        /* Work: swap the ring for the strip. */
+        .asc-work-stage {
+          display: none !important;
+        }
+        .asc-work-mobile {
+          display: flex;
+          gap: 12px;
+          margin: 0 calc(-1 * clamp(20px, 4vw, 56px)) 28px;
+          padding: 4px clamp(20px, 4vw, 56px) 12px;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+        .asc-work-mobile::-webkit-scrollbar {
+          display: none;
+        }
+        .asc-work-mobile img {
+          flex: 0 0 78%;
+          width: 78%;
+          height: auto;
+          border-radius: 8px;
+          scroll-snap-align: center;
+          background: #0f0f14;
+          box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.9);
+        }
+        /* The copy was positioned over the ring; on phones it just flows. */
+        .asc-work-copy {
+          position: static !important;
+          transform: none !important;
+          width: 100% !important;
+        }
+        .asc-work-copy > div:first-child {
+          display: none;
+        }
+
+        /* Approach: pillar labels sit outside their nodes and clip on narrow
+           screens — tuck them under instead. */
+        .asc-pillar-label {
+          font-size: 11.5px !important;
+          max-width: 9ch !important;
+        }
+
+        /* Testimonials: prev/next were beside the quote; put them under it. */
+        .asc-quote-grid {
+          grid-template-columns: minmax(0, 1fr) !important;
+          gap: 18px !important;
+        }
+        /* Both buttons share one cell on row 2 and justify to opposite ends.
+           Without the explicit column, auto-placement invents a second one. */
+        .asc-quote-grid > div {
+          grid-row: 1;
+          grid-column: 1;
+        }
+        .asc-quote-grid > .asc-quote-nav {
+          grid-row: 2;
+          grid-column: 1;
+        }
+        .asc-quote-grid > .asc-quote-nav:first-child {
+          justify-self: start;
+        }
+        .asc-quote-grid > .asc-quote-nav:last-child {
+          justify-self: end;
+        }
+
+        /* Contact: two CTAs stack full-width. */
+        .asc-contact-ctas > a {
+          width: 100%;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      /* --- keyframes, verbatim from the design --- */
+      @keyframes ascGlow {
+        0%, 100% { opacity: 0.55; }
+        50% { opacity: 0.9; }
+      }
+      @keyframes ascCaret {
+        0%, 49% { opacity: 1; }
+        50%, 100% { opacity: 0; }
+      }
+      @keyframes ascType {
+        0% { max-width: 0; }
+        55%, 100% { max-width: 100%; }
+      }
+      @keyframes ascRise {
+        0% { opacity: 0; transform: translateY(10px); }
+        18%, 92% { opacity: 1; transform: none; }
+        100% { opacity: 1; transform: none; }
+      }
+      @keyframes ascRank {
+        0%, 14% { transform: translateY(0); }
+        30%, 46% { transform: translateY(-100%); }
+        62%, 100% { transform: translateY(-200%); }
+      }
+      @keyframes ascGrow {
+        0% { transform: scaleY(0.18); }
+        100% { transform: scaleY(1); }
+      }
+      @keyframes ascDraw {
+        0% { stroke-dashoffset: 320; }
+        70%, 100% { stroke-dashoffset: 0; }
+      }
+      @keyframes ascSweep {
+        0% { transform: translateX(-110%); }
+        100% { transform: translateX(320%); }
+      }
+      @keyframes ascSway {
+        from { transform: rotate(-3deg); }
+        to { transform: rotate(3deg); }
+      }
+      @keyframes ascQuoteIn {
+        from { opacity: 0; transform: translateY(14px) scale(0.985); }
+        to { opacity: 1; transform: none; }
+      }
+      @keyframes ascFlicker {
+        0% { opacity: 0.88; }
+        50% { opacity: 1; }
+        100% { opacity: 0.92; }
+      }
+      @keyframes ascLift {
+        0% { width: 26%; }
+        100% { width: 100%; }
+      }</style><style data-vite-dev-id="D:/Ascendrow-final-design/ascendrow/src/components/hero/Hero.astro?astro&amp;type=style&amp;index=0&amp;lang.css">/* --- Client logo strip -------------------------------------------------
+     Every logo is rendered as flat white at a common optical size, so a mix
+     of colours and aspect ratios reads as one row. Alignment comes from a
+     shared cap height, not from stretching each file to fill its cell. */
+  .asc-logo-slot {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .asc-logo-slot img {
+    width: auto;
+    height: auto;
+    /* Per-logo height comes from the area normalisation in the frontmatter. */
+    max-height: var(--asc-logo-h, 34px);
+    max-width: 88%;
+    object-fit: contain;
+    /* Every source is trimmed transparent artwork, so one filter does all of
+       them: flatten any colour to black, then invert to a flat white. */
+    filter: brightness(0) invert(1);
+    opacity: 0.72;
+    transition: opacity 0.2s ease;
+  }
+  .asc-logo-slot:hover img {
+    opacity: 1;
+  }
+
+  /* Service picker. Styles are global, not scoped, so they reach the island DOM. */
+  .asc-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: minmax(64px, auto);
+    gap: 10px;
+    margin-top: clamp(20px, 2.4vw, 28px);
+  }
+
+  .asc-tile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 14px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    border-radius: 0;
+    background: #ffffff;
+    border: 1px solid rgba(15, 15, 20, 0.14);
+    color: #2a2833;
+    transition:
+      border-color 0.16s ease,
+      color 0.16s ease;
+  }
+  .asc-tile:hover {
+    border-color: rgba(110, 86, 207, 0.55);
+  }
+  .asc-tile.is-on {
+    border-color: var(--asc-accent, #6e56cf);
+    color: #0f0f14;
+  }
+
+  .asc-tile-mark {
+    flex: 0 0 auto;
+    width: 17px;
+    height: 17px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(15, 15, 20, 0.32);
+    background: transparent;
+    transition:
+      background 0.16s ease,
+      border-color 0.16s ease;
+  }
+  .asc-tile-mark svg {
+    opacity: 0;
+    transition: opacity 0.16s ease;
+  }
+  .asc-tile.is-on .asc-tile-mark {
+    border-color: var(--asc-accent, #6e56cf);
+    background: var(--asc-accent, #6e56cf);
+  }
+  .asc-tile.is-on .asc-tile-mark svg {
+    opacity: 1;
+  }</style><style data-vite-dev-id="D:/Ascendrow-final-design/ascendrow/src/components/sections/Work.astro?astro&amp;type=style&amp;index=0&amp;lang.css">/* Ring and cards share one duration, so the counter-rotation stays exactly
+     in step with the spin and the cards never wobble. `linear` on both — any
+     easing would desynchronise them mid-cycle. */
+  .asc-work-wheel {
+    animation: ascWheel var(--ascSpin) linear infinite;
+    will-change: transform;
+  }
+
+  .asc-work-card {
+    animation: ascCounterSpin var(--ascSpin) linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes ascWheel {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Equal and opposite to ascWheel, scaled by how much tilt should remain. */
+  @keyframes ascCounterSpin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(var(--ascCounterEnd));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .asc-work-wheel,
+    .asc-work-card {
+      animation: none !important;
+    }
+  }</style><style data-vite-dev-id="D:/Ascendrow-final-design/ascendrow/src/components/sections/Approach.astro?astro&amp;type=style&amp;index=0&amp;lang.css">/* Marketing pillar mockups. Global, not scoped, because they render inside
+     a Preact island. Percentage sizing keeps the cluster together at any
+     panel width. */
+  .asc-shots {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .asc-shot {
+    position: absolute;
+    height: auto;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow:
+      0 24px 48px -22px rgba(15, 15, 20, 0.45),
+      0 0 0 1px rgba(15, 15, 20, 0.07);
+  }
+
+  /* Paid search sits behind, as the largest of the three. */
+  .asc-shot.is-ads {
+    width: 66%;
+    top: 0;
+    left: 0;
+    transform: rotate(-2deg);
+    z-index: 1;
+  }
+
+  /* Social overlaps its right edge. */
+  .asc-shot.is-ig {
+    width: 34%;
+    top: 6%;
+    right: 0;
+    transform: rotate(3deg);
+    z-index: 2;
+  }
+
+  /* The profile people find organically sits in front, bottom-left. */
+  .asc-shot.is-gbp {
+    width: 44%;
+    bottom: 2%;
+    left: 8%;
+    transform: rotate(-4deg);
+    z-index: 3;
+  }
+
+  /* --- Tech pillar: three mockups on a crossfade loop --------------------
+     The three images have different aspect ratios (1.18, 1.55, 1.49), so the
+     stage fixes one ratio and each image is contained inside it. The white
+     stage carries the frame, which keeps the letterbox bands looking
+     deliberate rather than like gaps. */
+  .asc-craft-stack {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    aspect-ratio: 7 / 5;
+    padding: 7px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow:
+      0 24px 48px -22px rgba(15, 15, 20, 0.45),
+      0 0 0 1px rgba(15, 15, 20, 0.07);
+  }
+
+  .asc-craft-slide {
+    position: absolute;
+    inset: 7px;
+    width: calc(100% - 14px);
+    height: calc(100% - 14px);
+    object-fit: contain;
+    border-radius: 7px;
+    opacity: 0;
+    animation: ascCraftCycle 15s linear infinite;
+  }
+
+  /* 15s loop, 3 slides: each holds ~4.1s then crossfades over ~0.9s.
+     The slides are offset by negative delays of 0s, -10s and -5s. */
+  @keyframes ascCraftCycle {
+    0%,
+    27.3% {
+      opacity: 1;
+    }
+    33.3%,
+    94% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* The global reduced-motion rule only collapses the duration, which would
+     leave an arbitrary slide showing. Pin it to the first instead. */
+  @media (prefers-reduced-motion: reduce) {
+    .asc-craft-slide {
+      animation: none !important;
+      opacity: 0;
+    }
+    .asc-craft-slide:first-child {
+      opacity: 1;
+    }
+  }</style><style data-vite-dev-id="D:/Ascendrow-final-design/ascendrow/src/components/sections/Funnel.astro?astro&amp;type=style&amp;index=0&amp;lang.css">.asc-funnel-section {
+    background: #0f0f14;
+    color: #f8f7fb;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    position: relative;
+    overflow: hidden;
+    padding: clamp(64px, 8vw, 120px) clamp(20px, 4vw, 56px) clamp(72px, 9vw, 132px);
+
+    /* Curved top corners. The section is pulled up by exactly the radius so the
+       curve sits over the purple approach section above it — otherwise the
+       rounding would reveal the identical page background and be invisible. */
+    --asc-funnel-radius: clamp(22px, 3vw, 44px);
+    border-top-left-radius: var(--asc-funnel-radius);
+    border-top-right-radius: var(--asc-funnel-radius);
+    margin-top: calc(-1 * var(--asc-funnel-radius));
+    z-index: 1;
+  }
+
+  /* Services left · funnel centre · headline and paragraph right.
+     DOM order is copy → services → funnel so the heading is still read first;
+     the columns are placed explicitly. */
+  .asc-funnel-grid {
+    margin-top: clamp(34px, 4.2vw, 62px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 400px) minmax(0, 1fr);
+    gap: clamp(20px, 3vw, 48px);
+    align-items: center;
+  }
+  .asc-funnel-services {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .asc-funnel-viz {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .asc-funnel-copy {
+    grid-column: 3;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .asc-funnel-cta {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: clamp(34px, 4.2vw, 58px);
+  }
+
+  @media (max-width: 900px) {
+    .asc-funnel-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .asc-funnel-copy,
+    .asc-funnel-viz,
+    .asc-funnel-services {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    /* Stack as headline → funnel → services, so the control comes before the
+       list it changes rather than after it. */
+    .asc-funnel-copy {
+      order: 1;
+      text-align: center;
+    }
+    .asc-funnel-viz {
+      order: 2;
+    }
+    .asc-funnel-services {
+      order: 3;
+    }
+    .asc-funnel-copy p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }</style><style data-vite-dev-id="D:/Ascendrow-final-design/ascendrow/src/components/sections/Testimonials.astro?astro&amp;type=style&amp;index=0&amp;lang.css">.asc-quote-photo,
+  .asc-quote-initials {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid rgba(110, 86, 207, 0.28);
+  }
+  .asc-quote-photo {
+    object-fit: cover;
+    background: rgba(110, 86, 207, 0.08);
+  }
+  .asc-quote-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, rgba(110, 86, 207, 0.16), rgba(110, 86, 207, 0.06));
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #4b3aa0;
+  }
+
+  .asc-quote-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #0f0f14;
+    transition: color 0.18s ease;
+  }
+  .asc-quote-name:hover {
+    color: #4b3aa0;
+  }
+  .asc-quote-name svg {
+    opacity: 0.55;
+  }
+
+  /* Same white-silhouette files the hero strip uses, flipped to black so they
+     read on the light testimonial card. */
+  .asc-quote-logo {
+    flex: 0 0 auto;
+    height: 26px;
+    margin-left: 4px;
+    padding-left: 14px;
+    border-left: 1px solid rgba(15, 15, 20, 0.14);
+    object-fit: contain;
+    filter: brightness(0);
+    opacity: 0.62;
+  }
+
+  @media (max-width: 620px) {
+    .asc-quote-logo {
+      display: none;
+    }
+  }
+  /* Review-platform badges. Kept in full colour — a Clutch or Trustpilot
+     badge is only recognisable as proof if it looks like the real thing. */
+  .asc-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    border: 1px solid rgba(15, 15, 20, 0.1);
+    border-radius: 4px;
+    background: #ffffff;
+  }
+  .asc-badge a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  .asc-badge-img {
+    width: auto;
+    height: auto;
+    max-width: 82%;
+    object-fit: contain;
+    opacity: 0.92;
+  }</style><style data-vite-dev-id="D:/Ascendrow-final-design/ascendrow/src/components/sections/GlobalReach.astro?astro&amp;type=style&amp;index=0&amp;lang.css">/* Responsive overrides only — all base styles are inline to avoid
+     specificity issues with Astro's global CSS pipeline. */
+  @media (max-width: 960px) {
+    .asc-global-heading {
+      font-size: clamp(22px, 3.8vw, 34px) !important;
+    }
+  }
+  @media (max-width: 580px) {
+    .asc-global-heading {
+      white-space: normal !important;
+      text-wrap: balance !important;
+    }
+    .asc-global-map-img {
+      transform: scale(1.05) !important;
+      opacity: 0.8 !important;
+    }
+    .asc-global-stats-grid {
+      margin-top: 44px !important;
+      gap: 16px !important;
+    }
+  }</style><style data-vite-dev-id="D:/Ascendrow-final-design/ascendrow/src/components/sections/Contact.astro?astro&amp;type=style&amp;index=0&amp;lang.css">.asc-ghost-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 54px;
+    padding: 0 26px;
+    border-radius: 4px;
+    border: 1px solid rgba(248, 247, 251, 0.2);
+    color: #f8f7fb;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition:
+      border-color 0.18s ease,
+      background 0.18s ease;
+  }
+  .asc-ghost-btn:hover {
+    border-color: rgba(201, 194, 236, 0.55);
+    background: rgba(110, 86, 207, 0.14);
+    color: #f8f7fb;
+  }</style><style data-vite-dev-id="D:/Ascendrow-final-design/ascendrow/src/components/sections/Footer.astro?astro&amp;type=style&amp;index=0&amp;lang.css">.asc-footer-link {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: #a2a2b0;
+    text-wrap: pretty;
+    transition: color 0.18s ease;
+  }
+  .asc-footer-link:hover {
+    color: #f8f7fb;
+  }
+
+  .asc-footer-meta {
+    font-size: 13.5px;
+    color: #8a8a9a;
+    transition: color 0.18s ease;
+  }
+  .asc-footer-meta:hover {
+    color: #f8f7fb;
+  }</style><script type="module" src="/@vite/client"></script><script type="module" src="/@id/astro/runtime/client/dev-toolbar/entrypoint.js"></script><script>window.__astro_dev_toolbar__ = {"root":"D:\\Ascendrow-final-design\\ascendrow\\","version":"7.3.2","debugInfo":"Astro                    v7.3.2\nNode                     v24.11.0\nSystem                   Windows (x64)\nPackage Manager          npm\nOutput                   static\nAdapter                  none\nIntegrations             @astrojs/preact\n                         @astrojs/sitemap"}</script><script type="module" src="/src/layouts/Layout.astro?astro&type=style&index=0&lang.css"></script><script type="module" src="/src/components/hero/Hero.astro?astro&type=style&index=0&lang.css"></script><script type="module" src="/src/components/sections/Work.astro?astro&type=style&index=0&lang.css"></script><script type="module" src="/src/components/sections/Approach.astro?astro&type=style&index=0&lang.css"></script><script type="module" src="/src/components/sections/Funnel.astro?astro&type=style&index=0&lang.css"></script><script type="module" src="/src/components/sections/Testimonials.astro?astro&type=style&index=0&lang.css"></script><script type="module" src="/src/components/sections/GlobalReach.astro?astro&type=style&index=0&lang.css"></script><script type="module" src="/src/components/sections/Contact.astro?astro&type=style&index=0&lang.css"></script><script type="module" src="/src/components/sections/Footer.astro?astro&type=style&index=0&lang.css"></script></head><body style="--accent: #6E56CF;--cta: #FF6B4A;"><main><section style="background: #0F0F14; color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; min-height: 100%; position: relative; overflow: hidden; padding: clamp(12px, 1.6vw, 20px) clamp(16px, 3vw, 48px) clamp(36px, 4vw, 60px);"><!-- ambient glows --><div style="position: absolute; top: -300px; left: 50%; transform: translateX(-50%); width: min(1100px, 130%); height: 780px; border-radius: 50%; background: radial-gradient(circle, rgba(110,86,207,.20), rgba(110,86,207,0) 66%); pointer-events: none; animation: ascGlow 9s ease-in-out infinite;"></div><div style="position: absolute; bottom: -320px; right: -180px; width: 720px; height: 640px; border-radius: 50%; background: radial-gradient(circle, rgba(255,107,74,.13), rgba(255,107,74,0) 68%); pointer-events: none;"></div><div style="position: absolute; bottom: -320px; left: -220px; width: 640px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(110,86,207,.10), rgba(110,86,207,0) 70%); pointer-events: none;"></div><!-- Navbar wrapper: spans wide across the viewport to maximize visual width --><div class="asc-hero-nav-wrapper" style="position: relative; max-width: 1440px; margin: 0 auto; width: 100%;"><header class="asc-hero-nav" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 56px; width: 100%;"><a href="#" class="asc-brand" aria-label="Ascendrow home"><img class="asc-brand-mark" src="/ascendrow-logo.webp" alt="" width="589" height="110" decoding="async"></a><div class="asc-hero-nav-right" style="display: flex; align-items: center; gap: 12px 32px;"><nav style="display: flex; align-items: center; gap: 10px 32px; font-size: 15px; font-weight: 500;" aria-label="Primary"><a href="#funnel" class="asc-navlink">Services</a><a href="#approach" class="asc-navlink">About us</a></nav><a href="#contact" class="asc-nav-cta">Contact us</a></div><!-- Phone menu. <details> gives an accessible, keyboard-operable
+           disclosure with no JavaScript, so it works before hydration and
+           on the static hero. Hidden on desktop, where the inline nav shows. --><details class="asc-menu"><summary class="asc-menu-btn" aria-label="Open menu"><span></span><span></span><span></span></summary><div class="asc-menu-panel"><a href="#funnel" class="asc-menu-link">Services</a><a href="#approach" class="asc-menu-link">About us</a><a href="#contact" class="asc-nav-cta asc-menu-cta">Contact us</a></div></details></header></div><!-- Hero Content: balanced reading measure and strong visual hierarchy --><div style="position: relative; max-width: 1280px; margin: 0 auto; width: 100%;"><div class="asc-hero-copy" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: clamp(28px, 3.6vw, 48px) 0 0;"><h1 style="margin: 0; max-width: 22ch; font-size: clamp(32px, 4.4vw, 58px); line-height: 1.05; letter-spacing: -0.035em; font-weight: 800; text-wrap: balance; color: #F8F7FB;">We make sure your customers find you on <span style="color: #C9C2EC;">Google</span>, remember you on social, and see you in <span style="color: var(--asc-cta, #FF6B4A);">AI answers</span>.</h1><p class="asc-body" style="margin: clamp(16px, 1.8vw, 22px) 0 0; max-width: 60ch; color: var(--asc-text-muted); font-size: clamp(16.5px, 1.2vw, 19.5px); line-height: 1.6;">Paid ads, SEO, branding, and design run as one system that puts you in front of ready buyers, makes you the name they trust, and turns that trust into qualified leads.</p><a href="#contact" class="asc-cta-btn" style="display: inline-flex; align-items: center; gap: 10px; min-height: 52px; margin-top: clamp(22px, 2.6vw, 32px); padding: 0 32px; border-radius: 6px; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; box-shadow: 0 16px 40px -14px rgba(255,107,74,.8);">Work with us<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="#17110E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div><div class="asc-hero-grid" style="margin-top: clamp(36px, 4.4vw, 64px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 3vw, 48px); align-items: center;"><div class="asc-hero-logos" style="min-width: 0;"><div class="asc-logo-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: clamp(74px, 6.2vw, 88px); gap: clamp(10px, 1.4vw, 18px); align-items: stretch;"><div class="asc-logo-slot"><img src="/logos/profice.png" alt="Profice" loading="eager" decoding="async" style="--asc-logo-h: 35.4px;"></div><div class="asc-logo-slot"><img src="/logos/ec-council.png" alt="EC-Council" loading="eager" decoding="async" style="--asc-logo-h: 28.9px;"></div><div class="asc-logo-slot"><img src="/logos/google.png" alt="Google" loading="eager" decoding="async" style="--asc-logo-h: 38px;"></div><div class="asc-logo-slot"><img src="/logos/hubspot.png" alt="HubSpot" loading="eager" decoding="async" style="--asc-logo-h: 40.5px;"></div><div class="asc-logo-slot"><img src="/logos/jiva.png" alt="Jiva" loading="eager" decoding="async" style="--asc-logo-h: 40.5px;"></div><div class="asc-logo-slot"><img src="/logos/meta.png" alt="Meta" loading="eager" decoding="async" style="--asc-logo-h: 32px;"></div><div class="asc-logo-slot"><img src="/logos/posthog.png" alt="PostHog" loading="eager" decoding="async" style="--asc-logo-h: 28.1px;"></div><div class="asc-logo-slot"><img src="/logos/masters-union.png" alt="Masters' Union" loading="eager" decoding="async" style="--asc-logo-h: 34px;"></div><div class="asc-logo-slot"><img src="/logos/tutela.png" alt="Tutela" loading="eager" decoding="async" style="--asc-logo-h: 36px;"></div><div class="asc-logo-slot"><img src="/logos/wati.png" alt="Wati" loading="eager" decoding="async" style="--asc-logo-h: 38.7px;"></div><div class="asc-logo-slot"><img src="/logos/dharita.png" alt="Dharita" loading="eager" decoding="async" style="--asc-logo-h: 42px;"></div><div class="asc-logo-slot"><img src="/logos/campaign.png" alt="Campaign" loading="eager" decoding="async" style="--asc-logo-h: 30.5px;"></div></div></div><div class="asc-hero-picker" style="min-width: 0; border-radius: 0; background: #F8F7FB; padding: clamp(22px, 2.6vw, 34px); display: flex; flex-direction: column; box-shadow: 0 40px 90px -50px rgba(0,0,0,.95);"><h2 style="margin: 0; font-size: clamp(22px, 2.1vw, 30px); line-height: 1.15; letter-spacing: -0.025em; font-weight: 800; color: #0F0F14; text-wrap: balance; text-align: center;">Choose what you want to improve.</h2><!-- Island: hydrates only when scrolled into view --><style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var a=(s,i,o)=>{let r=async()=>{await(await s())()},t=typeof i.value=="object"?i.value:void 0,c={rootMargin:t==null?void 0:t.rootMargin},n=new IntersectionObserver(e=>{for(let l of e)if(l.isIntersecting){n.disconnect(),r();break}},c);for(let e of o.children)n.observe(e)};(self.Astro||(self.Astro={})).visible=a;window.dispatchEvent(new Event("astro:visible"));})();</script><script>(()=>{var g=Object.defineProperty;var w=(c,s,d)=>s in c?g(c,s,{enumerable:!0,configurable:!0,writable:!0,value:d}):c[s]=d;var l=(c,s,d)=>w(c,typeof s!="symbol"?s+"":s,d);var E=new Set(["__proto__","constructor","prototype"]);{let c={0:t=>y(t),1:t=>d(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(d(t)),5:t=>new Set(d(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>Number.POSITIVE_INFINITY*t},s=t=>{let[p,e]=t;return p in c?c[p](e):void 0},d=t=>t.map(s),y=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([p,e])=>[p,s(e)]));class f extends HTMLElement{constructor(){super(...arguments);l(this,"Component");l(this,"hydrator");l(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let r=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let o of h){let a=o.closest(this.tagName);a!=null&&a.isSameNode(this)&&(n[o.getAttribute("data-astro-template")||"default"]=o.innerHTML,o.remove())}for(let o of r){let a=o.closest(this.tagName);a!=null&&a.isSameNode(this)&&(n[o.getAttribute("name")||"default"]=o.innerHTML)}let m;try{m=this.hasAttribute("props")?y(JSON.parse(this.getAttribute("props"))):{}}catch(o){let a=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(a+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${a}`,this.getAttribute("props"),o),o}let i,u=this.hydrator(this);i=performance.now(),await u(this.Component,m,n,{client:this.getAttribute("client")}),i&&this.setAttribute("client-render-time",(performance.now()-i).toString()),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});l(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),r.disconnect(),this.childrenConnectedCallback()},r=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});r.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}getRetryImportUrl(e){let r=new URL(e,document.baseURI);return r.searchParams.set("astro-retry",Date.now().toString()),r.toString()}async importWithRetry(e){try{return await import(e)}catch(r){return await new Promise(n=>setTimeout(n,1e3)),import(this.getRetryImportUrl(e))}}handleHydrationError(e){let r=this.getAttribute("component-url"),n=new CustomEvent("astro:hydration-error",{cancelable:!0,bubbles:!0,composed:!0,detail:{error:e,componentUrl:r}});this.dispatchEvent(n)&&console.error(`[astro-island] Error hydrating ${r}`,e)}async start(){let e=JSON.parse(this.getAttribute("opts")),r=this.getAttribute("client");if(Astro[r]===void 0){window.addEventListener(`astro:${r}`,()=>this.start(),{once:!0});return}try{await Astro[r](async()=>{let n=this.getAttribute("renderer-url");try{let[h,{default:m}]=await Promise.all([this.importWithRetry(this.getAttribute("component-url")),n?this.importWithRetry(n):Promise.resolve({default:()=>()=>{}})]),i=this.getAttribute("component-export")||"default";if(i.includes(".")){this.Component=h;for(let u of i.split(".")){if(E.has(u)||!this.Component||typeof this.Component!="object"&&typeof this.Component!="function"||!Object.hasOwn(this.Component,u))throw new Error(`Invalid component export path: ${i}`);this.Component=this.Component[u]}}else{if(E.has(i))throw new Error(`Invalid component export path: ${i}`);this.Component=h[i]}return this.hydrator=m,this.hydrate}catch(h){return this.handleHydrationError(h),()=>{}}},e,this)}catch(n){this.handleHydrationError(n)}}attributeChangedCallback(){this.hydrate()}}l(f,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",f)}})();</script><astro-island uid="Z1GD4Ei" data-preact-island-id="6" component-url="/src/components/hero/ServicePicker.tsx" component-export="default" renderer-url="/node_modules/@astrojs/preact/dist/client-dev.js" props="{}" ssr client="visible" before-hydration-url="/@id/astro:scripts/before-hydration.js" opts="{&quot;name&quot;:&quot;ServicePicker&quot;,&quot;value&quot;:true}" server-render-time="0.7469000001437962" await-children><div class="asc-picker-grid"><button type="button" aria-pressed="false" class="asc-tile"><span class="asc-tile-mark"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4.5 4.5L19 7" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>GEO / AEO</button><button type="button" aria-pressed="false" class="asc-tile"><span class="asc-tile-mark"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4.5 4.5L19 7" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>SEO</button><button type="button" aria-pressed="false" class="asc-tile"><span class="asc-tile-mark"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4.5 4.5L19 7" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>Paid Media</button><button type="button" aria-pressed="false" class="asc-tile"><span class="asc-tile-mark"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4.5 4.5L19 7" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>Branding</button><button type="button" aria-pressed="false" class="asc-tile"><span class="asc-tile-mark"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4.5 4.5L19 7" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>Content</button><button type="button" aria-pressed="false" class="asc-tile"><span class="asc-tile-mark"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4.5 4.5L19 7" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>Social Media</button><button type="button" aria-pressed="false" class="asc-tile"><span class="asc-tile-mark"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4.5 4.5L19 7" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>UI / UX Design</button><button type="button" aria-pressed="false" class="asc-tile"><span class="asc-tile-mark"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4.5 4.5L19 7" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>Analytics</button><button type="button" aria-pressed="false" class="asc-tile"><span class="asc-tile-mark"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4.5 4.5L19 7" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>Something else</button></div><!--astro:end--></astro-island><a href="#contact" class="asc-cta-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; margin: clamp(20px, 2.4vw, 28px) auto 0; padding: 0 28px; border-radius: 4px; font-size: 15.5px; font-weight: 700; white-space: nowrap; box-shadow: 0 16px 40px -18px rgba(255,107,74,.7);">Get started<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="#17110E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div></div></div></section><astro-island uid="Z1Aku0h" data-preact-island-id="1" component-url="/src/components/sections/StatScroller.tsx" component-export="default" renderer-url="/node_modules/@astrojs/preact/dist/client-dev.js" props="{}" ssr client="visible" before-hydration-url="/@id/astro:scripts/before-hydration.js" opts="{&quot;name&quot;:&quot;StatScroller&quot;,&quot;value&quot;:true}" server-render-time="1.7151000001467764" await-children><div id="what-we-do" class="asc-stats" style="background:#0F0F14;color:#F8F7FB;font-family:'Plus Jakarta Sans', system-ui, sans-serif;position:relative;height:340vh;"><div class="asc-stats-sticky" style="position:sticky;top:0px;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0 clamp(20px, 4vw, 56px);background:#0F0F14;"><div class="asc-stats-wash" style="position:absolute;left:0px;right:0px;bottom:0px;height:28vh;background:linear-gradient(180deg, rgba(27,24,48,.92) 0%, rgba(41,34,80,.95) 30%, rgba(59,47,126,.97) 58%, rgba(92,72,188,1) 82%, #6E56CF 100%);-webkit-mask-image:radial-gradient(150% 108% at 50% 100%, #000 68%, rgba(0,0,0,.5) 84%, transparent 100%);mask-image:radial-gradient(150% 108% at 50% 100%, #000 68%, rgba(0,0,0,.5) 84%, transparent 100%);transition:height .7s cubic-bezier(.22,.9,.24,1);pointer-events:none;"></div><div class="asc-stats-stage" style="position:relative;width:100%;max-width:900px;height:clamp(430px, 44vw, 500px);perspective:1200px;"><div class="asc-stat-card" aria-hidden="false" style="position:absolute;inset:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.22,.9,.24,1), opacity .7s ease;will-change:transform, opacity;opacity:1;transform:rotateX(0deg) translateY(0px) translateZ(0px) scale(1);pointer-events:auto;"><div style="font-size:clamp(56px, 8.4vw, 116px);font-weight:800;letter-spacing:-0.05em;line-height:0.95;">150<span style="color:var(--asc-accent, #6E56CF);">+</span></div><div style="margin-top:clamp(12px, 1.6vw, 20px);max-width:20ch;font-size:clamp(20px, 2.2vw, 32px);font-weight:700;letter-spacing:-0.025em;line-height:1.15;text-wrap:balance;">brands we've put into AI answers</div><p style="margin:clamp(12px, 1.4vw, 18px) 0 0;max-width:56ch;font-size:var(--asc-body-size);line-height:var(--asc-body-lh);color:#EFEEF6;text-wrap:pretty;">When someone asks ChatGPT, Claude or Gemini for a recommendation, we make sure your name is in the reply.</p><div class="asc-stat-brands" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:clamp(18px, 2.2vw, 28px);"><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/claude.png" alt="Claude" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:24.7px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/chatgpt.png" alt="ChatGPT" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:25.6px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/perplexity.png" alt="Perplexity" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:24.7px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/gemini.png" alt="Gemini" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:25.3px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span></div></div><div class="asc-stat-card" aria-hidden="true" style="position:absolute;inset:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.22,.9,.24,1), opacity .7s ease;will-change:transform, opacity;opacity:0;transform:rotateX(-34deg) translateY(62px) translateZ(-170px) scale(0.9);pointer-events:none;"><div style="font-size:clamp(56px, 8.4vw, 116px);font-weight:800;letter-spacing:-0.05em;line-height:0.95;">500<span style="color:var(--asc-accent, #6E56CF);">+</span></div><div style="margin-top:clamp(12px, 1.6vw, 20px);max-width:20ch;font-size:clamp(20px, 2.2vw, 32px);font-weight:700;letter-spacing:-0.025em;line-height:1.15;text-wrap:balance;">keywords ranked on page one</div><p style="margin:clamp(12px, 1.4vw, 18px) 0 0;max-width:56ch;font-size:var(--asc-body-size);line-height:var(--asc-body-lh);color:#EFEEF6;text-wrap:pretty;">We get you found by the people already searching for what you sell.</p><div class="asc-stat-brands" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:clamp(18px, 2.2vw, 28px);"><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/search-console.png" alt="Google Search Console" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:42.3px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/google.png" alt="Google" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:28.6px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/ahrefs.png" alt="Ahrefs" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:27.2px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/bing.png" alt="Bing" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:30.6px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/semrush.png" alt="Semrush" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:31.8px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span></div></div><div class="asc-stat-card" aria-hidden="true" style="position:absolute;inset:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.22,.9,.24,1), opacity .7s ease;will-change:transform, opacity;opacity:0;transform:rotateX(-68deg) translateY(124px) translateZ(-170px) scale(0.9);pointer-events:none;"><div style="font-size:clamp(56px, 8.4vw, 116px);font-weight:800;letter-spacing:-0.05em;line-height:0.95;">1000<span style="color:var(--asc-accent, #6E56CF);">+</span></div><div style="margin-top:clamp(12px, 1.6vw, 20px);max-width:20ch;font-size:clamp(20px, 2.2vw, 32px);font-weight:700;letter-spacing:-0.025em;line-height:1.15;text-wrap:balance;">campaigns run on Google and Meta</div><p style="margin:clamp(12px, 1.4vw, 18px) 0 0;max-width:56ch;font-size:var(--asc-body-size);line-height:var(--asc-body-lh);color:#EFEEF6;text-wrap:pretty;">Ads built to bring you buyers, not just clicks.</p><div class="asc-stat-brands" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:clamp(18px, 2.2vw, 28px);"><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/google-ads.png" alt="Google Ads" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:45.7px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/linkedin-ads.png" alt="LinkedIn Ads" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:23.6px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/meta-ads.png" alt="Meta Ads Manager" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:41.6px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/youtube-ads.png" alt="YouTube Advertising" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:35.1px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/reddit-ads.png" alt="Reddit Ads" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:25.9px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span></div></div><div class="asc-stat-card" aria-hidden="true" style="position:absolute;inset:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.22,.9,.24,1), opacity .7s ease;will-change:transform, opacity;opacity:0;transform:rotateX(34deg) translateY(-62px) translateZ(-170px) scale(0.9);pointer-events:none;"><div style="font-size:clamp(56px, 8.4vw, 116px);font-weight:800;letter-spacing:-0.05em;line-height:0.95;">140<span style="color:var(--asc-cta, #FF6B4A);">%</span></div><div style="margin-top:clamp(12px, 1.6vw, 20px);max-width:20ch;font-size:clamp(20px, 2.2vw, 32px);font-weight:700;letter-spacing:-0.025em;line-height:1.15;text-wrap:balance;">average lift in conversion rate</div><p style="margin:clamp(12px, 1.4vw, 18px) 0 0;max-width:56ch;font-size:var(--asc-body-size);line-height:var(--asc-body-lh);color:#EFEEF6;text-wrap:pretty;">average lift in conversion rate</p><div class="asc-stat-brands" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:clamp(18px, 2.2vw, 28px);"><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/figma.png" alt="Figma" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:27px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/webflow.png" alt="Webflow" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:22.6px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/whimsical.png" alt="Whimsical" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:22.4px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/astro.png" alt="Astro" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:28.7px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span><span style="display:flex;align-items:center;justify-content:center;width:clamp(112px, 13vw, 132px);height:76px;border:1px solid rgba(248,247,251,.28);border-radius:4px;background:rgba(15,15,20,.55);font-size:12px;letter-spacing:0.06em;color:rgba(248,247,251,.55);text-align:center;padding:0 8px;"><img src="/brands/shadcn-ui.png" alt="shadcn/ui" loading="lazy" decoding="async" style="width:auto;height:auto;max-height:22.5px;max-width:88%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.88;"/></span></div></div></div></div></div><!--astro:end--></astro-island><section id="work" style="margin-top: -2px; background: linear-gradient(180deg, #6E56CF 0%, #5C48BC 14%, #40347F 34%, #241F44 46%, #0F0F14 56%, #0F0F14 100%); color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; position: relative; overflow: hidden; padding: clamp(30px, 3.2vw, 52px) clamp(20px, 4vw, 56px) clamp(56px, 6.5vw, 96px);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><!-- Phones get a swipeable strip instead of the ring: at the ring's minimum
+       radius (474px) and card width (192px), a 375px viewport would show one
+       card and clip the rest. Hidden above 640px; the ring is hidden below. --><div class="asc-work-mobile" aria-label="Selected work" style="--ascSpin: 290s;--ascCounterEnd: 0deg;"><img src="/work/profice-cyber-security.webp" alt="Profice cyber security training website" width="820" height="512" loading="lazy" decoding="async" style="--ascSpin: 290s;--ascCounterEnd: 0deg;"><img src="/work/breakthrough-expert.webp" alt="Breakthrough Expert coaching landing page" width="820" height="512" loading="lazy" decoding="async" style="--ascSpin: 290s;--ascCounterEnd: 0deg;"><img src="/work/ehack-academy-diploma.webp" alt="eHack Academy digital marketing diploma page" width="820" height="512" loading="lazy" decoding="async" style="--ascSpin: 290s;--ascCounterEnd: 0deg;"><img src="/work/crm-taxi-landing.webp" alt="crm.taxi fleet management landing page" width="820" height="512" loading="lazy" decoding="async" style="--ascSpin: 290s;--ascCounterEnd: 0deg;"><img src="/work/crm-taxi-dashboard.webp" alt="crm.taxi operator dashboard" width="820" height="512" loading="lazy" decoding="async" style="--ascSpin: 290s;--ascCounterEnd: 0deg;"><img src="/work/ehack-academy-home.webp" alt="eHack Academy website homepage" width="820" height="512" loading="lazy" decoding="async" style="--ascSpin: 290s;--ascCounterEnd: 0deg;"><img src="/work/ehack-academy-career.webp" alt="eHack Academy cybersecurity career landing page" width="820" height="512" loading="lazy" decoding="async" style="--ascSpin: 290s;--ascCounterEnd: 0deg;"></div><div class="asc-work-stage" style="position: relative; max-width: 1320px; margin: 0 auto; min-height: clamp(560px, 58vw, 800px);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><!--
+      transform-origin is load-bearing. Each card is placed with
+      `rotate(A) translateY(-R)`, and a transform rotates about the element's
+      own centre — so the cards orbit a point half a card-height BELOW this
+      hub, not the hub itself. Leave this hub spinning about its own 0x0 point
+      and the two axes disagree: the arc keeps its radius but its centre swings
+      around a ~61px circle, which reads as the whole arc wandering.
+
+      So pin the hub's axis to where the cards actually orbit:
+        half card height = width / (16/10) / 2 + padding
+                         = clamp(192px, 21vw, 405px) / 3.2 + clamp(4px, .6vw, 8px)
+    --><div class="asc-work-wheel" style="position: absolute; left: 50%; top: calc(clamp(474px, 51vw, 860px) + 40px); width: 0; height: 0; transform-origin: 0 calc(clamp(192px, 21vw, 405px) / 3.2 + clamp(4px, .6vw, 8px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(-166.154deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div role="img" aria-label="Profice cyber security training website" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/profice-cyber-security.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(-138.462deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div role="img" aria-label="Breakthrough Expert coaching landing page" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/breakthrough-expert.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(-110.769deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div role="img" aria-label="eHack Academy digital marketing diploma page" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/ehack-academy-diploma.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(-83.077deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div role="img" aria-label="crm.taxi fleet management landing page" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/crm-taxi-landing.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(-55.385deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div role="img" aria-label="crm.taxi operator dashboard" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/crm-taxi-dashboard.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(-27.692deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div role="img" aria-label="eHack Academy website homepage" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/ehack-academy-home.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(0.000deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div role="img" aria-label="eHack Academy cybersecurity career landing page" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/ehack-academy-career.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(27.692deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div aria-hidden="true" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/profice-cyber-security.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(55.385deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div aria-hidden="true" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/breakthrough-expert.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(83.077deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div aria-hidden="true" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/ehack-academy-diploma.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(110.769deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div aria-hidden="true" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/crm-taxi-landing.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(138.462deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div aria-hidden="true" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/crm-taxi-dashboard.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div><div style="position: absolute; left: 0; top: 0; width: clamp(192px, 21vw, 405px); margin-left: calc(clamp(192px, 21vw, 405px) / -2); transform: rotate(166.154deg) translateY(clamp(-860px, -51vw, -474px));; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="transform: rotate(0.000deg);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="border-radius: 9px; padding: clamp(4px, .6vw, 8px); background: linear-gradient(160deg, #2E2C39, #191821); box-shadow: 0 34px 64px -34px rgba(0,0,0,.95);; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div aria-hidden="true" style="border-radius: 4px; aspect-ratio: 16 / 10; background-color: #0F0F14; background-image: url(&quot;/work/ehack-academy-home.webp&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div></div></div></div></div><div class="asc-work-copy" style="position: absolute; left: 50%; top: 68%; transform: translate(-50%, -50%); width: min(680px, 100%); text-align: center;; --ascSpin: 290s;--ascCounterEnd: 0deg;"><div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 150%; height: 190%; background: radial-gradient(closest-side, rgba(15,15,20,.82) 46%, rgba(15,15,20,.5) 70%, rgba(15,15,20,0)); pointer-events: none;; --ascSpin: 290s;--ascCounterEnd: 0deg;"></div><div style="position: relative;; --ascSpin: 290s;--ascCounterEnd: 0deg;"><h2 style="margin: 14px 0 0; font-size: clamp(28px, 3.6vw, 50px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.06; text-wrap: balance;; --ascSpin: 290s;--ascCounterEnd: 0deg;">Here's the work. Now let's talk about yours.</h2><p class="asc-body" style="margin: clamp(14px, 1.8vw, 20px) auto 0; max-width: 50ch; color: #D6D4E4;; --ascSpin: 290s;--ascCounterEnd: 0deg;">Websites, campaigns and brands we've built for businesses across industries. Tell us about your project and we'll show you what we'd do.</p><a href="#contact" class="asc-cta-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; margin-top: clamp(20px, 2.4vw, 30px); padding: 0 30px; border-radius: 4px; font-size: 15.5px; font-weight: 700; white-space: nowrap; box-shadow: 0 18px 44px -18px rgba(255,107,74,.75);; --ascSpin: 290s;--ascCounterEnd: 0deg;">Book a call<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;; --ascSpin: 290s;--ascCounterEnd: 0deg;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="#17110E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="--ascSpin: 290s;--ascCounterEnd: 0deg;"></path></svg></a></div></div></div></section><section id="approach" style="background: #6E56CF; color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; position: relative; overflow: hidden; padding: clamp(36px, 4.4vw, 64px) clamp(20px, 4vw, 56px) clamp(72px, 9vw, 132px);"><div style="position: relative; max-width: 1180px; margin: 0 auto;"><div style="text-align: center; max-width: 56ch; margin: 0 auto;"><h2 style="margin: 0; font-size: clamp(26px, 3.2vw, 44px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.08; text-wrap: balance;">Every business needs three things to stand out. Most have one or two.</h2><p class="asc-body" style="margin: clamp(16px, 2vw, 22px) auto 0; max-width: 54ch; color: var(--asc-text-on-accent);">Tech that works, marketing that brings customers, and a team that runs both. We're three founders, one for each.</p></div><astro-island uid="Z28cwcs" data-preact-island-id="7" component-url="/src/components/sections/Approach.tsx" component-export="default" renderer-url="/node_modules/@astrojs/preact/dist/client-dev.js" props="{}" ssr client="visible" before-hydration-url="/@id/astro:scripts/before-hydration.js" opts="{&quot;name&quot;:&quot;ApproachIsland&quot;,&quot;value&quot;:true}" server-render-time="0.766499999910593" await-children><div class="asc-pillar-graph" style="position: relative; z-index: 2; height: clamp(150px, 15vw, 190px); margin-top: clamp(28px, 3.4vw, 48px);"><svg viewBox="0 0 1000 400" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;" aria-hidden="true"><g fill="none" stroke="#F8F7FB" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 9" pathLength="100" vector-effect="non-scaling-stroke"><path d="M310 104 H 690"></path><path d="M310 104 L 500 384"></path><path d="M690 104 L 500 384"></path></g></svg><button type="button" aria-label="Tech" aria-pressed="true" style="position: absolute; padding: 0; border: 0; background: transparent; cursor: pointer; transform: translate(-50%, -50%); transition: left .5s cubic-bezier(.22,.9,.24,1), top .5s cubic-bezier(.22,.9,.24,1); width: clamp(104px, 10vw, 124px); height: clamp(104px, 10vw, 124px); left: 50%; top: 96%;"><span style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, #1B1A24, #0F0F14); box-shadow: 0 0 0 12px rgba(248,247,251,.16), 0 24px 50px -20px rgba(15,15,20,.7); transition: background .35s ease, box-shadow .35s ease;"><span style="width: 30px; height: 30px; display: block; color: #FFFFFF;"><svg viewBox="0 0 24 24" fill="none" width="100%" height="100%"><path d="M9 11a3 3 0 100-6 3 3 0 000 6zm7.5 1a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM3 20c0-2.9 2.7-4.5 6-4.5s6 1.6 6 4.5m1.2-6.2c2.4.3 3.8 1.7 3.8 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></span><span class="asc-pillar-label" style="position: absolute; width: max-content; max-width: 15ch; font-size: clamp(12.5px, 1vw, 15px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; transition: color .35s ease; text-wrap: balance; left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%); text-align: center; color: #FFFFFF;">Tech</span></button><button type="button" aria-label="Marketing" aria-pressed="false" style="position: absolute; padding: 0; border: 0; background: transparent; cursor: pointer; transform: translate(-50%, -50%); transition: left .5s cubic-bezier(.22,.9,.24,1), top .5s cubic-bezier(.22,.9,.24,1); width: clamp(64px, 6.4vw, 80px); height: clamp(64px, 6.4vw, 80px); left: 31%; top: 26%;"><span style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, #17161F, #0F0F14); box-shadow: 0 0 0 9px rgba(248,247,251,.09), inset 0 0 0 1px rgba(248,247,251,.3); transition: background .35s ease, box-shadow .35s ease;"><span style="width: 30px; height: 30px; display: block; color: #FFFFFF;"><svg viewBox="0 0 24 24" fill="none" width="100%" height="100%"><path d="M12 5.2a6.8 6.8 0 106.8 6.8M12 9a3 3 0 103 3m0-8.6l.9 2.2 2.2.9-2.2.9-.9 2.2-.9-2.2-2.2-.9 2.2-.9.9-2.2z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></span><span class="asc-pillar-label" style="position: absolute; width: max-content; max-width: 15ch; font-size: clamp(12.5px, 1vw, 15px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; transition: color .35s ease; text-wrap: balance; right: calc(100% + 14px); top: 50%; transform: translateY(-50%); text-align: right; color: #F8F7FB;">Marketing</span></button><button type="button" aria-label="The Team" aria-pressed="false" style="position: absolute; padding: 0; border: 0; background: transparent; cursor: pointer; transform: translate(-50%, -50%); transition: left .5s cubic-bezier(.22,.9,.24,1), top .5s cubic-bezier(.22,.9,.24,1); width: clamp(64px, 6.4vw, 80px); height: clamp(64px, 6.4vw, 80px); left: 69%; top: 26%;"><span style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, #17161F, #0F0F14); box-shadow: 0 0 0 9px rgba(248,247,251,.09), inset 0 0 0 1px rgba(248,247,251,.3); transition: background .35s ease, box-shadow .35s ease;"><span style="width: 30px; height: 30px; display: block; color: #FFFFFF;"><svg viewBox="0 0 24 24" fill="none" width="100%" height="100%"><path d="M4.5 11a7.5 7.5 0 0112.6-4.4M19.5 13a7.5 7.5 0 01-12.6 4.4M17.6 3.4v3.6H14M6.4 20.6V17H10M12 9.4v2.9l2.1 1.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></span><span class="asc-pillar-label" style="position: absolute; width: max-content; max-width: 15ch; font-size: clamp(12.5px, 1vw, 15px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; transition: color .35s ease; text-wrap: balance; left: calc(100% + 14px); top: 50%; transform: translateY(-50%); text-align: left; color: #F8F7FB;">The Team</span></button></div><div class="asc-approach-card" style="position: relative; border: 1px solid rgba(15,15,20,.12); border-radius: 14px; background: #F8F7FB; color: #0F0F14; box-shadow: 0 44px 100px -50px rgba(15,15,20,.7); padding: clamp(34px, 4vw, 56px) clamp(24px, 3vw, 46px) clamp(24px, 3vw, 46px); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(24px, 3.2vw, 52px); align-items: center;"><div style="min-width: 0;"><div><div style="display: inline-flex; align-items: flex-start; gap: 8px; max-width: 100%; padding: 7px 13px; border-radius: 999px; border: 1px solid rgba(110,86,207,.32); background: rgba(110,86,207,.1); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; line-height: 1.45; letter-spacing: .14em; text-transform: uppercase; color: #4B3AA0;"><span style="flex: 0 0 auto; width: 5px; height: 5px; margin-top: 5px; border-radius: 50%; background: #D9401C;"></span><span style="min-width: 0;">What we build</span></div><h3 style="margin: 12px 0 0; font-size: clamp(22px, 2.4vw, 32px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; color: #0F0F14; text-wrap: balance;">Built to sell, not just to look good.</h3><ul style="list-style: none; margin: clamp(18px, 2.2vw, 26px) 0 0; padding: 0; display: grid; gap: 14px;"><li style="display: flex; gap: 12px; align-items: flex-start;"><span style="flex: 0 0 auto; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--asc-accent, #6E56CF);"></span><p class="asc-body" style="margin: 0; color: var(--asc-text-on-light);"><strong style="font-weight: 700; color: #14131C;">Websites that convert.</strong> Fast, clear pages designed around the buying decision, not around a template.</p></li><li style="display: flex; gap: 12px; align-items: flex-start;"><span style="flex: 0 0 auto; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--asc-accent, #6E56CF);"></span><p class="asc-body" style="margin: 0; color: var(--asc-text-on-light);"><strong style="font-weight: 700; color: #14131C;">UI and UX that removes friction.</strong> We find where visitors drop off and rebuild those steps.</p></li><li style="display: flex; gap: 12px; align-items: flex-start;"><span style="flex: 0 0 auto; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--asc-accent, #6E56CF);"></span><p class="asc-body" style="margin: 0; color: var(--asc-text-on-light);"><strong style="font-weight: 700; color: #14131C;">Automation and CRM that follow up for you.</strong> Every lead gets tracked and answered without anyone remembering to do it.</p></li></ul><a href="#contact" class="asc-inline-link" style="display: inline-flex; align-items: center; gap: 8px; margin-top: clamp(20px, 2.4vw, 28px); font-size: 15px; font-weight: 700;">See what we build<svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div><div hidden><div style="display: inline-flex; align-items: flex-start; gap: 8px; max-width: 100%; padding: 7px 13px; border-radius: 999px; border: 1px solid rgba(110,86,207,.32); background: rgba(110,86,207,.1); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; line-height: 1.45; letter-spacing: .14em; text-transform: uppercase; color: #4B3AA0;"><span style="flex: 0 0 auto; width: 5px; height: 5px; margin-top: 5px; border-radius: 50%; background: #D9401C;"></span><span style="min-width: 0;">How we get you found</span></div><h3 style="margin: 12px 0 0; font-size: clamp(22px, 2.4vw, 32px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; color: #0F0F14; text-wrap: balance;">Get found where your buyers already are.</h3><ul style="list-style: none; margin: clamp(18px, 2.2vw, 26px) 0 0; padding: 0; display: grid; gap: 14px;"><li style="display: flex; gap: 12px; align-items: flex-start;"><span style="flex: 0 0 auto; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--asc-accent, #6E56CF);"></span><p class="asc-body" style="margin: 0; color: var(--asc-text-on-light);"><strong style="font-weight: 700; color: #14131C;">Paid ads that bring buyers, not clicks.</strong> Google and Meta campaigns built around who actually converts.</p></li><li style="display: flex; gap: 12px; align-items: flex-start;"><span style="flex: 0 0 auto; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--asc-accent, #6E56CF);"></span><p class="asc-body" style="margin: 0; color: var(--asc-text-on-light);"><strong style="font-weight: 700; color: #14131C;">Organic growth on search and AI.</strong> SEO gets you ranked, AI search gets you recommended.</p></li><li style="display: flex; gap: 12px; align-items: flex-start;"><span style="flex: 0 0 auto; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--asc-accent, #6E56CF);"></span><p class="asc-body" style="margin: 0; color: var(--asc-text-on-light);"><strong style="font-weight: 700; color: #14131C;">Social that people remember.</strong> Content that keeps you in mind long before they're ready to buy.</p></li></ul><a href="#contact" class="asc-inline-link" style="display: inline-flex; align-items: center; gap: 8px; margin-top: clamp(20px, 2.4vw, 28px); font-size: 15px; font-weight: 700;">See how we get you found<svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div><div hidden><div style="display: inline-flex; align-items: flex-start; gap: 8px; max-width: 100%; padding: 7px 13px; border-radius: 999px; border: 1px solid rgba(110,86,207,.32); background: rgba(110,86,207,.1); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; line-height: 1.45; letter-spacing: .14em; text-transform: uppercase; color: #4B3AA0;"><span style="flex: 0 0 auto; width: 5px; height: 5px; margin-top: 5px; border-radius: 50%; background: #D9401C;"></span><span style="min-width: 0;">Who you work with</span></div><h3 style="margin: 12px 0 0; font-size: clamp(22px, 2.4vw, 32px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; color: #0F0F14; text-wrap: balance;">Three founders. No handoffs.</h3><ul style="list-style: none; margin: clamp(18px, 2.2vw, 26px) 0 0; padding: 0; display: grid; gap: 14px;"><li style="display: flex; gap: 12px; align-items: flex-start;"><span style="flex: 0 0 auto; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--asc-accent, #6E56CF);"></span><p class="asc-body" style="margin: 0; color: var(--asc-text-on-light);"><strong style="font-weight: 700; color: #14131C;">One team for tech and marketing.</strong> Your site, your ads and your brand are built by the same people, so nothing gets lost between vendors.</p></li><li style="display: flex; gap: 12px; align-items: flex-start;"><span style="flex: 0 0 auto; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--asc-accent, #6E56CF);"></span><p class="asc-body" style="margin: 0; color: var(--asc-text-on-light);"><strong style="font-weight: 700; color: #14131C;">You talk to founders, not account managers.</strong> The people planning your work are the people doing it.</p></li><li style="display: flex; gap: 12px; align-items: flex-start;"><span style="flex: 0 0 auto; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--asc-accent, #6E56CF);"></span><p class="asc-body" style="margin: 0; color: var(--asc-text-on-light);"><strong style="font-weight: 700; color: #14131C;">Decisions happen fast.</strong> Nothing waits on a third agency to reply before your campaign moves.</p></li></ul><a href="#contact" class="asc-inline-link" style="display: inline-flex; align-items: center; gap: 8px; margin-top: clamp(20px, 2.4vw, 28px); font-size: 15px; font-weight: 700;">Meet the founders<svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div></div><div style="min-width: 0;"><div><div class="asc-craft-stack"><img class="asc-craft-slide" style="animation-delay: 0s;" src="/mockups/design-craft.webp" alt="Design capability board: colour palette, typography, UI design, UX design and landing page examples" width="820" height="692" loading="lazy" decoding="async"/><img class="asc-craft-slide" style="animation-delay: -10s;" src="/mockups/landing-hero.webp" alt="A landing page hero laid out around a single offer, with the above-the-fold structure annotated" width="900" height="579" loading="lazy" decoding="async"/><img class="asc-craft-slide" style="animation-delay: -5s;" src="/mockups/wireframe-to-design.webp" alt="The same product page shown twice: grey wireframe on the left, finished visual design on the right" width="900" height="605" loading="lazy" decoding="async"/></div></div><div hidden><div class="asc-shots"><img class="asc-shot is-ads" src="/mockups/google-ads.webp" alt="A phone showing a search results page with a sponsored listing at the top" width="720" height="745" loading="lazy" decoding="async"/><img class="asc-shot is-ig" src="/mockups/instagram-ad.webp" alt="A sponsored Instagram post on a phone" width="560" height="1044" loading="lazy" decoding="async"/><img class="asc-shot is-gbp" src="/mockups/business-profile.webp" alt="A business profile listing with star ratings, viewed through a magnifier" width="560" height="560" loading="lazy" decoding="async"/></div></div><div hidden><div><div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 1.3vw, 18px); align-items: end;"><div style="display: grid; grid-template-rows: 34px auto; align-items: end; justify-items: center; gap: 8px; padding-bottom: 0px;"><span style="font-size: 10.5px; font-weight: 700; line-height: 1.25; text-align: center; color: #3A384A; text-wrap: balance;">Tech</span><span style="display: block; width: 100%; min-height: 104px; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 1px solid rgba(110,86,207,.3); background: #FFFFFF;"></span></div><div style="display: grid; grid-template-rows: 34px auto; align-items: end; justify-items: center; gap: 8px; padding-bottom: 26px;"><span style="font-size: 10.5px; font-weight: 700; line-height: 1.25; text-align: center; color: #3A384A; text-wrap: balance;">Operations</span><span style="display: block; width: 100%; min-height: 104px; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 1px solid rgba(110,86,207,.3); background: #FFFFFF;"></span></div><div style="display: grid; grid-template-rows: 34px auto; align-items: end; justify-items: center; gap: 8px; padding-bottom: 0px;"><span style="font-size: 10.5px; font-weight: 700; line-height: 1.25; text-align: center; color: #3A384A; text-wrap: balance;">Marketing</span><span style="display: block; width: 100%; min-height: 104px; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 1px solid rgba(110,86,207,.3); background: #FFFFFF;"></span></div></div><div style="margin-top: -8px; padding: 22px 18px 16px; border-radius: 999px 999px 8px 8px; border: 1px solid rgba(110,86,207,.3); background: linear-gradient(180deg, rgba(110,86,207,.14), rgba(110,86,207,.05)); text-align: center;"><div style="font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: #0F0F14;">The three founders you work with</div><div style="margin-top: 5px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: #4B3AA0;">One team · no handoffs</div></div></div></div></div></div><!--astro:end--></astro-island></div></section><section id="funnel" class="asc-funnel-section"><div style="position: absolute; top: -180px; left: 50%; transform: translateX(-50%); width: min(900px, 120%); height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(110,86,207,.14), rgba(110,86,207,0) 68%); pointer-events: none;"></div><div style="position: relative; max-width: 1220px; margin: 0 auto;"><div style="text-align: center; max-width: 60ch; margin: 0 auto;"><h2 style="margin: 0; font-size: clamp(26px, 3.2vw, 44px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.06; text-wrap: balance;">See what we fix at every stage of your funnel <span style="color: #C9C2EC;">and what it unlocks.</span></h2><p class="asc-body" style="margin: clamp(16px, 2vw, 22px) auto 0; max-width: 56ch; color: var(--asc-text-muted);">Most funnels do not leak in one place. We audit visibility, attention, trust and conversion together, then fix the stage that is actually costing you buyers.</p></div><astro-island uid="jHXgw" data-preact-island-id="8" component-url="/src/components/sections/Funnel.tsx" component-export="default" renderer-url="/node_modules/@astrojs/preact/dist/client-dev.js" props="{}" ssr client="visible" before-hydration-url="/@id/astro:scripts/before-hydration.js" opts="{&quot;name&quot;:&quot;FunnelIsland&quot;,&quot;value&quot;:true}" server-render-time="1.8821999998763204" await-children><div class="asc-funnel-grid"><div class="asc-funnel-copy"><h3 style="margin: 0; font-size: clamp(20px, 2.1vw, 27px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.14; text-wrap: balance;">Get found before the comparison starts</h3><p class="asc-body-sm" style="margin: 12px 0 0; max-width: 36ch; color: var(--asc-text-muted);">You are invisible in the places buyers now start: search results and AI answers.</p></div><div class="asc-funnel-services"><div style="display: grid; gap: 2px;"><a href="#contact" class="asc-funnel-link">SEO Services<svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><a href="#contact" class="asc-funnel-link">GEO / AI Answer Optimisation<svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><a href="#contact" class="asc-funnel-link">Content that ranks<svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><a href="#contact" class="asc-funnel-link">Technical foundations<svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div></div><div class="asc-funnel-viz"><svg viewBox="-6 14 352 316" style="width: 100%; max-width: 420px; height: auto; overflow: visible;" role="img" aria-label="Funnel stages from visibility to conversion"><defs><linearGradient id="ascFunnel0" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9781F5"></stop><stop offset="100%" stop-color="#4B3AA0"></stop></linearGradient><linearGradient id="ascFunnel1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6FA8F5"></stop><stop offset="100%" stop-color="#2E5CB8"></stop></linearGradient><linearGradient id="ascFunnel2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5FCFC0"></stop><stop offset="100%" stop-color="#2A8478"></stop></linearGradient><linearGradient id="ascFunnel3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF9078"></stop><stop offset="100%" stop-color="#D9491F"></stop></linearGradient><linearGradient id="ascFunnelOff" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#302E40"></stop><stop offset="100%" stop-color="#1B1A25"></stop></linearGradient><radialGradient id="ascFunnelShadow" cx="0.5" cy="0.5" r="0.5"><stop offset="0%" stop-color="rgba(110,86,207,.5)"></stop><stop offset="100%" stop-color="rgba(110,86,207,0)"></stop></radialGradient></defs><ellipse cx="170" cy="318" rx="120" ry="16" fill="url(#ascFunnelShadow)"></ellipse><g style="cursor: pointer; transform: scale(1); transform-origin: 170px 126px; transition: transform .35s cubic-bezier(.22,.9,.24,1), filter .35s ease; filter: none;"><path d="M 52,126 A 118 21 0 0 1 288,126 L 260,184 A 90 16 0 0 1 80,184 Z" fill="rgba(9,9,13,.75)" transform="translate(0, 5)"></path><ellipse cx="170" cy="126" rx="118" ry="21" fill="#131220" style="transition: fill .3s ease;"></ellipse><path d="M 52,126 A 118 21 0 0 1 288,126 L 260,184 A 90 16 0 0 1 80,184 Z" fill="url(#ascFunnelOff)" style="transition: fill .3s ease;"></path><path d="M 62,133.35 A 108 21 0 0 1 148.76,146.16 L 132.2,184 L 86,182 Z" fill="rgba(248,247,251,.1)"></path><path d="M 52,126 A 118 21 0 0 1 288,126 L 260,184 A 90 16 0 0 1 80,184 Z" fill="none" stroke="rgba(248,247,251,.16)" stroke-width="1.2" style="transition: stroke .3s ease;"></path><ellipse cx="170" cy="126" rx="118" ry="21" fill="none" stroke="rgba(248,247,251,.22)" stroke-width="1.4" style="transition: stroke .3s ease;"></ellipse><path d="M 170,156 v 13 m -5.5,-6.5 l 5.5,6.5 5.5,-6.5" fill="none" stroke="transparent" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: stroke .3s ease;"></path></g><g style="cursor: pointer; transform: scale(1); transform-origin: 170px 202px; transition: transform .35s cubic-bezier(.22,.9,.24,1), filter .35s ease; filter: none;"><path d="M 80,202 A 90 16 0 0 1 260,202 L 232,250 A 62 12 0 0 1 108,250 Z" fill="rgba(9,9,13,.75)" transform="translate(0, 5)"></path><ellipse cx="170" cy="202" rx="90" ry="16" fill="#131220" style="transition: fill .3s ease;"></ellipse><path d="M 80,202 A 90 16 0 0 1 260,202 L 232,250 A 62 12 0 0 1 108,250 Z" fill="url(#ascFunnelOff)" style="transition: fill .3s ease;"></path><path d="M 90,207.6 A 80 16 0 0 1 153.8,217.36 L 143.96,250 L 114,248 Z" fill="rgba(248,247,251,.1)"></path><path d="M 80,202 A 90 16 0 0 1 260,202 L 232,250 A 62 12 0 0 1 108,250 Z" fill="none" stroke="rgba(248,247,251,.16)" stroke-width="1.2" style="transition: stroke .3s ease;"></path><ellipse cx="170" cy="202" rx="90" ry="16" fill="none" stroke="rgba(248,247,251,.22)" stroke-width="1.4" style="transition: stroke .3s ease;"></ellipse><path d="M 170,227 v 13 m -5.5,-6.5 l 5.5,6.5 5.5,-6.5" fill="none" stroke="transparent" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: stroke .3s ease;"></path></g><g style="cursor: pointer; transform: scale(1); transform-origin: 170px 268px; transition: transform .35s cubic-bezier(.22,.9,.24,1), filter .35s ease; filter: none;"><path d="M 108,268 A 62 12 0 0 1 232,268 L 196,308 A 26 7 0 0 1 144,308 Z" fill="rgba(9,9,13,.75)" transform="translate(0, 5)"></path><ellipse cx="170" cy="268" rx="62" ry="12" fill="#131220" style="transition: fill .3s ease;"></ellipse><path d="M 108,268 A 62 12 0 0 1 232,268 L 196,308 A 26 7 0 0 1 144,308 Z" fill="url(#ascFunnelOff)" style="transition: fill .3s ease;"></path><path d="M 118,272.2 A 52 12 0 0 1 158.84,279.52 L 159.08,308 L 150,306 Z" fill="rgba(248,247,251,.1)"></path><path d="M 108,268 A 62 12 0 0 1 232,268 L 196,308 A 26 7 0 0 1 144,308 Z" fill="none" stroke="rgba(248,247,251,.16)" stroke-width="1.2" style="transition: stroke .3s ease;"></path><ellipse cx="170" cy="268" rx="62" ry="12" fill="none" stroke="rgba(248,247,251,.22)" stroke-width="1.4" style="transition: stroke .3s ease;"></ellipse><path d="M 170,285 v 8 m -5.5,-6.5 l 5.5,6.5 5.5,-6.5" fill="none" stroke="transparent" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: stroke .3s ease;"></path></g><g style="cursor: pointer; transform: scale(1.06); transform-origin: 170px 40px; transition: transform .35s cubic-bezier(.22,.9,.24,1), filter .35s ease; filter: drop-shadow(0 14px 26px rgba(9,8,20,.75));"><path d="M 22,40 A 148 26 0 0 1 318,40 L 288,108 A 118 21 0 0 1 52,108 Z" fill="rgba(9,9,13,.75)" transform="translate(0, 5)"></path><ellipse cx="170" cy="40" rx="148" ry="26" fill="#221B45" style="transition: fill .3s ease;"></ellipse><path d="M 22,40 A 148 26 0 0 1 318,40 L 288,108 A 118 21 0 0 1 52,108 Z" fill="url(#ascFunnel0)" style="transition: fill .3s ease;"></path><path d="M 32,49.1 A 138 26 0 0 1 143.36,64.96000000000001 L 120.44,108 L 58,106 Z" fill="rgba(248,247,251,.1)"></path><path d="M 22,40 A 148 26 0 0 1 318,40 L 288,108 A 118 21 0 0 1 52,108 Z" fill="none" stroke="rgba(248,247,251,.34)" stroke-width="1.2" style="transition: stroke .3s ease;"></path><ellipse cx="170" cy="40" rx="148" ry="26" fill="none" stroke="rgba(214,208,244,.7)" stroke-width="1.4" style="transition: stroke .3s ease;"></ellipse><path d="M 170,75 v 13 m -5.5,-6.5 l 5.5,6.5 5.5,-6.5" fill="none" stroke="#F8F7FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: stroke .3s ease;"></path></g></svg><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #8A8A9A;">Hover a stage to explore</div></div><div class="asc-funnel-cta"><input type="text" placeholder="Enter your website" aria-label="Your website" style="flex: 0 1 260px; min-width: 0; min-height: 52px; padding: 0 16px; border: 1px solid rgba(248,247,251,.16); border-radius: 4px; background: rgba(248,247,251,.04); color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 15px;"/><a href="#contact" class="asc-cta-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 22px; border-radius: 4px; font-size: 15.5px; font-weight: 700; text-align: center; text-wrap: balance; box-shadow: 0 18px 44px -18px rgba(255,107,74,.75);">Get Custom Strategy Proposal<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="#17110E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div></div><!--astro:end--></astro-island></div></section><section id="testimonials" style="background: #0F0F14; color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; position: relative; overflow: hidden; padding: clamp(48px, 6vw, 92px) clamp(20px, 4vw, 56px) clamp(56px, 7vw, 104px);"><div style="position: relative; max-width: 1080px; margin: clamp(30px, 4vw, 64px) auto 0; padding-top: 30px;"><!-- stacked paper behind the card --><div style="position: absolute; left: -4.5%; right: -4.5%; top: -26px; bottom: 4%; border-radius: 6px; background: rgba(201,194,236,.16); transform: rotate(-1.2deg);"></div><div style="position: absolute; left: -2%; right: -2%; top: -13px; bottom: 2%; border-radius: 6px; background: rgba(201,194,236,.28); transform: rotate(.8deg);"></div><astro-island uid="Z9eLYP" data-preact-island-id="9" component-url="/src/components/sections/Testimonials.tsx" component-export="default" renderer-url="/node_modules/@astrojs/preact/dist/client-dev.js" props="{}" ssr client="visible" before-hydration-url="/@id/astro:scripts/before-hydration.js" opts="{&quot;name&quot;:&quot;TestimonialsIsland&quot;,&quot;value&quot;:true}" server-render-time="1.760600000154227" await-children><div style="position: relative; z-index: 1; border-radius: 6px; background: #EFEAFB; color: #0F0F14; padding: clamp(34px, 4.6vw, 76px) clamp(20px, 3vw, 40px) clamp(26px, 3vw, 44px); box-shadow: 0 50px 110px -50px rgba(9,8,20,.9); transition: background .55s ease;"><h2 style="margin: 0 auto; max-width: 22ch; text-align: center; font-size: clamp(30px, 4.2vw, 58px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; color: #0F0F14; text-wrap: balance;">Growth teams that stayed.</h2><div class="asc-quote-grid" style="display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(10px, 2vw, 28px); margin-top: clamp(26px, 3.2vw, 44px);"><button type="button" aria-label="Previous testimonial" class="asc-quote-nav"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><div style="min-width: 0; text-align: center; animation: ascQuoteIn .5s cubic-bezier(.22,.9,.24,1) both;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: #4B3AA0;">Organic growth</div><blockquote style="margin: 14px auto 0; max-width: 46ch; font-size: clamp(17px, 1.7vw, 25px); font-weight: 500; line-height: 1.4; letter-spacing: -0.02em; color: #14131C; text-wrap: pretty;">We already ranked for the obvious terms. Ascendrow went after the questions people actually ask before they pick a certification — and got us into the AI answers those searches now return. Organic enquiries are up, and they arrive already understanding what we do.</blockquote><div style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: clamp(22px, 2.6vw, 32px);"><img class="asc-quote-photo" src="https://media.licdn.com/dms/image/v2/D4D03AQHrgTFnGtNXHQ/profile-displayphoto-shrink_400_400/B4DZX4FgB2GwAo-/0/1743623947308?e=1790812800&amp;v=beta&amp;t=O9SU-zLtH8DHjYWr5hhettOMtvJxHuDThbNklkfmvKk" alt width="56" height="56" loading="lazy" decoding="async" referrerpolicy="no-referrer"/><span style="min-width: 0; display: flex; flex-direction: column; gap: 3px; text-align: left;"><span style="font-size: 14.5px; font-weight: 700; letter-spacing: -0.01em; color: #0F0F14;"><a class="asc-quote-name" href="https://www.linkedin.com/in/amit-pandya0903/" target="_blank" rel="noopener noreferrer">Amit Pandya<svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M6.94 5a2 2 0 11-4 0 2 2 0 014 0zM3.2 8.5h3.5V21H3.2V8.5zm5.8 0h3.35v1.71h.05c.47-.84 1.6-1.71 3.3-1.71 3.53 0 4.18 2.2 4.18 5.06V21h-3.5v-5.73c0-1.37-.03-3.13-1.98-3.13-1.99 0-2.29 1.49-2.29 3.03V21H9V8.5z"></path></svg></a></span><span style="font-size: 13px; color: #4A4858; text-wrap: pretty;">EC-Council</span></span><img class="asc-quote-logo" src="/logos/ec-council.png" alt="EC-Council" loading="lazy" decoding="async" style="width: 137px;"/></div></div><button type="button" aria-label="Next testimonial" class="asc-quote-nav"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div><div style="margin-top: clamp(26px, 3.2vw, 44px); padding-top: clamp(20px, 2.4vw, 30px); border-top: 1px solid rgba(15,15,20,.1); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 45%), 1fr)); grid-auto-rows: clamp(72px, 7vw, 88px); gap: clamp(10px, 1.4vw, 20px);"><span class="asc-badge"><img class="asc-badge-img" src="/badges/sortlist.webp" alt="Sortlist" loading="lazy" decoding="async" style="max-height: 26.2px;"/></span><span class="asc-badge"><img class="asc-badge-img" src="/badges/clutch.webp" alt="Clutch — rated 4.9 out of 5" loading="lazy" decoding="async" style="max-height: 32.9px;"/></span><span class="asc-badge"><img class="asc-badge-img" src="/badges/trustpilot.webp" alt="Trustpilot rating" loading="lazy" decoding="async" style="max-height: 32.3px;"/></span><span class="asc-badge"><img class="asc-badge-img" src="/badges/goodfirms.webp" alt="GoodFirms" loading="lazy" decoding="async" style="max-height: 21.7px;"/></span></div></div><!--astro:end--></astro-island></div></section><section id="global-reach" style="position: relative; background: #183868; color: #ffffff; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; overflow: hidden; padding: clamp(84px, 10vw, 150px) clamp(20px, 4vw, 56px);"><div style="position: relative; max-width: 1320px; margin: 0 auto; min-height: 500px; display: flex; align-items: center; justify-content: center;"><!-- Expansive world map clearly visible on the colored ground --><div class="asc-global-map-wrap" aria-hidden="true" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(1560px, 100vw); height: 100%; max-height: 640px; display: flex; align-items: center; justify-content: center; pointer-events: none; user-select: none; overflow: hidden; z-index: 1;"><img src="/world-map.svg" alt="" class="asc-global-map-img" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: contain; transform: scale(1.18); filter: brightness(2.6); opacity: 0.95;"></div><!-- Foreground Content --><div style="position: relative; z-index: 2; width: 100%; text-align: center;"><h2 class="asc-global-heading" style="margin: 0 auto; font-size: clamp(30px, 4vw, 54px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.1; color: #ffffff; white-space: nowrap; text-shadow: 0 2px 18px rgba(10, 24, 48, 0.4);">Trusted by high-growth teams scaling worldwide</h2><div class="asc-global-stats-grid" style="margin-top: clamp(60px, 7.5vw, 110px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 64px); align-items: baseline; justify-content: center; max-width: 1080px; margin-left: auto; margin-right: auto;"><div class="asc-global-stat-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"><div class="asc-global-stat-val" style="font-size: clamp(52px, 6.8vw, 90px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.96; color: #ffffff; font-variant-numeric: tabular-nums; text-shadow: 0 4px 24px rgba(10, 24, 48, 0.5);">16+</div><div style="margin-top: clamp(12px, 1.4vw, 18px); font-size: clamp(16px, 1.45vw, 22px); font-weight: 600; letter-spacing: -0.015em; color: #c5d7f5;">Countries</div></div><div class="asc-global-stat-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"><div class="asc-global-stat-val" style="font-size: clamp(52px, 6.8vw, 90px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.96; color: #ffffff; font-variant-numeric: tabular-nums; text-shadow: 0 4px 24px rgba(10, 24, 48, 0.5);">150+</div><div style="margin-top: clamp(12px, 1.4vw, 18px); font-size: clamp(16px, 1.45vw, 22px); font-weight: 600; letter-spacing: -0.015em; color: #c5d7f5;">Companies</div></div><div class="asc-global-stat-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"><div class="asc-global-stat-val" style="font-size: clamp(52px, 6.8vw, 90px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.96; color: #ffffff; font-variant-numeric: tabular-nums; text-shadow: 0 4px 24px rgba(10, 24, 48, 0.5);">1,000+</div><div style="margin-top: clamp(12px, 1.4vw, 18px); font-size: clamp(16px, 1.45vw, 22px); font-weight: 600; letter-spacing: -0.015em; color: #c5d7f5;">Campaigns</div></div></div></div></div></section><section id="contact" style="background: #0F0F14; color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; position: relative; overflow: hidden; padding: clamp(56px, 7vw, 104px) clamp(20px, 4vw, 56px) clamp(64px, 8vw, 116px);"><div style="position: relative; max-width: 1080px; margin: 0 auto; border: 1px solid rgba(201,194,236,.18); border-radius: 14px; background: radial-gradient(120% 130% at 50% 0%, rgba(110,86,207,.34) 0%, rgba(110,86,207,.1) 44%, rgba(15,15,20,.96) 82%), linear-gradient(180deg, #1B1A24, #131219); box-shadow: 0 50px 110px -55px rgba(110,86,207,.65); padding: clamp(36px, 5vw, 78px) clamp(22px, 3.4vw, 60px); text-align: center; overflow: hidden;"><div style="position: absolute; left: 50%; top: -40%; transform: translateX(-50%); width: min(620px, 90%); height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(255,107,74,.14), rgba(255,107,74,0) 68%); pointer-events: none;"></div><div style="position: relative; max-width: 40ch; margin: 0 auto;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #C9C2EC;">Start here</div><h2 style="margin: 16px 0 0; font-size: clamp(28px, 3.6vw, 52px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; text-wrap: balance;">Let's build the growth system your market can't ignore.</h2><p class="asc-body" style="margin: clamp(16px, 2vw, 24px) auto 0; max-width: 52ch; color: var(--asc-text-muted);">Tell us where buyers are slipping away — visibility, attention, trust or conversion — and we'll map the fix as one plan across paid, organic, brand and product.</p><div class="asc-contact-ctas" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: clamp(26px, 3.2vw, 38px);"><a href="#contact" class="asc-cta-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 30px; border-radius: 4px; font-size: 16px; font-weight: 700; white-space: nowrap; box-shadow: 0 18px 44px -18px rgba(255,107,74,.75);">Build Your Growth System<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="#17110E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><a href="#approach" class="asc-ghost-btn">See How We Work</a></div><div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 16px; margin-top: clamp(26px, 3.2vw, 38px); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #8A8A9A;"><span>Paid Media</span><span style="color: rgba(110,86,207,.8);">•</span><span>Organic Growth</span><span style="color: rgba(110,86,207,.8);">•</span><span>Brand</span><span style="color: rgba(110,86,207,.8);">•</span><span>Product Design</span></div></div></div></section></main><footer id="footer" style="background: #0C0C10; color: #F8F7FB; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; position: relative; overflow: hidden; padding: clamp(48px, 6vw, 88px) clamp(20px, 4vw, 56px) clamp(28px, 3vw, 40px); border-top: 1px solid rgba(248,247,251,.08);"><div style="position: relative; max-width: 1220px; margin: 0 auto;"><div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: clamp(28px, 3.4vw, 56px);"><div style="min-width: 0; display: flex; flex-direction: column; gap: 18px;"><div class="asc-brand"><img class="asc-brand-mark" src="/ascendrow-logo.webp" alt="Ascendrow" width="589" height="110" loading="lazy" decoding="async"></div><p class="asc-body-sm" style="margin: 0; max-width: 34ch; color: #A6A5B6;">A technology and growth agency making businesses visible on Google, memorable on social, and discoverable in AI answers.</p><a href="#contact" class="asc-cta-btn" style="display: inline-flex; align-items: center; gap: 9px; align-self: flex-start; min-height: 46px; padding: 0 20px; border-radius: 4px; font-size: 14.5px; font-weight: 700; white-space: nowrap;">Work with us<svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex: 0 0 auto;" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6" stroke="#17110E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div><div style="min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 45%), 1fr)); gap: clamp(22px, 2.6vw, 40px);"><div style="min-width: 0; display: flex; flex-direction: column; gap: 14px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #C9C2EC;">Paid media</div><div style="display: flex; flex-direction: column; gap: 10px;"><a href="#contact" class="asc-footer-link">Google Ads</a><a href="#contact" class="asc-footer-link">Meta Ads</a><a href="#contact" class="asc-footer-link">Campaign audits</a><a href="#contact" class="asc-footer-link">Creative production</a></div></div><div style="min-width: 0; display: flex; flex-direction: column; gap: 14px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #C9C2EC;">Organic growth</div><div style="display: flex; flex-direction: column; gap: 10px;"><a href="#contact" class="asc-footer-link">SEO</a><a href="#contact" class="asc-footer-link">GEO / AI answers</a><a href="#contact" class="asc-footer-link">AIO</a><a href="#contact" class="asc-footer-link">Content strategy</a></div></div><div style="min-width: 0; display: flex; flex-direction: column; gap: 14px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #C9C2EC;">Brand &amp; product</div><div style="display: flex; flex-direction: column; gap: 10px;"><a href="#contact" class="asc-footer-link">Branding &amp; positioning</a><a href="#contact" class="asc-footer-link">UI/UX design</a><a href="#contact" class="asc-footer-link">Landing page CRO</a><a href="#contact" class="asc-footer-link">Social media management</a></div></div><div style="min-width: 0; display: flex; flex-direction: column; gap: 14px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #C9C2EC;">Company</div><div style="display: flex; flex-direction: column; gap: 10px;"><a href="#contact" class="asc-footer-link">How we work</a><a href="#contact" class="asc-footer-link">Growth system</a><a href="#contact" class="asc-footer-link">Selected work</a><a href="#contact" class="asc-footer-link">Contact</a></div></div></div></div><div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px; margin-top: clamp(36px, 4.4vw, 64px); padding-top: clamp(20px, 2.4vw, 28px); border-top: 1px solid rgba(248,247,251,.08);"><div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; color: #8A8A9A;">© 2026 Ascendrow</div><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; font-size: 13.5px;"><!-- TODO: these need real destinations. Privacy and Terms need real pages. --><a href="#contact" class="asc-footer-meta">Privacy</a><a href="#contact" class="asc-footer-meta">Terms</a><a href="#contact" class="asc-footer-meta">LinkedIn</a><a href="#contact" class="asc-footer-meta">Instagram</a></div></div></div></footer></body></html>

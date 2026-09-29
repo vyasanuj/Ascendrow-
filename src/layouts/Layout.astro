@@ -32,9 +32,9 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
     <!-- favicon.ico carries 16 + 32px and answers the bare /favicon.ico request
          browsers make regardless of these tags. Built by scripts/build-favicon.mjs. -->
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/icons/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/icons/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
 
     <!-- Fonts are self-hosted (see frontmatter). Preloading the body/heading
          face lets the browser fetch it before it discovers it in CSS — it is
@@ -102,6 +102,9 @@ const { title, description } = Astro.props;
       /* --- style-hover= attributes from the design, as real CSS --- */
       .asc-navlink {
         color: #c7c7d2;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
         transition: color 0.18s ease;
       }
       .asc-navlink:hover {
@@ -113,12 +116,14 @@ const { title, description } = Astro.props;
         color: #17110e;
         transition:
           background 0.18s ease,
-          transform 0.18s ease;
+          transform 0.18s ease,
+          box-shadow 0.18s ease;
       }
       .asc-cta-btn:hover {
         background: #ff7f62;
         color: #17110e;
         transform: translateY(-1px);
+        box-shadow: 0 20px 48px -14px rgba(255, 107, 74, 0.85);
       }
 
       /* Approach card's text link */
@@ -188,27 +193,37 @@ const { title, description } = Astro.props;
         flex: 0 0 auto;
       }
 
-      /* Compact nav CTA — smaller than the hero button so the two don't
-         compete for the same glance. */
+      /* Compact nav CTA — refined secondary glass pill so it complements the
+         primary hero CTA instead of competing for attention. */
       .asc-nav-cta {
         display: inline-flex;
         align-items: center;
-        min-height: 48px;
-        padding: 0 24px;
-        border-radius: 4px;
-        background: var(--asc-cta, #ff6b4a);
-        color: #17110e;
-        font-size: 15.5px;
-        font-weight: 700;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 20px;
+        border-radius: 6px;
+        background: rgba(248, 247, 251, 0.06);
+        border: 1px solid rgba(248, 247, 251, 0.14);
+        color: #f8f7fb;
+        font-size: 14.5px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
         white-space: nowrap;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         transition:
           background 0.18s ease,
+          border-color 0.18s ease,
+          color 0.18s ease,
+          box-shadow 0.18s ease,
           transform 0.18s ease;
       }
       .asc-nav-cta:hover {
-        background: #ff7f62;
+        background: var(--asc-cta, #ff6b4a);
+        border-color: var(--asc-cta, #ff6b4a);
         color: #17110e;
         transform: translateY(-1px);
+        box-shadow: 0 12px 28px -10px rgba(255, 107, 74, 0.7);
       }
 
       :focus-visible {
@@ -330,7 +345,16 @@ const { title, description } = Astro.props;
         }
         .asc-menu-cta {
           justify-content: center;
-          margin-top: 6px;
+          margin-top: 8px;
+          min-height: 46px;
+          background: var(--asc-cta, #ff6b4a) !important;
+          color: #17110e !important;
+          border-color: var(--asc-cta, #ff6b4a) !important;
+          font-weight: 700;
+        }
+        .asc-menu-cta:hover {
+          background: #ff7f62 !important;
+          color: #17110e !important;
         }
 
         /* Copy column: left-aligned, and the headline earns its size. */
