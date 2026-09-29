@@ -1,6 +1,7 @@
 ---
 import { nav, navCta, logos, ctaLabel } from '../../data/site';
 import ServicePicker from './ServicePicker';
+import HeroAnimator from './HeroAnimator';
 
 
 // Give every logo the same optical AREA rather than the same height:
@@ -82,14 +83,7 @@ const sized = logos.map((logo) => ({
       class="asc-hero-copy"
       style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: clamp(28px, 3.6vw, 48px) 0 0;"
     >
-      <h1
-        style="margin: 0; max-width: 22ch; font-size: clamp(32px, 4.4vw, 58px); line-height: 1.05; letter-spacing: -0.035em; font-weight: 800; text-wrap: balance; color: #F8F7FB;"
-      >
-        We make sure your customers find you on <span style="color: #C9C2EC;">Google</span>,
-        remember you on social, and see you in <span style="color: var(--asc-cta, #FF6B4A);"
-          >AI answers</span
-        >.
-      </h1>
+      <HeroAnimator client:load />
 
       <p
         class="asc-body"
