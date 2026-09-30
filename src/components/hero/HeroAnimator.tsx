@@ -230,10 +230,10 @@ export default function HeroAnimator() {
       </h1>
 
       {/* ── Demo Zone (CSS Grid stacks all 3 in the same cell) ── */}
-      <div style={{ display: 'grid', maxWidth: '520px', margin: 'clamp(24px, 2.6vw, 36px) auto 0', textAlign: 'left' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', width: '100%', maxWidth: '520px', margin: 'clamp(24px, 2.6vw, 36px) auto 0', textAlign: 'left' }}>
 
         {/* ▸ Google Search Demo — realistic dark-mode SERP */}
-        <div data-demo style={{ gridArea: '1/1', ...off }}>
+        <div data-demo style={{ gridArea: '1/1', width: '100%', minWidth: 0, ...off }}>
           <div
             style={{
               borderRadius: '14px',
@@ -272,6 +272,7 @@ export default function HeroAnimator() {
                   background: '#303134',
                   border: '1px solid #5f6368',
                   minHeight: '34px',
+                  minWidth: 0,
                 }}
               >
                 <span
@@ -283,6 +284,7 @@ export default function HeroAnimator() {
                     whiteSpace: 'nowrap',
                     display: 'flex',
                     alignItems: 'center',
+                    minWidth: 0,
                   }}
                 >
                   <span class="asc-search-query" style={{ whiteSpace: 'pre' }} />
@@ -321,6 +323,7 @@ export default function HeroAnimator() {
                 fontSize: '11.5px',
                 color: '#9aa0a6',
                 fontWeight: 500,
+                flexWrap: 'wrap',
               }}
             >
               {[
@@ -344,7 +347,7 @@ export default function HeroAnimator() {
             </div>
 
             {/* ── Search result body ── */}
-            <div class="asc-search-result" style={{ padding: '14px 16px 16px' }}>
+            <div class="asc-search-result" style={{ padding: '14px 16px 16px', position: 'relative' }}>
               {/* Breadcrumb / URL */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
                 <div
@@ -373,12 +376,13 @@ export default function HeroAnimator() {
               <div
                 class="asc-g-title"
                 style={{
-                  fontSize: '16px',
+                  fontSize: '15px',
                   fontWeight: 400,
                   color: '#8ab4f8',
                   lineHeight: 1.3,
                   marginBottom: '6px',
                   cursor: 'pointer',
+                  wordWrap: 'break-word',
                 }}
               >
                 Your Business — #1 Marketing Agency
@@ -399,7 +403,7 @@ export default function HeroAnimator() {
               </div>
 
               {/* Snippet text */}
-              <div style={{ fontSize: '12px', color: '#bdc1c6', lineHeight: 1.55 }}>
+              <div style={{ fontSize: '12px', color: '#bdc1c6', lineHeight: 1.55, wordWrap: 'break-word' }}>
                 <span style={{ color: '#9aa0a6' }}>Open</span> · Award-winning digital marketing,
                 SEO &amp; paid media. Trusted by 120+ brands.
               </div>
@@ -455,7 +459,7 @@ export default function HeroAnimator() {
         </div>
 
         {/* ▸ Social Media Demo (Floating posts motion graphics) */}
-        <div data-demo style={{ gridArea: '1/1', position: 'relative', height: '280px', width: '100%', ...off }}>
+        <div data-demo style={{ gridArea: '1/1', position: 'relative', height: '280px', width: '100%', minWidth: 0, ...off }}>
            
            {/* Background Floating Post 1 (Left) */}
            <div class="asc-social-float-1" style={{ position: 'absolute', top: '20px', left: '-10px', width: '160px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', padding: '10px', opacity: 0, transform: 'rotate(-8deg)' }}>
@@ -533,7 +537,7 @@ export default function HeroAnimator() {
         </div>
 
         {/* ▸ AI Response Demo (ChatGPT style) */}
-        <div data-demo style={{ gridArea: '1/1', ...off }}>
+        <div data-demo style={{ gridArea: '1/1', width: '100%', minWidth: 0, ...off }}>
           <div
             class="asc-ai-mockup"
             style={{
@@ -545,6 +549,7 @@ export default function HeroAnimator() {
               display: 'flex',
               flexDirection: 'column',
               height: '240px',
+              width: '100%',
             }}
           >
             {/* Header */}
@@ -602,7 +607,7 @@ export default function HeroAnimator() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9b9b9b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style={{ flexShrink: 0 }}>
                   <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
                 </svg>
-                <div style={{ flex: 1, marginLeft: '10px', fontSize: '13px', color: '#ececf1', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+                <div style={{ flex: 1, marginLeft: '10px', fontSize: '13px', color: '#ececf1', display: 'flex', alignItems: 'center', overflow: 'hidden', minWidth: 0 }}>
                   <span class="asc-ai-prompt-input" style={{ whiteSpace: 'pre' }} />
                   <span
                     class="asc-ai-prompt-cursor"
