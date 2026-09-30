@@ -33,4 +33,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           # Replace 'ascendrow' with your exact Cloudflare project name
-          command: pages deploy dist --project-name=ascendrow
+          command: pages deploy dist --project-name=Ascendrow
