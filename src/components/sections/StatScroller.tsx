@@ -28,6 +28,7 @@ const brandHeight = (ratio = 3) =>
 const BackgroundGraphic = ({ index }: { index: number }) => {
   return (
     <div
+      class="asc-bg-graphic"
       aria-hidden="true"
       style={{
         position: 'absolute',
@@ -369,6 +370,134 @@ const BackgroundGraphic = ({ index }: { index: number }) => {
           </div>
         </div>
       )}
+      {index === 2 && (
+        <div style={{ 
+          position: 'absolute', 
+          top: '-5%', 
+          left: '50%', 
+          width: '120%', 
+          maxWidth: '1200px', 
+          transform: 'translateX(-50%) perspective(1200px) rotateX(20deg) translateZ(-60px)',
+          opacity: 0.5, 
+          pointerEvents: 'none',
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
+          {/* Google Ads Dashboard Mockup */}
+          <div style={{
+            width: '100%',
+            background: '#1A1816',
+            borderRadius: '16px',
+            border: '1px solid rgba(255,255,255,0.08)',
+            boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
+            fontFamily: 'Roboto, arial, sans-serif',
+            color: '#e8eaed',
+            padding: '40px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '32px'
+          }}>
+            {/* Stats Bar */}
+            <div style={{ display: 'flex', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
+              
+              {/* Blue - Conversions */}
+              <div style={{ flex: 1, background: 'rgba(66, 133, 244, 0.12)', padding: '32px 24px', borderRight: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ fontSize: '15px', color: '#8ab4f8', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', fontWeight: 500 }}>
+                  <span style={{ fontSize: '10px' }}>▼</span> Conversions
+                </div>
+                <div style={{ fontSize: '48px', fontWeight: 400, color: '#fff' }}>450</div>
+              </div>
+
+              {/* Red - Impressions */}
+              <div style={{ flex: 1, background: 'rgba(234, 67, 53, 0.12)', padding: '32px 24px', borderRight: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ fontSize: '15px', color: '#f28b82', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', fontWeight: 500 }}>
+                  <span style={{ fontSize: '10px' }}>▼</span> Impressions
+                </div>
+                <div style={{ fontSize: '48px', fontWeight: 400, color: '#fff' }}>75.2K</div>
+              </div>
+
+              {/* Yellow - Avg. CPC */}
+              <div style={{ flex: 1, background: 'rgba(251, 188, 5, 0.12)', padding: '32px 24px', borderRight: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ fontSize: '15px', color: '#fde293', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', fontWeight: 500 }}>
+                  <span style={{ fontSize: '10px' }}>▼</span> Avg. CPC
+                </div>
+                <div style={{ fontSize: '48px', fontWeight: 400, color: '#fff' }}>$0.85</div>
+              </div>
+
+              {/* Green - Cost */}
+              <div style={{ flex: 1, background: 'rgba(52, 168, 83, 0.12)', padding: '32px 24px' }}>
+                <div style={{ fontSize: '15px', color: '#81c995', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', fontWeight: 500 }}>
+                  <span style={{ fontSize: '10px' }}>▼</span> Cost
+                </div>
+                <div style={{ fontSize: '48px', fontWeight: 400, color: '#fff' }}>$3,250</div>
+              </div>
+
+            </div>
+
+            {/* Chart Area */}
+            <div style={{ padding: '20px 0 0 0', position: 'relative', height: '260px', width: '100%' }}>
+              {/* Horizontal Grid lines */}
+              <div style={{ position: 'absolute', top: '20%', left: '0', right: '0', height: '1px', background: 'rgba(255,255,255,0.05)' }}></div>
+              <div style={{ position: 'absolute', top: '50%', left: '0', right: '0', height: '1px', background: 'rgba(255,255,255,0.05)' }}></div>
+              <div style={{ position: 'absolute', top: '80%', left: '0', right: '0', height: '1px', background: 'rgba(255,255,255,0.05)' }}></div>
+              <div style={{ position: 'absolute', bottom: '0', left: '0', right: '0', height: '1px', background: 'rgba(255,255,255,0.1)' }}></div>
+
+              {/* Vertical shaded regions */}
+              <div style={{ position: 'absolute', top: '0', bottom: '0', left: '18%', width: '4%', background: 'rgba(255,255,255,0.02)' }}></div>
+              <div style={{ position: 'absolute', top: '0', bottom: '0', left: '42%', width: '4%', background: 'rgba(255,255,255,0.02)' }}></div>
+              <div style={{ position: 'absolute', top: '0', bottom: '0', left: '68%', width: '4%', background: 'rgba(255,255,255,0.02)' }}></div>
+              <div style={{ position: 'absolute', top: '0', bottom: '0', left: '92%', width: '4%', background: 'rgba(255,255,255,0.02)' }}></div>
+
+              {/* SVG Lines */}
+              <svg viewBox="0 25 100 75" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'visible' }}>
+                {/* Yellow Line */}
+                <polyline points="0,98 12,98 16,85 20,40 28,45 35,90 40,88 45,95 55,95 62,95 68,95 72,75 75,55 80,55 85,85 90,88 95,95 100,95" 
+                  fill="none" stroke="#fde293" strokeWidth="0.5" vectorEffect="non-scaling-stroke" />
+                {/* Green Line */}
+                <polyline points="0,98 14,98 22,88 28,92 35,50 42,65 50,88 58,85 65,95 72,95 75,95 80,60 88,58 92,75 100,60" 
+                  fill="none" stroke="#81c995" strokeWidth="0.5" vectorEffect="non-scaling-stroke" />
+                {/* Red Line */}
+                <polyline points="0,98 18,98 22,90 28,98 35,78 40,72 45,80 50,95 58,70 65,95 72,95 78,65 85,55 90,30 95,65 100,95" 
+                  fill="none" stroke="#f28b82" strokeWidth="0.5" vectorEffect="non-scaling-stroke" />
+                {/* Blue Line */}
+                <polyline points="0,98 14,98 22,65 28,40 35,80 40,98 48,65 52,98 60,98 65,55 72,98 78,35 85,60 90,90 95,85 100,50" 
+                  fill="none" stroke="#8ab4f8" strokeWidth="0.5" vectorEffect="non-scaling-stroke" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      )}
+      {index === 3 && (
+        <div style={{ 
+          position: 'absolute', 
+          top: '-5%', 
+          left: '50%', 
+          width: '120%', 
+          maxWidth: '1200px', 
+          transform: 'translateX(-50%) perspective(1200px) rotateX(15deg) translateZ(-60px)',
+          opacity: 0.9, 
+          pointerEvents: 'none',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%'
+        }}>
+           {/* Floating Histogram */}
+           <div style={{ position: 'relative', display: 'flex', alignItems: 'flex-end', gap: '32px', width: '800px', height: '400px' }}>
+              {/* Background horizontal lines */}
+              <div style={{ position: 'absolute', top: '33%', left: '-10%', right: '-10%', height: '2px', background: 'rgba(255,255,255,0.05)' }}></div>
+              <div style={{ position: 'absolute', top: '66%', left: '-10%', right: '-10%', height: '2px', background: 'rgba(255,255,255,0.05)' }}></div>
+              <div style={{ position: 'absolute', bottom: '0', left: '-10%', right: '-10%', height: '2px', background: 'rgba(255,255,255,0.1)' }}></div>
+
+              {/* Bars - Progressive scaling */}
+              <div style={{ flex: 1, height: '40%', background: 'rgba(255,255,255,0.1)', borderRadius: '12px 12px 0 0', boxShadow: '0 10px 40px rgba(0,0,0,0.5)' }}></div>
+              <div style={{ flex: 1, height: '60%', background: 'rgba(110,86,207,0.4)', borderRadius: '12px 12px 0 0', boxShadow: '0 10px 40px rgba(0,0,0,0.5)' }}></div>
+              <div style={{ flex: 1, height: '55%', background: 'rgba(255,255,255,0.1)', borderRadius: '12px 12px 0 0', boxShadow: '0 10px 40px rgba(0,0,0,0.5)' }}></div>
+              <div style={{ flex: 1, height: '80%', background: 'rgba(110,86,207,0.7)', borderRadius: '12px 12px 0 0', boxShadow: '0 10px 40px rgba(0,0,0,0.5)' }}></div>
+              <div style={{ flex: 1, height: '100%', background: '#6E56CF', borderRadius: '12px 12px 0 0', boxShadow: '0 10px 40px rgba(0,0,0,0.5)' }}></div>
+           </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -432,6 +561,13 @@ export default function StatScroller() {
         height: '340vh',
       }}
     >
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media (max-width: 768px) {
+          .asc-bg-graphic {
+            display: none !important;
+          }
+        }
+      ` }} />
       <div
         class="asc-stats-sticky"
         style={{

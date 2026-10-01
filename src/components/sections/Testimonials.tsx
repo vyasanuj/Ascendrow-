@@ -21,13 +21,13 @@ export default function Testimonials() {
 
   return (
     <div
-      style={`position: relative; z-index: 1; border-radius: 6px; background: ${quote.cardBg}; color: #0F0F14; padding: clamp(34px, 4.6vw, 76px) clamp(20px, 3vw, 40px) clamp(26px, 3vw, 44px); box-shadow: 0 50px 110px -50px rgba(9,8,20,.9); transition: background .55s ease;`}
+      style={`position: relative; z-index: 1; border-radius: 6px; background: ${quote.cardBg}; color: #0F0F14; padding: clamp(24px, 3.5vw, 56px) clamp(20px, 3vw, 40px) clamp(20px, 2.5vw, 32px); box-shadow: 0 50px 110px -50px rgba(9,8,20,.9); transition: background .55s ease;`}
     >
       <h2 style="margin: 0 auto; max-width: 22ch; text-align: center; font-size: clamp(30px, 4.2vw, 58px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; color: #0F0F14; text-wrap: balance;">
         Growth teams that stayed.
       </h2>
 
-      <div class="asc-quote-grid" style="display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(10px, 2vw, 28px); margin-top: clamp(26px, 3.2vw, 44px);">
+      <div class="asc-quote-grid" style="display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(10px, 2vw, 28px); margin-top: clamp(16px, 2vw, 32px);">
         <button type="button" onClick={prev} aria-label="Previous testimonial" class="asc-quote-nav">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
@@ -50,7 +50,7 @@ export default function Testimonials() {
           <blockquote style="margin: 14px auto 0; max-width: 46ch; font-size: clamp(17px, 1.7vw, 25px); font-weight: 500; line-height: 1.4; letter-spacing: -0.02em; color: #14131C; text-wrap: pretty;">
             {quote.quote}
           </blockquote>
-          <div style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: clamp(22px, 2.6vw, 32px);">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: clamp(16px, 2vw, 24px);">
             {/* Photo when there is one, initials when there isn't — an
                 unattributed draft shouldn't render a broken avatar. */}
             {quote.photo ? (
@@ -121,7 +121,7 @@ export default function Testimonials() {
         </button>
       </div>
 
-      <div style="margin-top: clamp(26px, 3.2vw, 44px); padding-top: clamp(20px, 2.4vw, 30px); border-top: 1px solid rgba(15,15,20,.1); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 45%), 1fr)); grid-auto-rows: clamp(72px, 7vw, 88px); gap: clamp(10px, 1.4vw, 20px);">
+      <div style="margin-top: clamp(16px, 2vw, 32px); padding-top: clamp(16px, 2vw, 24px); border-top: 1px solid rgba(15,15,20,.1); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 45%), 1fr)); grid-auto-rows: clamp(56px, 6vw, 72px); gap: clamp(10px, 1.4vw, 20px);">
         {reviewBadges.map((b) => {
           // Same softened optical-area rule used elsewhere: size by area, not
           // height, so a 6.7:1 wordmark and a 2:1 badge carry equal weight.

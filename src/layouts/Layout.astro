@@ -403,77 +403,9 @@ const { title, description } = Astro.props;
           grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
         }
 
-        /* Stat scroller: the 340vh sticky 3D sequence is a desktop device.
-           On a phone it becomes a plain stacked list — every card visible,
-           no scroll-jacking. The island still runs; these just override
-           its inline transforms. */
-        .asc-stats {
-          height: auto !important;
-        }
-        .asc-stats-sticky {
-          position: static !important;
-          height: auto !important;
-          display: block !important;
-          padding: 56px clamp(20px, 4vw, 56px) 40px !important;
-        }
-        .asc-stats-wash {
-          display: none !important;
-        }
-        .asc-stats-stage {
-          height: auto !important;
-          perspective: none !important;
-          display: flex;
-          flex-direction: column;
-          gap: 56px;
-        }
-        .asc-stat-card {
-          position: relative !important;
-          inset: auto !important;
-          opacity: 1 !important;
-          transform: none !important;
-          pointer-events: auto !important;
-          transition: none !important;
-        }
-        .asc-stat-brands span {
-          width: calc(50% - 4px) !important;
-          height: 64px !important;
-        }
 
-        /* Work: swap the ring for the strip. */
-        .asc-work-stage {
-          display: none !important;
-        }
-        .asc-work-mobile {
-          display: flex;
-          gap: 12px;
-          margin: 0 calc(-1 * clamp(20px, 4vw, 56px)) 28px;
-          padding: 4px clamp(20px, 4vw, 56px) 12px;
-          overflow-x: auto;
-          scroll-snap-type: x mandatory;
-          -webkit-overflow-scrolling: touch;
-          scrollbar-width: none;
-        }
-        .asc-work-mobile::-webkit-scrollbar {
-          display: none;
-        }
-        .asc-work-mobile img {
-          flex: 0 0 78%;
-          width: 78%;
-          height: auto;
-          border-radius: 8px;
-          scroll-snap-align: center;
-          background: #0f0f14;
-          box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.9);
-        }
-        /* The copy was positioned over the ring; on phones it just flows. */
-        .asc-work-copy {
-          position: static !important;
-          transform: none !important;
-          width: 100% !important;
-        }
-        .asc-work-copy > div:first-child {
-          display: none;
-        }
+
+
 
         /* Approach: pillar labels sit outside their nodes and clip on narrow
            screens — tuck them under instead. */
@@ -482,27 +414,7 @@ const { title, description } = Astro.props;
           max-width: 9ch !important;
         }
 
-        /* Testimonials: prev/next were beside the quote; put them under it. */
-        .asc-quote-grid {
-          grid-template-columns: minmax(0, 1fr) !important;
-          gap: 18px !important;
-        }
-        /* Both buttons share one cell on row 2 and justify to opposite ends.
-           Without the explicit column, auto-placement invents a second one. */
-        .asc-quote-grid > div {
-          grid-row: 1;
-          grid-column: 1;
-        }
-        .asc-quote-grid > .asc-quote-nav {
-          grid-row: 2;
-          grid-column: 1;
-        }
-        .asc-quote-grid > .asc-quote-nav:first-child {
-          justify-self: start;
-        }
-        .asc-quote-grid > .asc-quote-nav:last-child {
-          justify-self: end;
-        }
+
 
         /* Contact: two CTAs stack full-width. */
         .asc-contact-ctas > a {

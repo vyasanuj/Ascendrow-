@@ -93,6 +93,7 @@ import FunnelIsland from './Funnel';
   @media (max-width: 900px) {
     .asc-funnel-grid {
       grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
     }
     .asc-funnel-copy,
     .asc-funnel-viz,
@@ -115,6 +116,15 @@ import FunnelIsland from './Funnel';
     .asc-funnel-copy p {
       margin-left: auto;
       margin-right: auto;
+    }
+    .asc-funnel-cta {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+    }
+    .asc-funnel-cta > * {
+      width: 100% !important;
+      flex: none !important;
     }
   }
 </style>
