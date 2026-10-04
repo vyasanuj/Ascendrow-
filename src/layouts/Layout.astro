@@ -485,6 +485,10 @@ const { title, description } = Astro.props;
         0% { width: 26%; }
         100% { width: 100%; }
       }
+      @keyframes ascWaDot {
+        0%, 44% { opacity: 0.3; transform: translateY(0); }
+        28% { opacity: 1; transform: translateY(-3px); }
+      }
     </style>
   </body>
 </html>
