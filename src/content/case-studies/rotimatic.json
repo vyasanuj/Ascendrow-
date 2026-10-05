@@ -1,0 +1,53 @@
+{
+  "id": "rotimatic",
+  "seo": {
+    "title": "Rotimatic Case Study — Ascendrow",
+    "description": "A roti-making machine grows into an essential kitchen appliance."
+  },
+  "hero": {
+    "headlineText": "Sales pipeline transformation for Rotimatic — ",
+    "headlineHighlight": "driving $165K in new revenue.",
+    "image": "/mockups/Rotimatic-img.webp"
+  },
+  "metadata": {
+    "client": {
+      "logo": "/brands/Rotimatic_Logo_.png",
+      "name": "Rotimatic",
+      "url": "https://rotimatic.com",
+      "urlLabel": "(rotimatic.com)"
+    },
+    "role": "Sales",
+    "contact": {
+      "name": "Pranshav Vyas",
+      "avatar": "https://ui-avatars.com/api/?name=Pranshav+Vyas&background=FF6B4A&color=FFF&bold=true"
+    }
+  },
+  "leftContent": [
+    {
+      "type": "text",
+      "content": "By integrating directly as an extension of the team, we completely transformed the sales pipeline. From automating support to closing high-consideration buyers across global markets, here is the tangible revenue we drove."
+    }
+  ],
+  "rightTimeline": [
+    {
+      "title": "$165K",
+      "subtitle": "Revenue Generated",
+      "descriptionHtml": "Influenced <strong style=\"color: #FF6B4A; font-weight: 700;\">110+ purchases</strong> of a ₹1.45 lakh ($1,499) premium appliance in about a month through live chat across global markets, generating ~₹1.59 crore before the product went out of stock."
+    },
+    {
+      "title": "$60K",
+      "subtitle": "Closed Revenue",
+      "descriptionHtml": "Closed <strong style=\"color: #FF6B4A; font-weight: 700;\">40+ machines</strong> (~₹58 lakh) by positioning direct discounts at the exact right point in the buying conversation, converting high-consideration buyers without pressuring them."
+    },
+    {
+      "title": "$450K",
+      "subtitle": "Pipeline Managed",
+      "descriptionHtml": "Worked <strong style=\"color: #FF6B4A; font-weight: 700;\">300+ opportunities</strong> worth ~₹4.34 crore in pipeline through consultative abandoned-cart recovery and objection handling, addressing price and product doubts directly."
+    },
+    {
+      "title": "CRM",
+      "subtitle": "Automation",
+      "descriptionHtml": "<strong style=\"color: #FF6B4A; font-weight: 700;\">HubSpot CRM:</strong> Owned the sales inbox and ticket queue end to end. Built automated email sequences and canned chat replies, kept response times low at high daily volume, and helped train an AI chat assistant that cut manual load on repeat queries."
+    }
+  ]
+}

@@ -1,0 +1,593 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/sections/Footer.astro';
+import { nav, navCta } from '../../data/site';
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection('case-studies');
+  return caseStudies.map(entry => ({
+    params: { id: entry.id }, props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const data = entry.data;
+---
+
+<Layout title={data.seo.title} description={data.seo.description}>
+  <main class="case-study-page">
+    
+    <!-- Navbar -->
+    <div class="asc-hero-nav-wrapper container" style="margin-bottom: clamp(40px, 8vw, 80px); padding-top: clamp(12px, 1.6vw, 20px);">
+      <header
+        class="asc-hero-nav"
+        style="display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 56px; width: 100%;"
+      >
+        <a href="/" class="asc-brand" aria-label="Ascendrow home">
+          <img
+            class="asc-brand-mark"
+            src="/branding/ascendrow-logo.webp"
+            alt="Ascendrow Logo"
+            width="589"
+            height="110"
+            decoding="async"
+          />
+        </a>
+
+        <div class="asc-hero-nav-right" style="display: flex; align-items: center; gap: 12px 32px;">
+          <nav
+            style="display: flex; align-items: center; gap: 10px 32px; font-size: 15px; font-weight: 500;"
+            aria-label="Primary"
+          >
+            {nav.map((item: any) => <a href={item.href} class="asc-navlink">{item.label}</a>)}
+          </nav>
+          <a href={navCta.href} class="asc-nav-cta">{navCta.label}</a>
+        </div>
+
+        <details class="asc-menu">
+          <summary class="asc-menu-btn" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </summary>
+          <div class="asc-menu-panel">
+            {nav.map((item: any) => <a href={item.href} class="asc-menu-link">{item.label}</a>)}
+            <a href={navCta.href} class="asc-nav-cta asc-menu-cta">{navCta.label}</a>
+          </div>
+        </details>
+      </header>
+    </div>
+
+    <div class="container">
+      
+      <!-- New Hero Section: Logo, Headline, Description -->
+      <section class="cs-hero-grid">
+        <div class="cs-hero-left">
+          <div class="cs-client-logo" style="background: #ffffff; display: inline-flex; padding: 12px 16px; border-radius: 8px; margin-bottom: 32px;">
+            <img src={data.metadata.client.logo} alt={`${data.metadata.client.name} Logo`} style="height: 32px; width: auto; max-width: 160px; object-fit: contain; filter: none;" />
+          </div>
+          <h1 class="cs-hero-headline">
+            {data.hero.headlineText}
+            <span style="color: #f8f7fb;">{data.hero.headlineHighlight}</span>
+          </h1>
+        </div>
+        
+        <div class="cs-hero-right">
+          {data.hero.image && (
+            <div class="cs-hero-image" style="width: 100%; display: flex; justify-content: flex-start;">
+              <img src={data.hero.image} alt="Case Study Highlight" style="max-width: 100%; max-height: 420px; width: auto; height: auto; display: block; filter: drop-shadow(0 16px 32px rgba(0,0,0,0.3));" />
+            </div>
+          )}
+          <p class="cs-hero-description">{data.seo.description}</p>
+        </div>
+      </section>
+
+      <div class="cs-divider"></div>
+
+      <!-- Main Content Split -->
+      <div class="content-split">
+        <!-- Left Column: The Story -->
+        <article class="story-column">
+          {data.leftContent.map((block: any) => {
+            if (block.type === 'text') {
+              return <p class="story-text">{block.content}</p>;
+            }
+            if (block.type === 'section') {
+              return (
+                <div class="story-section">
+                  <h3 class="section-title">{block.title}</h3>
+                  {block.paragraphs.map((p: string) => (
+                    <p class="story-text" set:html={p}></p>
+                  ))}
+                </div>
+              );
+            }
+            if (block.type === 'resultBox') {
+              return (
+                <div class="result-box clean-panel">
+                  <h3 class="result-box-title">{block.title}</h3>
+                  <p class="result-box-desc" set:html={block.description}></p>
+                  <div class="result-stats">
+                    {block.stats.map((stat: any) => (
+                      <div class="stat-item">
+                        <span class="stat-value">{stat.value}</span>
+                        <span class="stat-label">{stat.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {block.footer && <div class="result-box-footer">{block.footer}</div>}
+                </div>
+              );
+            }
+            if (block.type === 'images') {
+              return (
+                <div class="image-gallery">
+                  {block.items.map((img: any) => (
+                    <div class="image-wrapper clean-panel">
+                      <img src={img.src} alt={img.alt} loading="lazy" />
+                    </div>
+                  ))}
+                </div>
+              );
+            }
+          })}
+        </article>
+
+        <!-- Right Column: Timeline / Key Results -->
+        <aside class="timeline-column">
+          <div class="timeline-sticky">
+            <h3 class="timeline-header">Execution & Results</h3>
+            <div class="timeline-container">
+              {data.rightTimeline.map((item: any) => (
+                <div class="timeline-item">
+                  <div class="timeline-node"></div>
+                  <div class="timeline-content clean-panel">
+                    {item.subtitle ? (
+                      <h4 class="timeline-title with-subtitle">
+                        <span>{item.title}</span>
+                        <span class="timeline-subtitle">{item.subtitle}</span>
+                      </h4>
+                    ) : (
+                      <h4 class="timeline-title">{item.title}</h4>
+                    )}
+                    <div class="timeline-desc" set:html={item.descriptionHtml}></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Bottom CTA -->
+      <section class="cta-section clean-panel text-center">
+        <h2 class="cta-headline">Ready to scale your revenue?</h2>
+        <p class="cta-subheadline">Let's discuss how we can build a similar growth engine for your business.</p>
+        <a href="#contact" class="primary-btn">
+          Work with us
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="btn-icon">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </section>
+
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* Base Variables - Pure Dark Theme */
+  :root {
+    --bg-dark: #0f0f14;
+    --text-main: #f8f7fb;
+    --text-muted: #c3c2d2;
+    --border-color: rgba(248, 247, 251, 0.08);
+    --panel-bg: rgba(248, 247, 251, 0.03);
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  /* Page Setup */
+  .case-study-page {
+    background-color: var(--bg-dark);
+    min-height: 100vh;
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    padding-bottom: clamp(64px, 8vw, 120px);
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 5vw, 48px);
+    position: relative;
+  }
+
+  /* Utilities */
+  .clean-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+  }
+
+  /* Hero Section */
+  .cs-hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .cs-hero-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .cs-client-logo {
+    background: #ffffff;
+    display: inline-flex;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 32px;
+  }
+
+  .cs-client-logo img {
+    height: 32px;
+    width: auto;
+    max-width: 160px;
+    object-fit: contain;
+    filter: none;
+  }
+
+  .cs-hero-headline {
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--text-muted);
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .cs-hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding-top: 16px;
+  }
+
+  .cs-hero-description {
+    font-size: clamp(18px, 1.5vw, 22px);
+    line-height: 1.6;
+    color: var(--text-main);
+    margin: 0;
+  }
+
+  .cs-hero-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 32px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 32px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .meta-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  .poc-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .poc-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .link {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border-color);
+    text-underline-offset: 4px;
+    transition: color 0.2s;
+  }
+
+  .link:hover {
+    color: var(--text-main);
+  }
+
+  .cs-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: clamp(64px, 8vw, 100px) 0;
+    width: 100%;
+  }
+
+  /* Content Split Layout */
+  .content-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(64px, 8vw, 120px);
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .content-split {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Left Column: Story */
+  .story-column {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .story-text {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .story-text + .story-text {
+    margin-top: 20px;
+  }
+
+  .story-text strong {
+    color: var(--text-main);
+    font-weight: 700;
+  }
+
+  .story-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0 0 20px 0;
+    letter-spacing: -0.01em;
+  }
+
+  /* Result Box inside Story */
+  .result-box {
+    padding: 32px;
+  }
+
+  .result-box-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0 0 16px 0;
+  }
+
+  .result-box-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin: 0 0 32px 0;
+  }
+
+  .result-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-value {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .stat-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .result-box-footer {
+    font-size: 14px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+  }
+
+  /* Image Gallery */
+  .image-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .image-wrapper {
+    padding: 8px;
+    overflow: hidden;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    border-radius: 6px;
+    display: block;
+  }
+
+  /* Right Column: Timeline */
+  .timeline-column {
+    position: relative;
+  }
+
+  .timeline-sticky {
+    position: sticky;
+    top: 40px;
+  }
+
+  .timeline-header {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0 0 32px 0;
+    padding-left: 36px;
+  }
+
+  .timeline-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 20px;
+    width: 2px;
+    background: var(--border-color);
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 20px;
+    position: relative;
+  }
+
+  .timeline-node {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg-dark);
+    border: 2px solid var(--text-muted);
+    flex-shrink: 0;
+    margin-top: 24px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .timeline-content {
+    flex-grow: 1;
+    padding: 24px;
+  }
+
+  .timeline-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .timeline-title.with-subtitle {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .timeline-subtitle {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .timeline-desc p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .timeline-desc p + p {
+    margin-top: 12px;
+  }
+
+  .timeline-desc strong {
+    color: var(--text-main);
+    font-weight: 700;
+  }
+
+  /* Bottom CTA */
+  .cta-section {
+    padding: 64px 40px;
+    margin-top: 80px;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .cta-headline {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0 0 16px 0;
+    letter-spacing: -0.02em;
+  }
+
+  .cta-subheadline {
+    font-size: 18px;
+    color: var(--text-muted);
+    margin: 0 auto 32px auto;
+    max-width: 600px;
+  }
+
+  .primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #f8f7fb;
+    color: #0f0f14;
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  .primary-btn:hover {
+    background: #ffffff;
+  }
+</style>

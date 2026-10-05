@@ -1,0 +1,83 @@
+{
+  "id": "white-academy",
+  "seo": {
+    "title": "eHack Academy Case Study — Ascendrow",
+    "description": "Building a complete cybersecurity acquisition funnel from scratch."
+  },
+  "hero": {
+    "headlineText": "Cybersecurity acquisition funnel for eHack Academy — ",
+    "headlineHighlight": "scaling to ₹22.5L+ in monthly sales.",
+    "image": "/mockups/diploma-ss.png"
+  },
+  "metadata": {
+    "client": {
+      "logo": "/brands/white-academy.png",
+      "name": "eHack Academy"
+    },
+    "role": "Tech & Performance Marketing",
+    "contact": {
+      "name": "Pranshav Vyas",
+      "avatar": "https://ui-avatars.com/api/?name=Pranshav+Vyas&background=FF6B4A&color=FFF&bold=true"
+    }
+  },
+  "leftContent": [
+    {
+      "type": "section",
+      "title": "The Starting Point",
+      "paragraphs": [
+        "When we started working with this EdTech company, there was no proper digital acquisition system in place. There was no clear brand positioning, no defined digital funnel, and no active paid acquisition strategy.",
+        "The website was not generating meaningful inquiries, and there was no structured journey to take a potential student from awareness to enrollment. We started from zero, focusing on building a complete acquisition funnel for their cybersecurity programs—from the first ad impression to the final enrollment."
+      ]
+    },
+    {
+      "type": "resultBox",
+      "title": "The Result",
+      "description": "The complete funnel helped turn a previously inactive digital presence into a working student acquisition system. The <strong>Job Ready Program</strong>, priced at ₹1.5 lakh, became the primary conversion driver.",
+      "stats": [
+        { "value": "15+", "label": "Sales / Month" },
+        { "value": "₹22.5L+", "label": "Monthly Revenue" }
+      ],
+      "footer": "(15 × ₹1,50,000 = ₹22,50,000)"
+    },
+    {
+      "type": "section",
+      "title": "The Bigger Picture",
+      "paragraphs": [
+        "This was not just a landing page project. It was about creating the system that connects positioning, advertising, landing pages, retargeting and automation into one customer journey. From zero acquisition infrastructure to ₹22.5 lakh+ in monthly program sales."
+      ]
+    },
+    {
+      "type": "images",
+      "items": [
+        { "src": "/mockups/job-ready-promote.png", "alt": "Job Ready Promotion" },
+        { "src": "/mockups/diploma-ss.png", "alt": "Diploma Screenshot" }
+      ]
+    }
+  ],
+  "rightTimeline": [
+    {
+      "title": "01 — Positioning & Messaging",
+      "descriptionHtml": "Before running campaigns, we worked on how the cybersecurity programs should be presented to the market. Instead of simply selling courses, we positioned the programs around the user's career goals, problems and desired outcomes. This gave the ads, landing pages and follow-up communication one consistent message."
+    },
+    {
+      "title": "02 — Meta Awareness",
+      "descriptionHtml": "We launched Meta campaigns to introduce the cybersecurity programs to the right audience and create awareness. The goal was not to immediately sell. It was to build a relevant audience that could later be moved deeper into the funnel."
+    },
+    {
+      "title": "03 — Google High-Intent Acquisition",
+      "descriptionHtml": "We then used Google Ads to capture users who were already searching for cybersecurity education and career opportunities. This allowed us to target users with stronger purchase intent rather than relying only on cold audiences."
+    },
+    {
+      "title": "04 — Conversion-Focused Landing Pages",
+      "descriptionHtml": "We created dedicated landing page experiences for the cybersecurity programs. Each page was designed around a simple journey: <strong>Problem → Desired Outcome → Solution → Program → Proof/Trust → Action</strong><br/><br/>We strategically promoted the <strong>Job Ready Program</strong> as the primary solution. This became the key revenue-driving program, priced at ₹1.5 lakh."
+    },
+    {
+      "title": "05 — Retargeting",
+      "descriptionHtml": "Not every visitor was ready to enroll on the first visit. So we built retargeting campaigns across Meta and Google to bring interested users back. Users who had already interacted with the brand or website were shown relevant follow-up messaging."
+    },
+    {
+      "title": "06 — Email & Automation",
+      "descriptionHtml": "The funnel continued even after the user left the website. We built email follow-up and automation flows to keep potential students engaged, answer their questions and move them closer to enrollment. This connected the different parts of the funnel."
+    }
+  ]
+}
