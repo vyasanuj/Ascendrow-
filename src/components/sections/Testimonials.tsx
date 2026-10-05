@@ -21,14 +21,46 @@ export default function Testimonials() {
 
   return (
     <div
+      class="asc-testimonials-container"
       style={`position: relative; z-index: 1; border-radius: 6px; background: ${quote.cardBg}; color: #0F0F14; padding: clamp(24px, 3.5vw, 56px) clamp(20px, 3vw, 40px) clamp(20px, 2.5vw, 32px); box-shadow: 0 50px 110px -50px rgba(9,8,20,.9); transition: background .55s ease;`}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          .asc-testimonials-container {
+            padding: 24px 16px 24px 16px !important;
+          }
+          .asc-quote-grid {
+            grid-template-columns: auto auto !important;
+            grid-template-rows: auto auto !important;
+            gap: 16px 32px !important;
+            justify-content: center !important;
+          }
+          .asc-quote-nav-prev {
+            grid-column: 1;
+            grid-row: 2;
+            justify-self: end;
+          }
+          .asc-quote-nav-next {
+            grid-column: 2;
+            grid-row: 2;
+            justify-self: start;
+          }
+          .asc-quote-content {
+            grid-column: 1 / -1;
+            grid-row: 1;
+          }
+          .asc-badges-grid {
+            grid-auto-rows: 40px !important;
+            gap: 12px !important;
+          }
+        }
+      `}</style>
       <h2 style="margin: 0 auto; max-width: 22ch; text-align: center; font-size: clamp(30px, 4.2vw, 58px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; color: #0F0F14; text-wrap: balance;">
         Growth teams that stayed.
       </h2>
 
       <div class="asc-quote-grid" style="display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(10px, 2vw, 28px); margin-top: clamp(16px, 2vw, 32px);">
-        <button type="button" onClick={prev} aria-label="Previous testimonial" class="asc-quote-nav">
+        <button type="button" onClick={prev} aria-label="Previous testimonial" class="asc-quote-nav asc-quote-nav-prev">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               d="M14 6l-6 6 6 6"
@@ -41,6 +73,7 @@ export default function Testimonials() {
         </button>
 
         <div
+          class="asc-quote-content"
           key={`q${qi}`}
           style="min-width: 0; text-align: center; animation: ascQuoteIn .5s cubic-bezier(.22,.9,.24,1) both;"
         >
@@ -108,7 +141,7 @@ export default function Testimonials() {
           </div>
         </div>
 
-        <button type="button" onClick={next} aria-label="Next testimonial" class="asc-quote-nav">
+        <button type="button" onClick={next} aria-label="Next testimonial" class="asc-quote-nav asc-quote-nav-next">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               d="M10 6l6 6-6 6"
@@ -121,7 +154,7 @@ export default function Testimonials() {
         </button>
       </div>
 
-      <div style="margin-top: clamp(16px, 2vw, 32px); padding-top: clamp(16px, 2vw, 24px); border-top: 1px solid rgba(15,15,20,.1); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 45%), 1fr)); grid-auto-rows: clamp(56px, 6vw, 72px); gap: clamp(10px, 1.4vw, 20px);">
+      <div class="asc-badges-grid" style="margin-top: clamp(16px, 2vw, 32px); padding-top: clamp(16px, 2vw, 24px); border-top: 1px solid rgba(15,15,20,.1); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 45%), 1fr)); grid-auto-rows: clamp(56px, 6vw, 72px); gap: clamp(10px, 1.4vw, 20px);">
         {reviewBadges.map((b) => {
           // Same softened optical-area rule used elsewhere: size by area, not
           // height, so a 6.7:1 wordmark and a 2:1 badge carry equal weight.
