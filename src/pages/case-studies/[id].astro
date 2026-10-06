@@ -27,9 +27,10 @@ const highlightMetrics = (text: string) => {
 <Layout title={data.seo.title} description={data.seo.description}>
   <main class="case-study-page">
     
-    <!-- Navbar -->
-    <div class="asc-hero-nav-wrapper container" style="margin-bottom: clamp(40px, 8vw, 80px); padding-top: clamp(12px, 1.6vw, 20px);">
-      <header
+    <!-- Navbar exactly as home page -->
+    <div style="padding: clamp(12px, 1.6vw, 20px) clamp(16px, 3vw, 48px) 0; margin-bottom: clamp(40px, 8vw, 80px);">
+      <div class="asc-hero-nav-wrapper" style="position: relative; max-width: 1440px; margin: 0 auto; width: 100%;">
+        <header
         class="asc-hero-nav"
         style="display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 56px; width: 100%;"
       >
@@ -64,6 +65,7 @@ const highlightMetrics = (text: string) => {
           </div>
         </details>
       </header>
+      </div>
     </div>
 
     <div class="container">
@@ -414,7 +416,7 @@ const highlightMetrics = (text: string) => {
   }
 
   .story-text {
-    font-size: 20px;
+    font-size: clamp(16px, 2vw, 20px);
     line-height: 1.7;
     color: #ffffff;
     margin: 0;
@@ -456,7 +458,7 @@ const highlightMetrics = (text: string) => {
   }
 
   .section-title {
-    font-size: 28px;
+    font-size: clamp(22px, 3vw, 28px);
     font-weight: 700;
     color: #ffffff;
     margin: 0 0 20px 0;
@@ -465,7 +467,7 @@ const highlightMetrics = (text: string) => {
 
   /* Result Box inside Story */
   .result-box {
-    padding: 32px;
+    padding: clamp(20px, 4vw, 32px);
   }
 
   .result-box-title {
@@ -496,7 +498,7 @@ const highlightMetrics = (text: string) => {
   }
 
   .stat-value {
-    font-size: 36px;
+    font-size: clamp(28px, 4vw, 36px);
     font-weight: 800;
     color: var(--text-main);
     line-height: 1;
@@ -546,7 +548,7 @@ const highlightMetrics = (text: string) => {
   }
 
   .timeline-header {
-    font-size: 28px;
+    font-size: clamp(22px, 3vw, 28px);
     font-weight: 700;
     color: #ffffff;
     margin: 0 0 32px 0;
@@ -590,11 +592,11 @@ const highlightMetrics = (text: string) => {
 
   .timeline-content {
     flex-grow: 1;
-    padding: 24px;
+    padding: clamp(16px, 3vw, 24px);
   }
 
   .timeline-title {
-    font-size: 24px;
+    font-size: clamp(20px, 2.5vw, 24px);
     font-weight: 700;
     color: #ffffff;
     margin: 0 0 12px 0;
@@ -620,7 +622,7 @@ const highlightMetrics = (text: string) => {
   }
 
   .timeline-desc :global(p) {
-    font-size: 18px;
+    font-size: clamp(15px, 2vw, 18px);
     line-height: 1.6;
     color: #ffffff;
     margin: 0;
@@ -637,8 +639,8 @@ const highlightMetrics = (text: string) => {
 
   /* Bottom CTA */
   .cta-section {
-    padding: 64px 40px;
-    margin-top: 80px;
+    padding: clamp(40px, 6vw, 64px) clamp(20px, 4vw, 40px);
+    margin-top: clamp(60px, 8vw, 80px);
   }
 
   .text-center {
@@ -716,7 +718,7 @@ const highlightMetrics = (text: string) => {
   }
 
   .about-body {
-    font-size: 20px;
+    font-size: clamp(16px, 2vw, 20px);
     line-height: 1.6;
     color: #ffffff;
     margin: 0;
