@@ -1,0 +1,55 @@
+{
+  "id": "saas-design",
+  "seo": {
+    "title": "SaaS Design Services | Ascendrow",
+    "description": "Expert SaaS design services to build engaging digital products."
+  },
+  "hero": {
+    "folders": [
+      {
+        "title": "RESEARCH",
+        "color": "#1C1D21",
+        "textColor": "#FFFFFF",
+        "content": {
+          "items": ["user interviews", "competitor analysis", "personas", "user journeys"],
+          "image": "/images/research-polaroid.jpg",
+          "heading": "research",
+          "description": "Understanding your users and market to build a solid foundation."
+        }
+      },
+      {
+        "title": "UX DESIGN",
+        "color": "#334185",
+        "textColor": "#FFFFFF",
+        "content": {
+          "items": ["wireframes", "prototyping", "information architecture"],
+          "image": "/images/ux-polaroid.jpg",
+          "heading": "ux design",
+          "description": "Creating intuitive workflows and seamless user experiences."
+        }
+      },
+      {
+        "title": "UI DESIGN",
+        "color": "#6371BA",
+        "textColor": "#FFFFFF",
+        "content": {
+          "items": ["visual design", "interaction design", "design systems"],
+          "image": "/images/ui-polaroid.jpg",
+          "heading": "ui design",
+          "description": "Crafting beautiful interfaces that engage and convert."
+        }
+      },
+      {
+        "title": "TESTING",
+        "color": "#D3CDB9",
+        "textColor": "#1C1D21",
+        "content": {
+          "items": ["usability testing", "a/b testing", "analytics review"],
+          "image": "/images/testing-polaroid.jpg",
+          "heading": "testing",
+          "description": "Validating designs with real users to ensure success."
+        }
+      }
+    ]
+  }
+}

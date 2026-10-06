@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ServiceHero from '../../components/hero/ServiceHero';
+import Navbar from '../../components/sections/Navbar.astro';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map(service => ({
+    params: { id: service.id },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const data = service.data;
+---
+
+<Layout title={data.seo.title}>
+  <section style="background: #0F0F14; color: #F8F7FB; position: relative; overflow: hidden; padding: clamp(12px, 1.6vw, 20px) clamp(16px, 3vw, 48px) clamp(36px, 4vw, 60px);">
+    <!-- ambient glows -->
+    <div style="position: absolute; top: -300px; left: 50%; transform: translateX(-50%); width: min(1100px, 130%); height: 780px; border-radius: 50%; background: radial-gradient(circle, rgba(110,86,207,.20), rgba(110,86,207,0) 66%); pointer-events: none; animation: ascGlow 9s ease-in-out infinite;"></div>
+    <div style="position: absolute; bottom: -320px; right: -180px; width: 720px; height: 640px; border-radius: 50%; background: radial-gradient(circle, rgba(255,107,74,.13), rgba(255,107,74,0) 68%); pointer-events: none;"></div>
+    <div style="position: absolute; bottom: -320px; left: -220px; width: 640px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(110,86,207,.10), rgba(110,86,207,0) 70%); pointer-events: none;"></div>
+
+    <div style="position: relative; max-width: 1240px; margin: 0 auto; width: 100%; z-index: 40; min-height: 56px;">
+      <Navbar />
+    </div>
+
+    <!-- Cursor Glow Interactive Background -->
+    <div id="service-cursor-glow" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 0.5s ease; mix-blend-mode: screen;">
+      <div id="service-glow-orb" style="position: absolute; width: 1000px; height: 1000px; transform: translate(-50%, -50%); top: 50%; left: 50%; background: radial-gradient(circle, rgba(255, 107, 74, 0.12) 0%, rgba(110, 86, 207, 0.08) 35%, transparent 70%); border-radius: 50%; filter: blur(60px); will-change: transform;"></div>
+    </div>
+
+    <!-- Minimal Header Text Only -->
+    <div style="position: relative; max-width: 1000px; margin: 80px auto 40px; z-index: 20; padding: 0 clamp(24px, 5vw, 48px); text-align: center;">
+      <h1 style="font-size: clamp(40px, 6vw, 64px); font-weight: 300; margin: 0; color: #fff; letter-spacing: -0.02em; line-height: 1.1;">
+        {data.seo.title.split('|')[0].trim()}
+      </h1>
+      <p style="margin: 24px auto 0; color: rgba(255,255,255,0.7); font-size: clamp(18px, 1.5vw, 22px); max-width: 700px; line-height: 1.6;">
+        {data.seo.description}
+      </p>
+    </div>
+
+    <ServiceHero client:load folders={data.hero.folders} />
+  </section>
+</Layout>
+
+<script>
+  // High-performance cursor tracking for the interactive glow
+  const wrapper = document.getElementById('service-cursor-glow');
+  const orb = document.getElementById('service-glow-orb');
+  
+  if (wrapper && orb) {
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let currentX = mouseX;
+    let currentY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+      if (wrapper.style.opacity === '0' || wrapper.style.opacity === '') {
+        wrapper.style.opacity = '1';
+      }
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    window.addEventListener('mouseleave', () => {
+      wrapper.style.opacity = '0';
+    });
+
+    function animate() {
+      // Smooth easing (lerp) for the orb
+      currentX += (mouseX - currentX) * 0.1;
+      currentY += (mouseY - currentY) * 0.1;
+      
+      orb.style.transform = `translate(-50%, -50%) translate3d(${currentX}px, ${currentY}px, 0)`;
+      requestAnimationFrame(animate);
+    }
+    
+    animate();
+  }
+</script>

@@ -1,0 +1,252 @@
+.bento-accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 1320px;
+  margin: 60px auto 100px;
+  min-height: 800px;
+  position: relative;
+  z-index: 10;
+}
+
+@media (min-width: 992px) {
+  .bento-accordion-container {
+    flex-direction: row;
+    height: 650px;
+    min-height: auto;
+    margin-top: 80px;
+  }
+}
+
+.bento-card {
+  flex: 1;
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  cursor: pointer;
+  /* Premium spring-like accordion transition */
+  transition: flex 0.7s cubic-bezier(0.25, 1, 0.35, 1), box-shadow 0.4s ease;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.02);
+  min-height: 120px; /* For mobile stacked layout */
+}
+
+@media (min-width: 992px) {
+  .bento-card {
+    min-height: auto;
+  }
+}
+
+.bento-card.active {
+  flex: 5;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 0 20px 40px rgba(0,0,0,0.5);
+}
+
+@media (min-width: 992px) {
+  .bento-card.active {
+    flex: 4;
+  }
+}
+
+/* ==========================================================================
+   Background & Image
+   ========================================================================== */
+.bento-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.bento-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: scale(1);
+}
+
+/* When active, slight zoom for cinematic feel */
+.bento-card.active .bento-bg img {
+  transform: scale(1.03);
+}
+
+.bento-overlay {
+  position: absolute;
+  inset: 0;
+  /* Dim inactive cards less heavily to make the theme brighter */
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 100%);
+  transition: background 0.7s ease;
+}
+
+.bento-card.active .bento-overlay {
+  /* Much lighter overlay on active card for vibrant images */
+  background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 50%);
+}
+
+/* ==========================================================================
+   Inactive Content (Vertical Text)
+   ========================================================================== */
+.bento-inactive-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+@media (min-width: 992px) {
+  .bento-inactive-content {
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 40px;
+  }
+}
+
+.bento-card.active .bento-inactive-content {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bento-number {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FF6B4A;
+  letter-spacing: 0.1em;
+}
+
+@media (min-width: 992px) {
+  .bento-number {
+    margin-bottom: 20px;
+  }
+}
+
+.bento-title-vertical {
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  margin: 0;
+}
+
+@media (min-width: 992px) {
+  .bento-title-vertical {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    letter-spacing: 0.05em;
+  }
+}
+
+/* ==========================================================================
+   Active Content (Glass Panel)
+   ========================================================================== */
+.bento-active-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease 0.1s, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s;
+}
+
+@media (min-width: 992px) {
+  .bento-active-content {
+    padding: 40px;
+  }
+}
+
+.bento-card.active .bento-active-content {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.bento-glass-panel {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 32px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+@media (min-width: 992px) {
+  .bento-glass-panel {
+    padding: 40px;
+  }
+}
+
+.bento-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.bento-active-number {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FF6B4A;
+  letter-spacing: 0.1em;
+}
+
+.bento-active-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.bento-heading {
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 300;
+  color: #fff;
+  margin: 0 0 12px 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.bento-desc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 24px 0;
+}
+
+.bento-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bento-list li {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bento-list li svg {
+  width: 20px;
+  height: 20px;
+  color: #FF6B4A;
+  flex-shrink: 0;
+}

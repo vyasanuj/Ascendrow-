@@ -44,6 +44,32 @@ const caseStudiesCollection = defineCollection({
   }),
 });
 
+
+const servicesCollection = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "./src/content/services" }),
+  schema: z.object({
+    id: z.string(),
+    seo: z.object({
+      title: z.string(),
+      description: z.string(),
+    }),
+    hero: z.object({
+      folders: z.array(z.object({
+        title: z.string(),
+        color: z.string(),
+        textColor: z.string().optional(),
+        content: z.object({
+          items: z.array(z.string()),
+          image: z.string(),
+          heading: z.string(),
+          description: z.string(),
+        })
+      }))
+    })
+  }),
+});
+
 export const collections = {
   'case-studies': caseStudiesCollection,
+  'services': servicesCollection,
 };
