@@ -13,7 +13,9 @@ const caseStudies = [
       { label: "Revenue Generated", value: "$165K" },
       { label: "Pipeline Managed", value: "$450K" }
     ],
-    image: "/mockups/Rotimatic-img.webp"
+    image: "/mockups/Rotimatic-img.webp",
+    accent: "#F97316",
+    accentRgb: "249, 115, 22"
   },
   {
     id: "ehack-academy",
@@ -28,7 +30,9 @@ const caseStudies = [
       { label: "Enrollments", value: "15+" }
     ],
     image: "/mockups/diploma-ss.png",
-    secondaryImage: "/mockups/job-ready-promote.png"
+    secondaryImage: "/mockups/job-ready-promote.png",
+    accent: "#3B82F6",
+    accentRgb: "59, 130, 246"
   },
   {
     id: "digital-marketing-program",
@@ -46,7 +50,9 @@ const caseStudies = [
     slideshowImages: [
       "/mockups/digi-marketing-ui.png",
       "/mockups/digi-marketing-ui-1.png"
-    ]
+    ],
+    accent: "#EC4899",
+    accentRgb: "236, 72, 153"
   }
 ];
 ---
@@ -67,9 +73,10 @@ const caseStudies = [
     <!-- The Cards Container -->
     <div class="cards-container" style="position: relative; padding-bottom: 1px;">
       {caseStudies.map((study, index) => (
-        <div class="case-study-wrapper" style={`position: sticky; top: clamp(80px, 15vh, 120px); margin-bottom: ${index !== caseStudies.length - 1 ? '25vh' : '10vh'}; z-index: ${index + 1};`} data-index={index}>
-          <a href={study.link} class="case-study-card" style="--card-accent: #000000; --card-accent-rgb: 0, 0, 0; display: block; background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; text-decoration: none; position: relative; overflow: hidden; transform-origin: top center; will-change: transform, opacity;">
-            
+        <Fragment>
+          <div class="asc-case-wrapper" style={`position: sticky; top: clamp(80px, 15vh, 120px); z-index: ${index + 1};`} data-index={index}>
+            <a href={study.link} class="asc-case-card" style={`--card-accent: ${study.accent}; --card-accent-rgb: ${study.accentRgb}; display: block; background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01)); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 24px 48px rgba(0,0,0,0.2); border-radius: 24px; text-decoration: none; position: relative; overflow: hidden;`}>
+            <div class="card-shadow-overlay" style="position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 10; transition: opacity 0.1s linear;"></div>
             <!-- CSS Grid Layout -->
             <div class="card-grid">
               
@@ -77,7 +84,7 @@ const caseStudies = [
               <div style="padding: clamp(24px, 3.5vw, 48px); display: flex; flex-direction: column; justify-content: flex-start;">
                 
                 <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
-                  <span style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 16px 6px 6px; border-radius: 99px; font-size: 14px; font-weight: 700; color: #FFF; letter-spacing: 0.05em;">
+                  <span style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 6px 16px 6px 6px; border-radius: 99px; font-size: 14px; font-weight: 700; color: #FFF; letter-spacing: 0.05em; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                     <span style="background: #FFF; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                       <img src={study.logo} alt={`${study.brand} Logo`} style="height: 14px; width: auto; object-fit: contain;" />
                     </span>
@@ -110,7 +117,7 @@ const caseStudies = [
               </div>
 
               <!-- Column 3 (Right): Image Area with Matte Noisy Texture -->
-              <div class="case-study-img-col" style="position: relative; display: flex; align-items: center; justify-content: center; padding: clamp(24px, 3.5vw, 48px); background-color: #6E56CF; overflow: hidden; border-top-right-radius: 24px; border-bottom-right-radius: 24px;">
+              <div class="case-study-img-col" style="position: relative; display: flex; align-items: center; justify-content: center; padding: clamp(24px, 3.5vw, 48px); background: linear-gradient(145deg, rgba(var(--card-accent-rgb), 0.15), rgba(var(--card-accent-rgb), 0.02)); overflow: hidden; border-top-right-radius: 24px; border-bottom-right-radius: 24px;">
                 <!-- Noisy Texture Overlay -->
                 <div style="position: absolute; inset: 0; opacity: 0.3; mix-blend-mode: overlay; pointer-events: none; background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
                 
@@ -140,16 +147,20 @@ const caseStudies = [
             </div>
           </a>
         </div>
+        <div style={`height: ${index !== caseStudies.length - 1 ? '25vh' : '15vh'};`}></div>
+        </Fragment>
       ))}
     </div>
 
-    <!-- View All Button -->
-    <div style="text-align: center; margin-top: clamp(48px, 6vw, 80px); position: relative; z-index: 10;">
-      <a href="/case-studies" class="asc-cta-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 32px; border-radius: 4px; background: #FF6B4A; color: #FFF; font-size: 16px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 10px 20px -5px rgba(255,107,74,0.4);">
-        View all case studies
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+    <!-- View All Button (Outside container so it doesn't overlap the sticky cards) -->
+    <div style="text-align: center; margin-top: clamp(24px, 4vw, 48px); position: relative; z-index: 10;">
+      <a href="/case-studies" class="results-cta-btn">
+        <span>View all case studies</span>
+        <div class="results-cta-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
       </a>
     </div>
 
@@ -159,11 +170,11 @@ const caseStudies = [
 <script>
   // Add scroll event listener to animate cards
   function initCardAnimation() {
-    const wrappers = Array.from(document.querySelectorAll('.case-study-wrapper'));
+    const wrappers = Array.from(document.querySelectorAll('.asc-case-wrapper'));
     if (!wrappers.length) return;
 
     // Cache elements so we don't query the DOM inside the scroll loop
-    const cards = wrappers.map(w => w.querySelector('.case-study-card') as HTMLElement);
+    const cards = wrappers.map(w => w.querySelector('.asc-case-card') as HTMLElement);
     
     let ticking = false;
 
@@ -172,10 +183,8 @@ const caseStudies = [
       if (window.innerWidth <= 768) {
         cards.forEach(card => {
           if (card) {
-            card.style.opacity = '1';
-            card.style.transform = `scale(1)`;
-            // Explicitly clear filter in case it was resized
-            card.style.filter = 'none'; 
+            const overlay = card.querySelector('.card-shadow-overlay') as HTMLElement;
+            if (overlay) overlay.style.opacity = '0';
           }
         });
         ticking = false;
@@ -205,18 +214,14 @@ const caseStudies = [
           let progress = 1 - (distance / fadeStartDistance);
           progress = Math.max(0, Math.min(1, progress));
           
-          const opacity = 1 - progress;
-          // Scale down slightly (to 0.95) for a smoother, less drastic feel
-          const scale = 1 - (0.05 * progress); 
-          
-          // Removed filter: blur() because animating it on top of a 
-          // backdrop-filter is extremely heavy on the GPU and causes lag.
-          cardElement.style.opacity = opacity.toString();
-          cardElement.style.transform = `scale(${scale})`;
+          const overlay = cardElement.querySelector('.card-shadow-overlay') as HTMLElement;
+          if (overlay) {
+             overlay.style.opacity = (progress * 0.85).toString();
+          }
         } else {
           // Reset styles if scrolling back up
-          cardElement.style.opacity = '1';
-          cardElement.style.transform = `scale(1)`;
+          const overlay = cardElement.querySelector('.card-shadow-overlay') as HTMLElement;
+          if (overlay) overlay.style.opacity = '0';
         }
       });
 
@@ -229,6 +234,13 @@ const caseStudies = [
         ticking = true;
       }
     };
+
+    // Clean up old listeners for HMR
+    if ((window as any)._ascScrollListener) {
+      window.removeEventListener('scroll', (window as any)._ascScrollListener);
+      window.removeEventListener('resize', (window as any)._ascScrollListener);
+    }
+    (window as any)._ascScrollListener = onScroll;
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
@@ -243,6 +255,50 @@ const caseStudies = [
 </script>
 
 <style is:global>
+  /* View All CTA Button */
+  .results-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 64px;
+    padding: 0 12px 0 32px;
+    border-radius: 99px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 10px 30px rgba(0,0,0,0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .results-cta-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #FF6B4A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .results-cta-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.25);
+    transform: translateY(-2px);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 0 20px 40px rgba(0,0,0,0.25);
+  }
+
+  .results-cta-btn:hover .results-cta-icon {
+    transform: translateX(4px);
+  }
+
   /* Responsive subtle line separation for the center column */
   .impact-stats-col {
     border-top: 1px solid rgba(255,255,255,0.08);
@@ -262,7 +318,7 @@ const caseStudies = [
   }
 
   @media (min-width: 1024px) {
-    .case-study-card {
+    .asc-case-card {
       height: 440px !important;
     }
     .card-grid {
@@ -280,7 +336,7 @@ const caseStudies = [
   
   /* Media query for mobile adjustments in stacking */
   @media (max-width: 768px) {
-    .case-study-wrapper {
+    .asc-case-wrapper {
       /* Disable sticky stacking on mobile to avoid cutting off tall cards */
       position: relative !important;
       top: auto !important;
