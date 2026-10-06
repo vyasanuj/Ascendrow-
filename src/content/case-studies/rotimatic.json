@@ -7,7 +7,8 @@
   "hero": {
     "headlineText": "Sales pipeline transformation for Rotimatic — ",
     "headlineHighlight": "driving $165K in new revenue.",
-    "image": "/mockups/Rotimatic-img.webp"
+    "image": "/mockups/Rotimatic-img.webp",
+    "bottomImage": "/mockups/rotimatic-case-study-hero-img.jpg"
   },
   "metadata": {
     "client": {
@@ -21,6 +22,13 @@
       "name": "Pranshav Vyas",
       "avatar": "https://ui-avatars.com/api/?name=Pranshav+Vyas&background=FF6B4A&color=FFF&bold=true"
     }
+  },
+  "aboutProject": {
+    "title": "About the project",
+    "highlightText": "Rotimatic is an innovative kitchen appliance that fully automates the process of making fresh flatbreads.",
+    "bodyText": "The machine takes away the hassle of measuring, kneading, and cooking. By simply adding flour, water, and oil, users can enjoy warm, fresh rotis in minutes. We partnered with them to scale their global sales pipeline, handling objections and closing deals with high-consideration buyers.",
+    "industry": ["Consumer Electronics", "Smart Appliances"],
+    "services": ["Sales Outsourcing", "Pipeline Management", "CRM Automation"]
   },
   "leftContent": [
     {

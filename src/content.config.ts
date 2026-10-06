@@ -13,6 +13,7 @@ const caseStudiesCollection = defineCollection({
       headlineText: z.string(),
       headlineHighlight: z.string(),
       image: z.string().optional(),
+      bottomImage: z.string().optional(),
     }),
     metadata: z.object({
       client: z.object({
@@ -27,6 +28,13 @@ const caseStudiesCollection = defineCollection({
         avatar: z.string(),
       }),
     }),
+    aboutProject: z.object({
+      title: z.string().optional(),
+      highlightText: z.string(),
+      bodyText: z.string().optional(),
+      industry: z.array(z.string()).optional(),
+      services: z.array(z.string()).optional(),
+    }).optional(),
     leftContent: z.array(z.any()), // Array of flexible content blocks (text, section, resultBox, images)
     rightTimeline: z.array(z.object({
       title: z.string(),

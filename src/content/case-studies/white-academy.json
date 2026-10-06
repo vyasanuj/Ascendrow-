@@ -7,7 +7,8 @@
   "hero": {
     "headlineText": "Cybersecurity acquisition funnel for eHack Academy — ",
     "headlineHighlight": "scaling to ₹22.5L+ in monthly sales.",
-    "image": "/mockups/diploma-ss.png"
+    "image": "/mockups/diploma-ss.png",
+    "bottomImage": "/mockups/job-ready-promote.png"
   },
   "metadata": {
     "client": {
@@ -19,6 +20,13 @@
       "name": "Pranshav Vyas",
       "avatar": "https://ui-avatars.com/api/?name=Pranshav+Vyas&background=FF6B4A&color=FFF&bold=true"
     }
+  },
+  "aboutProject": {
+    "title": "About the project",
+    "highlightText": "Starting from zero, we built a complete digital acquisition system for eHack Academy's cybersecurity programs.",
+    "bodyText": "With no prior digital presence or structured student journey, we mapped out everything from positioning and ad campaigns to high-converting landing pages. This end-to-end funnel now drives 15+ enrollments per month, scaling their revenue to ₹22.5L+ monthly.",
+    "industry": ["EdTech", "Cybersecurity"],
+    "services": ["Funnel Strategy", "Paid Advertising", "Landing Page Design"]
   },
   "leftContent": [
     {

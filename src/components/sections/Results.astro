@@ -6,7 +6,7 @@ const caseStudies = [
     brand: "Rotimatic",
     logo: "/brands/Rotimatic_Logo_.png",
     type: "D2C",
-    title: 'Transforming the sales pipeline for a <span style="color: #FF6B4A;">premium brand.</span>',
+    title: 'Transforming the sales pipeline for a <span style="color: var(--card-accent);">premium brand.</span>',
     description: "By integrating directly as an extension of the team, we completely transformed the support and sales pipeline for Rotimatic, driving massive ROI across global markets.",
     link: "/case-studies/rotimatic",
     stats: [
@@ -20,7 +20,7 @@ const caseStudies = [
     brand: "eHack Academy",
     logo: "/brands/white-academy.png",
     type: "Tech & Performance Marketing",
-    title: 'Building a <span style="color: #FF6B4A;">cybersecurity funnel.</span>',
+    title: 'Building a <span style="color: var(--card-accent);">cybersecurity funnel.</span>',
     description: "From zero to ₹22.5L+ in monthly sales by building a complete digital acquisition system.",
     link: "/case-studies/white-academy",
     stats: [
@@ -35,7 +35,7 @@ const caseStudies = [
     brand: "eHack Academy",
     logo: "/brands/white-academy.png",
     type: "Tech & Performance Marketing",
-    title: 'Selling a ₹1 Lakh <span style="color: #FF6B4A;">premium program.</span>',
+    title: 'Selling a ₹1 Lakh <span style="color: var(--card-accent);">premium program.</span>',
     description: "How we launched a premium digital marketing program and generated ₹3L+ in a highly saturated market.",
     link: "/case-studies/digital-marketing",
     stats: [
@@ -68,13 +68,13 @@ const caseStudies = [
     <div class="cards-container" style="position: relative; padding-bottom: 1px;">
       {caseStudies.map((study, index) => (
         <div class="case-study-wrapper" style={`position: sticky; top: clamp(80px, 15vh, 120px); margin-bottom: ${index !== caseStudies.length - 1 ? '25vh' : '10vh'}; z-index: ${index + 1};`} data-index={index}>
-          <a href={study.link} class="case-study-card" style="display: block; min-height: 480px; height: 100%; background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; text-decoration: none; position: relative; overflow: hidden; transform-origin: top center; will-change: transform, opacity, filter;">
+          <a href={study.link} class="case-study-card" style="--card-accent: #000000; --card-accent-rgb: 0, 0, 0; display: block; background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; text-decoration: none; position: relative; overflow: hidden; transform-origin: top center; will-change: transform, opacity;">
             
             <!-- CSS Grid Layout -->
             <div class="card-grid">
               
               <!-- Column 1 (Left): Information & Badges -->
-              <div style="padding: clamp(32px, 4vw, 64px); display: flex; flex-direction: column; justify-content: flex-start;">
+              <div style="padding: clamp(24px, 3.5vw, 48px); display: flex; flex-direction: column; justify-content: flex-start;">
                 
                 <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
                   <span style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 16px 6px 6px; border-radius: 99px; font-size: 14px; font-weight: 700; color: #FFF; letter-spacing: 0.05em;">
@@ -83,15 +83,15 @@ const caseStudies = [
                     </span>
                     {study.brand}
                   </span>
-                  <span style="display: inline-flex; align-items: center; background: rgba(255, 107, 74, 0.1); border: 1px solid rgba(255, 107, 74, 0.3); padding: 6px 16px; border-radius: 99px; font-size: 14px; font-weight: 700; color: #FF6B4A; letter-spacing: 0.05em;">{study.type}</span>
+                  <span style="display: inline-flex; align-items: center; background: rgba(var(--card-accent-rgb), 0.1); border: 1px solid rgba(var(--card-accent-rgb), 0.3); padding: 6px 16px; border-radius: 99px; font-size: 14px; font-weight: 700; color: var(--card-accent); letter-spacing: 0.05em;">{study.type}</span>
                 </div>
 
-                <h3 style="font-size: clamp(28px, 3vw, 40px); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; color: #FFF; margin: 0 0 16px 0;" set:html={study.title}></h3>
-                <p style="font-size: 18px; line-height: 1.6; color: rgba(255,255,255,0.85); margin: 0 0 32px 0;">{study.description}</p>
+                <h3 style="font-size: clamp(24px, 2.5vw, 36px); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; color: #FFF; margin: 0 0 16px 0;" set:html={study.title}></h3>
+                <p style="font-size: 17px; line-height: 1.6; color: rgba(255,255,255,0.85); margin: 0 0 24px 0;">{study.description}</p>
                 
-                <div style="display: inline-flex; align-items: center; gap: 16px; font-size: 16px; font-weight: 700; color: #FF6B4A; margin-top: auto;">
+                <div style="display: inline-flex; align-items: center; gap: 16px; font-size: 16px; font-weight: 700; color: var(--card-accent); margin-top: auto;">
                   <span>Read full case study</span>
-                  <div style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255, 107, 74, 0.4); display: flex; align-items: center; justify-content: center; color: #FF6B4A;">
+                  <div style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(var(--card-accent-rgb), 0.4); display: flex; align-items: center; justify-content: center; color: var(--card-accent);">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                       <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -100,29 +100,29 @@ const caseStudies = [
               </div>
 
               <!-- Column 2 (Center): Stats -->
-              <div class="impact-stats-col" style="padding: clamp(32px, 4vw, 64px); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 56px;">
+              <div class="impact-stats-col" style="padding: clamp(24px, 3.5vw, 48px); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 40px;">
                 {study.stats.map((stat) => (
                   <div style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #FF6B4A; font-weight: 700; margin-bottom: 8px;">{stat.label}</div>
-                    <div style="font-size: clamp(48px, 5vw, 72px); font-weight: 800; line-height: 1; color: #FFF;">{stat.value}</div>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--card-accent); font-weight: 700; margin-bottom: 8px;">{stat.label}</div>
+                    <div style="font-size: clamp(40px, 4.5vw, 64px); font-weight: 800; line-height: 1; color: #FFF;">{stat.value}</div>
                   </div>
                 ))}
               </div>
 
               <!-- Column 3 (Right): Image Area with Matte Noisy Texture -->
-              <div class="case-study-img-col" style="position: relative; display: flex; align-items: center; justify-content: center; padding: clamp(32px, 4vw, 64px); background-color: #6E56CF; overflow: hidden; border-top-right-radius: 24px; border-bottom-right-radius: 24px;">
+              <div class="case-study-img-col" style="position: relative; display: flex; align-items: center; justify-content: center; padding: clamp(24px, 3.5vw, 48px); background-color: #6E56CF; overflow: hidden; border-top-right-radius: 24px; border-bottom-right-radius: 24px;">
                 <!-- Noisy Texture Overlay -->
                 <div style="position: absolute; inset: 0; opacity: 0.3; mix-blend-mode: overlay; pointer-events: none; background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
                 
                 {study.slideshowImages && study.slideshowImages.length > 1 ? (
-                  <div style="position: relative; width: 100%; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+                  <div style="position: relative; width: 100%; aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center;">
                     <!-- Base image (always visible) -->
                     <img src={study.slideshowImages[0]} alt={`${study.brand} Product Mockup 1`} style="position: absolute; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));" />
                     <!-- Fading image (crossfades over base image) -->
                     <img src={study.slideshowImages[1]} alt={`${study.brand} Product Mockup 2`} style="position: absolute; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3)); animation: fade-slideshow 6s infinite ease-in-out;" />
                   </div>
                 ) : study.secondaryImage ? (
-                  <div style="position: relative; width: 100%; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+                  <div style="position: relative; width: 100%; aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center;">
                     <div style="display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; width: 100%; max-width: 420px; align-items: center; justify-items: center;">
                       <!-- Secondary (Background) Image -->
                       <img src={study.secondaryImage} alt={`${study.brand} Secondary Product Mockup`} style="grid-column: 1; grid-row: 1; width: 95%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); opacity: 0.6; transform: translate(12%, -12%) scale(0.9); z-index: 1; filter: blur(1px);" />
@@ -131,7 +131,7 @@ const caseStudies = [
                     </div>
                   </div>
                 ) : (
-                  <div style="position: relative; width: 100%; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+                  <div style="position: relative; width: 100%; aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center;">
                     <img src={study.image} alt={`${study.brand} Product Mockup`} style="position: absolute; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));" />
                   </div>
                 )}
@@ -143,44 +143,61 @@ const caseStudies = [
       ))}
     </div>
 
+    <!-- View All Button -->
+    <div style="text-align: center; margin-top: clamp(48px, 6vw, 80px); position: relative; z-index: 10;">
+      <a href="/case-studies" class="asc-cta-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 32px; border-radius: 4px; background: #FF6B4A; color: #FFF; font-size: 16px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 10px 20px -5px rgba(255,107,74,0.4);">
+        View all case studies
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
   </div>
 </section>
 
 <script>
   // Add scroll event listener to animate cards
   function initCardAnimation() {
-    const wrappers = document.querySelectorAll('.case-study-wrapper');
+    const wrappers = Array.from(document.querySelectorAll('.case-study-wrapper'));
     if (!wrappers.length) return;
 
-    const onScroll = () => {
-      const windowHeight = window.innerHeight;
+    // Cache elements so we don't query the DOM inside the scroll loop
+    const cards = wrappers.map(w => w.querySelector('.case-study-card') as HTMLElement);
+    
+    let ticking = false;
 
-      wrappers.forEach((wrapper, index) => {
+    const updateCards = () => {
+      // 1. Check Mobile Fast-Path
+      if (window.innerWidth <= 768) {
+        cards.forEach(card => {
+          if (card) {
+            card.style.opacity = '1';
+            card.style.transform = `scale(1)`;
+            // Explicitly clear filter in case it was resized
+            card.style.filter = 'none'; 
+          }
+        });
+        ticking = false;
+        return;
+      }
+
+      // 2. BATCH ALL READS (Prevent layout thrashing)
+      const tops = wrappers.map(w => w.getBoundingClientRect().top);
+
+      // 3. BATCH ALL WRITES
+      wrappers.forEach((_, index) => {
         // We only animate fading out for cards that have a card after them
         if (index === wrappers.length - 1) return;
         
-        const nextWrapper = wrappers[index + 1];
-        if (!nextWrapper) return;
-
-        const wrapperRect = wrapper.getBoundingClientRect();
-        const nextRect = nextWrapper.getBoundingClientRect();
-        const cardElement = wrapper.querySelector('.case-study-card') as HTMLElement;
-
+        const cardElement = cards[index];
         if (!cardElement) return;
 
-        // Disable animation on mobile where cards are not sticky
-        if (window.innerWidth <= 768) {
-          cardElement.style.opacity = '1';
-          cardElement.style.transform = `scale(1)`;
-          cardElement.style.filter = `blur(0px)`;
-          return;
-        }
-
-        // Calculate distance between this card's top and next card's top
-        const distance = nextRect.top - wrapperRect.top;
+        const currentTop = tops[index];
+        const nextTop = tops[index + 1];
         
-        // Only start fading when the next card is extremely close (last 80px of scroll)
-        // This ensures the next card is practically in place before the current one changes
+        // Calculate distance between this card's top and next card's top
+        const distance = nextTop - currentTop;
         const fadeStartDistance = 80;
         
         if (distance < fadeStartDistance) {
@@ -189,24 +206,35 @@ const caseStudies = [
           progress = Math.max(0, Math.min(1, progress));
           
           const opacity = 1 - progress;
-          const scale = 1 - (0.08 * progress); // Scale down slightly to 0.92
-          const blur = progress * 10; // Blur up to 10px
-
+          // Scale down slightly (to 0.95) for a smoother, less drastic feel
+          const scale = 1 - (0.05 * progress); 
+          
+          // Removed filter: blur() because animating it on top of a 
+          // backdrop-filter is extremely heavy on the GPU and causes lag.
           cardElement.style.opacity = opacity.toString();
           cardElement.style.transform = `scale(${scale})`;
-          cardElement.style.filter = `blur(${blur}px)`;
         } else {
           // Reset styles if scrolling back up
           cardElement.style.opacity = '1';
           cardElement.style.transform = `scale(1)`;
-          cardElement.style.filter = `blur(0px)`;
         }
       });
+
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateCards);
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    
     // Trigger once on load
-    onScroll();
+    updateCards();
   }
 
   // Run on initial load and when astro swaps pages
@@ -234,9 +262,13 @@ const caseStudies = [
   }
 
   @media (min-width: 1024px) {
+    .case-study-card {
+      height: 440px !important;
+    }
     .card-grid {
       /* Left: 1.1fr, Middle: 0.7fr, Right (Image): 1.4fr */
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.7fr) minmax(0, 1.4fr);
+      height: 100%;
     }
     .impact-stats-col {
       border-top: none;

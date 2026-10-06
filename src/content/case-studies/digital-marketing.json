@@ -7,7 +7,8 @@
   "hero": {
     "headlineText": "Premium program positioning for eHack Academy — ",
     "headlineHighlight": "generating ₹3L+ in confirmed sales.",
-    "image": "/mockups/digi-marketing-ui.png"
+    "image": "/mockups/digi-marketing-ui.png",
+    "bottomImage": "/mockups/digi-marketing-ui-1.png"
   },
   "metadata": {
     "client": {
@@ -19,6 +20,13 @@
       "name": "Pranshav Vyas",
       "avatar": "https://ui-avatars.com/api/?name=Pranshav+Vyas&background=FF6B4A&color=FFF&bold=true"
     }
+  },
+  "aboutProject": {
+    "title": "About the project",
+    "highlightText": "eHack Academy wanted to launch a premium digital marketing program in a highly saturated market.",
+    "bodyText": "At ₹1 lakh, the program couldn't compete on price against cheap courses. We helped them rebuild their curriculum and messaging around transformation and value. By building a high-converting acquisition system, they generated ₹3L+ in confirmed sales within the first month.",
+    "industry": ["EdTech", "Online Education"],
+    "services": ["Performance Marketing", "Funnel Design", "Conversion Rate Optimization"]
   },
   "leftContent": [
     {

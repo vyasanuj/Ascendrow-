@@ -13,6 +13,15 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const data = entry.data;
+
+const highlightMetrics = (text: string) => {
+  if (!text) return "";
+  const regex = /(^|\s|\(|>)(₹|\$|€)?\d+(?:[,.]\d+)?\s*(?:[kKmMbB]|lakh|L\+|L|%|\+|x|X)?(?=[\s.,!?)<]|$)/g;
+  return text.replace(regex, (match, leading) => {
+    const metric = match.slice(leading.length);
+    return `${leading}<span class="cs-hero-highlight">${metric}</span>`;
+  });
+};
 ---
 
 <Layout title={data.seo.title} description={data.seo.description}>
@@ -62,12 +71,12 @@ const data = entry.data;
       <!-- New Hero Section: Logo, Headline, Description -->
       <section class="cs-hero-grid">
         <div class="cs-hero-left">
-          <div class="cs-client-logo" style="background: #ffffff; display: inline-flex; padding: 12px 16px; border-radius: 8px; margin-bottom: 32px;">
-            <img src={data.metadata.client.logo} alt={`${data.metadata.client.name} Logo`} style="height: 32px; width: auto; max-width: 160px; object-fit: contain; filter: none;" />
+          <div class="cs-client-logo" style={`display: inline-flex; margin-bottom: 32px; ${entry.id === 'rotimatic' ? 'background: rgba(255, 255, 255, 0.95); padding: 12px 20px; border-radius: 8px;' : ''}`}>
+            <img src={data.metadata.client.logo} alt={`${data.metadata.client.name} Logo`} style="height: 60px; width: auto; max-width: 220px; object-fit: contain;" />
           </div>
           <h1 class="cs-hero-headline">
             {data.hero.headlineText}
-            <span style="color: #f8f7fb;">{data.hero.headlineHighlight}</span>
+            <span class="cs-hero-highlight">{data.hero.headlineHighlight}</span>
           </h1>
         </div>
         
@@ -81,6 +90,54 @@ const data = entry.data;
         </div>
       </section>
 
+      {data.hero.bottomImage && (
+        <div class="cs-hero-bottom-image" style="margin-top: clamp(40px, 6vw, 80px); display: flex; justify-content: center; width: 100%;">
+          <img src={data.hero.bottomImage} alt="Case Study Overview" style="max-width: 100%; max-height: clamp(320px, 45vw, 600px); width: auto; height: auto; border-radius: 16px; border: 1px solid var(--border-color); display: block;" />
+        </div>
+      )}
+
+      {data.aboutProject && (
+        <section class="cs-about-project">
+          <!-- Left: Title -->
+          <div class="about-left">
+            <h2>{data.aboutProject.title || "About the project"}</h2>
+          </div>
+          
+          <!-- Middle: Description -->
+          <div class="about-middle">
+            <p class="about-highlight" set:html={highlightMetrics(data.aboutProject.highlightText)}></p>
+            {data.aboutProject.bodyText && (
+              <p class="about-body" set:html={highlightMetrics(data.aboutProject.bodyText)}></p>
+            )}
+          </div>
+          
+          <!-- Right: Metadata (Industry & Services) -->
+          <div class="about-right">
+            {data.aboutProject.industry && data.aboutProject.industry.length > 0 && (
+              <div class="about-meta-group">
+                <h3>Industry</h3>
+                <div class="about-pills">
+                  {data.aboutProject.industry.map((item: string) => (
+                    <span class="about-pill">{item}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {data.aboutProject.services && data.aboutProject.services.length > 0 && (
+              <div class="about-meta-group">
+                <h3>Services</h3>
+                <div class="about-pills">
+                  {data.aboutProject.services.map((item: string) => (
+                    <span class="about-pill">{item}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       <div class="cs-divider"></div>
 
       <!-- Main Content Split -->
@@ -89,32 +146,47 @@ const data = entry.data;
         <article class="story-column">
           {data.leftContent.map((block: any) => {
             if (block.type === 'text') {
-              return <p class="story-text">{block.content}</p>;
+              return (
+                <div class="story-section">
+                  <div class="story-left"></div>
+                  <div class="story-middle">
+                    <p class="story-text" set:html={highlightMetrics(block.content)}></p>
+                  </div>
+                </div>
+              );
             }
             if (block.type === 'section') {
               return (
                 <div class="story-section">
-                  <h3 class="section-title">{block.title}</h3>
-                  {block.paragraphs.map((p: string) => (
-                    <p class="story-text" set:html={p}></p>
-                  ))}
+                  <div class="story-left">
+                    <h3 class="section-title">{block.title}</h3>
+                  </div>
+                  <div class="story-middle">
+                    {block.paragraphs.map((p: string) => (
+                      <p class="story-text" set:html={highlightMetrics(p)}></p>
+                    ))}
+                  </div>
                 </div>
               );
             }
             if (block.type === 'resultBox') {
               return (
-                <div class="result-box clean-panel">
-                  <h3 class="result-box-title">{block.title}</h3>
-                  <p class="result-box-desc" set:html={block.description}></p>
-                  <div class="result-stats">
-                    {block.stats.map((stat: any) => (
-                      <div class="stat-item">
-                        <span class="stat-value">{stat.value}</span>
-                        <span class="stat-label">{stat.label}</span>
-                      </div>
-                    ))}
+                <div class="result-box clean-panel story-section">
+                  <div class="story-left">
+                    <h3 class="result-box-title">{block.title}</h3>
                   </div>
-                  {block.footer && <div class="result-box-footer">{block.footer}</div>}
+                  <div class="story-middle">
+                    <p class="result-box-desc" set:html={highlightMetrics(block.description)}></p>
+                    <div class="result-stats">
+                      {block.stats.map((stat: any) => (
+                        <div class="stat-item">
+                          <span class="stat-value">{stat.value}</span>
+                          <span class="stat-label">{stat.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                    {block.footer && <div class="result-box-footer">{block.footer}</div>}
+                  </div>
                 </div>
               );
             }
@@ -134,9 +206,11 @@ const data = entry.data;
 
         <!-- Right Column: Timeline / Key Results -->
         <aside class="timeline-column">
-          <div class="timeline-sticky">
-            <h3 class="timeline-header">Execution & Results</h3>
-            <div class="timeline-container">
+          <div class="timeline-sticky story-section">
+            <div class="story-left">
+              <h3 class="timeline-header">Execution & Results</h3>
+            </div>
+            <div class="timeline-container story-middle">
               {data.rightTimeline.map((item: any) => (
                 <div class="timeline-item">
                   <div class="timeline-node"></div>
@@ -149,7 +223,7 @@ const data = entry.data;
                     ) : (
                       <h4 class="timeline-title">{item.title}</h4>
                     )}
-                    <div class="timeline-desc" set:html={item.descriptionHtml}></div>
+                    <div class="timeline-desc" set:html={highlightMetrics(item.descriptionHtml)}></div>
                   </div>
                 </div>
               ))}
@@ -225,19 +299,15 @@ const data = entry.data;
   }
 
   .cs-client-logo {
-    background: #ffffff;
     display: inline-flex;
-    padding: 12px 16px;
-    border-radius: 8px;
     margin-bottom: 32px;
   }
 
   .cs-client-logo img {
-    height: 32px;
+    height: 60px;
     width: auto;
-    max-width: 160px;
+    max-width: 220px;
     object-fit: contain;
-    filter: none;
   }
 
   .cs-hero-headline {
@@ -245,9 +315,13 @@ const data = entry.data;
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.03em;
-    color: var(--text-muted);
+    color: #ffffff;
     margin: 0;
     text-wrap: balance;
+  }
+
+  :global(.cs-hero-highlight) {
+    color: var(--asc-cta);
   }
 
   .cs-hero-right {
@@ -327,16 +401,9 @@ const data = entry.data;
 
   /* Content Split Layout */
   .content-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: clamp(64px, 8vw, 120px);
-    align-items: start;
-  }
-
-  @media (max-width: 1024px) {
-    .content-split {
-      grid-template-columns: 1fr;
-    }
   }
 
   /* Left Column: Story */
@@ -347,9 +414,9 @@ const data = entry.data;
   }
 
   .story-text {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1.7;
-    color: var(--text-muted);
+    color: #ffffff;
     margin: 0;
   }
 
@@ -357,20 +424,41 @@ const data = entry.data;
     margin-top: 20px;
   }
 
-  .story-text strong {
+  .story-text :global(strong) {
     color: var(--text-main);
     font-weight: 700;
   }
 
   .story-section {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: clamp(32px, 4vw, 64px);
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .story-section {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .story-middle {
+    grid-column: 2 / 4;
     display: flex;
     flex-direction: column;
+    gap: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .story-middle {
+      grid-column: 1 / -1;
+    }
   }
 
   .section-title {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
-    color: var(--text-main);
+    color: #ffffff;
     margin: 0 0 20px 0;
     letter-spacing: -0.01em;
   }
@@ -458,11 +546,11 @@ const data = entry.data;
   }
 
   .timeline-header {
-    font-size: 20px;
+    font-size: 28px;
     font-weight: 700;
-    color: var(--text-main);
+    color: #ffffff;
     margin: 0 0 32px 0;
-    padding-left: 36px;
+    letter-spacing: -0.01em;
   }
 
   .timeline-container {
@@ -506,9 +594,9 @@ const data = entry.data;
   }
 
   .timeline-title {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
-    color: var(--text-main);
+    color: #ffffff;
     margin: 0 0 12px 0;
     line-height: 1.2;
     letter-spacing: -0.01em;
@@ -531,18 +619,18 @@ const data = entry.data;
     border-radius: 100px;
   }
 
-  .timeline-desc p {
-    font-size: 16px;
+  .timeline-desc :global(p) {
+    font-size: 18px;
     line-height: 1.6;
-    color: var(--text-muted);
+    color: #ffffff;
     margin: 0;
   }
 
-  .timeline-desc p + p {
+  .timeline-desc :global(p + p) {
     margin-top: 12px;
   }
 
-  .timeline-desc strong {
+  .timeline-desc :global(strong) {
     color: var(--text-main);
     font-weight: 700;
   }
@@ -589,5 +677,76 @@ const data = entry.data;
 
   .primary-btn:hover {
     background: #ffffff;
+  }
+
+  /* About Project Section */
+  .cs-about-project {
+    margin-top: clamp(64px, 8vw, 100px);
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: clamp(32px, 4vw, 64px);
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .cs-about-project {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .about-left h2 {
+    font-size: clamp(32px, 3.5vw, 48px);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .about-middle {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .about-highlight {
+    font-size: clamp(24px, 2.5vw, 32px);
+    font-weight: 600;
+    line-height: 1.5;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .about-body {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .about-right {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .about-meta-group h3 {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+    margin: 0 0 12px 0;
+  }
+
+  .about-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .about-pill {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 </style>
