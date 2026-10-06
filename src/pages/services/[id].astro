@@ -28,16 +28,31 @@ const data = service.data;
     </div>
 
     <!-- Cursor Glow Interactive Background -->
-    <div id="service-cursor-glow" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 0.5s ease; mix-blend-mode: screen;">
-      <div id="service-glow-orb" style="position: absolute; width: 1000px; height: 1000px; transform: translate(-50%, -50%); top: 50%; left: 50%; background: radial-gradient(circle, rgba(255, 107, 74, 0.12) 0%, rgba(110, 86, 207, 0.08) 35%, transparent 70%); border-radius: 50%; filter: blur(60px); will-change: transform;"></div>
+    <div id="service-cursor-glow" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 10; mix-blend-mode: screen; opacity: 1;">
+      <!-- Increased opacity and blur so it is highly visible against dark background -->
+      <div id="service-glow-orb" style="position: absolute; width: 800px; height: 800px; top: 0; left: 0; background: radial-gradient(circle, rgba(255, 107, 74, 0.6) 0%, rgba(110, 86, 207, 0.4) 30%, transparent 70%); border-radius: 50%; filter: blur(80px); will-change: transform;"></div>
     </div>
 
-    <!-- Minimal Header Text Only -->
-    <div style="position: relative; max-width: 1000px; margin: 80px auto 40px; z-index: 20; padding: 0 clamp(24px, 5vw, 48px); text-align: center;">
-      <h1 style="font-size: clamp(40px, 6vw, 64px); font-weight: 300; margin: 0; color: #fff; letter-spacing: -0.02em; line-height: 1.1;">
+    <!-- Minimal Header with Subtle Pattern Background -->
+    <div style="position: relative; max-width: 1000px; margin: 80px auto 60px; z-index: 20; padding: 60px clamp(16px, 3vw, 24px); text-align: center;">
+      <!-- Subtle Grid Pattern with Fade -->
+      <div style="
+        position: absolute;
+        inset: -80px -100px;
+        z-index: -1;
+        background-image: 
+          linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+        background-size: 32px 32px;
+        -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 0%, transparent 100%);
+        mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 0%, transparent 100%);
+        pointer-events: none;
+      "></div>
+
+      <h1 style="font-size: clamp(40px, 5vw, 56px); font-weight: 400; margin: 0; color: #fff; letter-spacing: -0.02em; line-height: 1.1;">
         {data.seo.title.split('|')[0].trim()}
       </h1>
-      <p style="margin: 24px auto 0; color: rgba(255,255,255,0.7); font-size: clamp(18px, 1.5vw, 22px); max-width: 700px; line-height: 1.6;">
+      <p style="margin: 24px auto 0; color: rgba(255,255,255,0.7); font-size: clamp(18px, 1.5vw, 20px); max-width: 600px; line-height: 1.6;">
         {data.seo.description}
       </p>
     </div>
@@ -47,37 +62,37 @@ const data = service.data;
 </Layout>
 
 <script>
-  // High-performance cursor tracking for the interactive glow
-  const wrapper = document.getElementById('service-cursor-glow');
-  const orb = document.getElementById('service-glow-orb');
-  
-  if (wrapper && orb) {
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let currentX = mouseX;
-    let currentY = mouseY;
-
-    window.addEventListener('mousemove', (e) => {
-      if (wrapper.style.opacity === '0' || wrapper.style.opacity === '') {
-        wrapper.style.opacity = '1';
-      }
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    window.addEventListener('mouseleave', () => {
-      wrapper.style.opacity = '0';
-    });
-
-    function animate() {
-      // Smooth easing (lerp) for the orb
-      currentX += (mouseX - currentX) * 0.1;
-      currentY += (mouseY - currentY) * 0.1;
-      
-      orb.style.transform = `translate(-50%, -50%) translate3d(${currentX}px, ${currentY}px, 0)`;
-      requestAnimationFrame(animate);
-    }
+  // Robust initialization to ensure it runs
+  function initCursorGlow() {
+    const wrapper = document.getElementById('service-cursor-glow');
+    const orb = document.getElementById('service-glow-orb');
     
-    animate();
+    if (wrapper && orb) {
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let currentX = mouseX;
+      let currentY = mouseY;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animate() {
+        // Smooth easing (lerp) for the orb
+        currentX += (mouseX - currentX) * 0.08;
+        currentY += (mouseY - currentY) * 0.08;
+        
+        orb.style.transform = `translate(-50%, -50%) translate3d(${currentX}px, ${currentY}px, 0)`;
+        requestAnimationFrame(animate);
+      }
+      
+      animate();
+    }
   }
+
+  // Ensure it runs after DOM is ready
+  document.addEventListener('DOMContentLoaded', initCursorGlow);
+  // Support Astro View Transitions if enabled
+  document.addEventListener('astro:page-load', initCursorGlow);
 </script>
