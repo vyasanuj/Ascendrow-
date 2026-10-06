@@ -10,6 +10,7 @@ export const theme = {
 // the funnel lists the services, the approach section is the three founders.
 export const nav = [
   { href: '#funnel', label: 'Services' },
+  { href: '/case-studies', label: 'Case Studies' },
   { href: '#approach', label: 'About us' },
 ];
 

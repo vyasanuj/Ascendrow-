@@ -257,30 +257,24 @@ const { title, description } = Astro.props;
         }
       }
 
-      /* The phone menu exists only below 640px. */
+      /* The phone menu exists only below 1100px. */
       .asc-menu {
         display: none;
       }
 
-      /* ---------- ≤ 640px: phones ---------- */
-      @media (max-width: 640px) {
-        /* ----- Above the fold: one message, one action -----
-           Modelled on how the strongest agency sites handle a phone fold:
-           a single-row navbar, a large LEFT-aligned headline, and the
-           interactive picker directly under the CTA rather than pushed
-           below a logo wall. Centred multi-line text on a narrow screen
-           produces ragged edges on every line; left alignment reads as
-           editorial and scans faster. */
-
-        /* Navbar: logo + hamburger on one row, nothing else. */
+      /* ---------- ≤ 1100px: tablets & smaller desktops ---------- */
+      @media (max-width: 1100px) {
+        .asc-desktop-nav,
+        .asc-hero-nav-right {
+          display: none !important;
+        }
+        
+        /* Navbar: logo + hamburger on one row. */
         .asc-hero-nav {
           position: relative;
           flex-wrap: nowrap !important;
           min-height: 56px !important;
           gap: 0 !important;
-        }
-        .asc-hero-nav-right {
-          display: none !important;
         }
         .asc-brand-mark {
           height: 30px;
@@ -356,6 +350,18 @@ const { title, description } = Astro.props;
           background: #ff7f62 !important;
           color: #17110e !important;
         }
+      }
+
+      /* ---------- ≤ 640px: phones ---------- */
+      @media (max-width: 640px) {
+        /* ----- Above the fold: one message, one action -----
+           Modelled on how the strongest agency sites handle a phone fold:
+           a single-row navbar, a large LEFT-aligned headline, and the
+           interactive picker directly under the CTA rather than pushed
+           below a logo wall. Centred multi-line text on a narrow screen
+           produces ragged edges on every line; left alignment reads as
+           editorial and scans faster. */
+
 
         /* Copy column: left-aligned, and the headline earns its size. */
         .asc-hero-copy {

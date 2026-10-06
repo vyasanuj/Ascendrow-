@@ -35,30 +35,160 @@ const sized = logos.map((logo) => ({
   >
   </div>
 
-  <!-- Navbar wrapper: spans wide across the viewport to maximize visual width -->
-  <div class="asc-hero-nav-wrapper" style="position: relative; max-width: 1440px; margin: 0 auto; width: 100%;">
+  <!-- Navbar wrapper: constrained floating pill for top-notch UX -->
+  <div class="asc-hero-nav-wrapper" style="position: relative; max-width: 1240px; margin: 0 auto; width: 100%; z-index: 40;">
     <header
       class="asc-hero-nav"
       style="display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 56px; width: 100%;"
     >
-      <a href="#" class="asc-brand" aria-label="Ascendrow home">
-        <img
-          class="asc-brand-mark"
-          src="/branding/ascendrow-logo.webp"
-          alt=""
-          width="589"
-          height="110"
-          decoding="async"
-        />
-      </a>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: flex-start;">
+        <a href="#" class="asc-brand" aria-label="Ascendrow home">
+          <img
+            class="asc-brand-mark"
+            src="/branding/ascendrow-logo.webp"
+            alt=""
+            width="589"
+            height="110"
+            decoding="async"
+          />
+        </a>
+      </div>
 
-      <div class="asc-hero-nav-right" style="display: flex; align-items: center; gap: 12px 32px;">
-        <nav
-          style="display: flex; align-items: center; gap: 10px 32px; font-size: 15px; font-weight: 500;"
-          aria-label="Primary"
-        >
-          {nav.map((item) => <a href={item.href} class="asc-navlink">{item.label}</a>)}
-        </nav>
+      <nav
+        class="asc-desktop-nav"
+        style="display: flex; align-items: center; justify-content: center; gap: 10px 52px; font-size: 15px; font-weight: 500;"
+        aria-label="Primary"
+      >
+          {nav.map((item) => {
+            if (item.label === 'Services') {
+              return (
+                <div class="asc-nav-dropdown-wrapper">
+                  <a href={item.href} class="asc-navlink asc-nav-dropdown-trigger">
+                    {item.label}
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.6; margin-top: 1px;">
+                      <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                  
+                  <div class="asc-mega-menu">
+                    <div class="asc-mega-menu-inner">
+                       <!-- left -->
+                       <div class="asc-mega-left">
+                         <span class="asc-mega-label">Core Departments</span>
+                         <div class="asc-mega-grid">
+                           
+                           <!-- Product Design -->
+                           <a href="#" class="asc-mega-card">
+                             <div class="asc-mega-icon">
+                               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                             </div>
+                             <div>
+                               <div class="asc-mega-title">Product Design</div>
+                               <div class="asc-mega-desc">UX/UI built around product and business goals</div>
+                             </div>
+                           </a>
+
+                           <!-- Web design -->
+                           <a href="#" class="asc-mega-card">
+                             <div class="asc-mega-icon">
+                               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                             </div>
+                             <div>
+                               <div class="asc-mega-title">Web design</div>
+                               <div class="asc-mega-desc">End-to-end websites, from design to launch</div>
+                             </div>
+                           </a>
+
+                           <!-- Branding -->
+                           <a href="#" class="asc-mega-card">
+                             <div class="asc-mega-icon">
+                               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                             </div>
+                             <div>
+                               <div class="asc-mega-title">Branding</div>
+                               <div class="asc-mega-desc">Strategy + identity for ambitious digital-first brands</div>
+                             </div>
+                           </a>
+
+                           <!-- Web Development -->
+                           <a href="#" class="asc-mega-card">
+                             <div class="asc-mega-icon">
+                               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 10l-4 4 4 4"/><path d="M16 10l4 4-4 4"/></svg>
+                             </div>
+                             <div>
+                               <div class="asc-mega-title">Web Development</div>
+                               <div class="asc-mega-desc">From MVPs to scalable, robust digital products</div>
+                             </div>
+                           </a>
+
+                         </div>
+                         
+                         <!-- Banner -->
+                         <a href="#" class="asc-mega-banner">
+                            <div style="position: relative; z-index: 2;">
+                              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                                <span style="font-size: 16px; font-weight: 700; letter-spacing: -0.01em;">Product Discovery</span>
+                                <span style="font-size: 11px; font-weight: 700; background: #0F0F14; color: #ffffff; padding: 4px 8px; border-radius: 4px;">1-2 weeks</span>
+                              </div>
+                              <div style="font-size: 14.5px; color: #535260; font-weight: 500;">Turn an idea into a clear, validated product plan</div>
+                            </div>
+                            <div class="asc-mega-banner-icon">
+                               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="5 5 19 5 19 19"/></svg>
+                            </div>
+                            <div class="asc-mega-banner-bg"></div>
+                         </a>
+                       </div>
+                       
+                       <div class="asc-mega-divider"></div>
+                       
+                       <!-- Links Columns -->
+                       <div class="asc-mega-right">
+                         <!-- Design -->
+                         <div class="asc-mega-col">
+                           <span class="asc-mega-label">Design</span>
+                           <a href="#" class="asc-mega-link">SaaS Design</a>
+                           <a href="#" class="asc-mega-link">Mobile App Design</a>
+                           <a href="#" class="asc-mega-link">Landing Page Design</a>
+                           <a href="#" class="asc-mega-link">Website Redesign</a>
+                           <a href="#" class="asc-mega-link">Rebranding</a>
+                           <a href="#" class="asc-mega-link">Design Systems</a>
+                           <a href="#" class="asc-mega-link">UX Audit</a>
+                         </div>
+
+                         <!-- Development -->
+                         <div class="asc-mega-col">
+                           <span class="asc-mega-label">Development</span>
+                           <a href="#" class="asc-mega-link">AI Integration</a>
+                           <a href="#" class="asc-mega-link">Mobile App Development</a>
+                           <a href="#" class="asc-mega-link">MVP Development</a>
+                           <a href="#" class="asc-mega-link">Software Development</a>
+                           <a href="#" class="asc-mega-link">CMS Development</a>
+                           <a href="#" class="asc-mega-link">Cloud Development</a>
+                           <a href="#" class="asc-mega-link">API Development</a>
+                         </div>
+
+                         <!-- Marketing -->
+                         <div class="asc-mega-col">
+                           <span class="asc-mega-label">Marketing</span>
+                           <a href="#" class="asc-mega-link">SEO Optimization</a>
+                           <a href="#" class="asc-mega-link">Content Strategy</a>
+                           <a href="#" class="asc-mega-link">Paid Media (PPC)</a>
+                           <a href="#" class="asc-mega-link">Social Media</a>
+                           <a href="#" class="asc-mega-link">Email Marketing</a>
+                           <a href="#" class="asc-mega-link">CRO</a>
+                           <a href="#" class="asc-mega-link">Analytics</a>
+                         </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+            return <a href={item.href} class="asc-navlink">{item.label}</a>;
+          })}
+      </nav>
+
+      <div class="asc-hero-nav-right" style="flex: 1; display: flex; align-items: center; justify-content: flex-end;">
         <a href={navCta.href} class="asc-nav-cta">{navCta.label}</a>
       </div>
 
@@ -274,5 +404,174 @@ const sized = logos.map((logo) => ({
   }
   .asc-tile.is-on .asc-tile-mark svg {
     opacity: 1;
+  }
+</style>
+
+<style is:global>
+  /* --- Mega Menu --- */
+  .asc-nav-dropdown-wrapper {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .asc-nav-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 20px 0;
+  }
+  
+  .asc-mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-35%) translateY(10px);
+    width: max-content;
+    padding-top: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    z-index: 50;
+  }
+  .asc-nav-dropdown-wrapper:hover .asc-mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-35%) translateY(0);
+  }
+  
+  .asc-mega-menu-inner {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 32px 36px;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(15,15,20,0.05);
+    display: flex;
+    gap: 40px;
+    color: #0F0F14;
+    text-align: left;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  
+  .asc-mega-left {
+    width: 480px;
+    display: flex;
+    flex-direction: column;
+  }
+  .asc-mega-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8C8B99;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: block;
+  }
+  .asc-mega-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 16px;
+    margin-bottom: 36px;
+  }
+  
+  .asc-mega-card {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    color: inherit;
+    text-decoration: none;
+    padding: 10px;
+    margin: -10px;
+    border-radius: 10px;
+    transition: background 0.15s ease;
+  }
+  .asc-mega-card:hover {
+    background: rgba(15,15,20,0.03);
+  }
+  .asc-mega-icon {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    color: #0F0F14;
+  }
+  .asc-mega-title {
+    font-size: 15.5px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .asc-mega-desc {
+    font-size: 13.5px;
+    color: #535260;
+    line-height: 1.45;
+  }
+  
+  .asc-mega-banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #e7e6f0 0%, #d4d3df 100%);
+    padding: 24px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #0F0F14;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: auto;
+  }
+  .asc-mega-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -10px rgba(0,0,0,0.12);
+  }
+  .asc-mega-banner-icon {
+    position: relative;
+    z-index: 2;
+    color: #0F0F14;
+    opacity: 0.6;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .asc-mega-banner:hover .asc-mega-banner-icon {
+    opacity: 1;
+    transform: translate(2px, -2px);
+  }
+  .asc-mega-banner-bg {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 60%;
+    background: radial-gradient(circle at right, rgba(255,255,255,0.6) 0%, transparent 80%);
+    z-index: 1;
+  }
+  
+  .asc-mega-divider {
+    width: 1px;
+    background: rgba(15,15,20,0.06);
+    margin: 0 4px;
+  }
+  
+  .asc-mega-right {
+    display: flex;
+    gap: 48px;
+  }
+  .asc-mega-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 160px;
+  }
+  .asc-mega-link {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #2A2833;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .asc-mega-link:hover {
+    color: var(--asc-accent, #6E56CF);
   }
 </style>
