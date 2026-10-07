@@ -54,6 +54,7 @@ const servicesCollection = defineCollection({
       description: z.string(),
     }),
     hero: z.object({
+      mainHeading: z.string().optional(),
       folders: z.array(z.object({
         title: z.string(),
         color: z.string(),
@@ -65,7 +66,21 @@ const servicesCollection = defineCollection({
           description: z.string(),
         })
       }))
-    })
+    }),
+    process: z.array(z.object({
+      step: z.string(),
+      title: z.string(),
+      description: z.string()
+    })).optional(),
+    arsenal: z.array(z.object({
+      name: z.string(),
+      category: z.string(),
+      description: z.string()
+    })).optional(),
+    faq: z.array(z.object({
+      question: z.string(),
+      answer: z.string()
+    })).optional()
   }),
 });
 

@@ -5,14 +5,20 @@
     "description": "Expert SaaS design services to build engaging digital products."
   },
   "hero": {
+    "mainHeading": "Design that converts trials, reduces churn, and <span style=\"color: #FF6B4A;\">makes the product sell itself.</span>",
     "folders": [
       {
         "title": "RESEARCH",
         "color": "#1C1D21",
         "textColor": "#FFFFFF",
         "content": {
-          "items": ["user interviews", "competitor analysis", "personas", "user journeys"],
-          "image": "/images/research-polaroid.jpg",
+          "items": [
+            "user interviews",
+            "competitor analysis",
+            "personas",
+            "user journeys"
+          ],
+          "image": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
           "heading": "research",
           "description": "Understanding your users and market to build a solid foundation."
         }
@@ -22,8 +28,12 @@
         "color": "#334185",
         "textColor": "#FFFFFF",
         "content": {
-          "items": ["wireframes", "prototyping", "information architecture"],
-          "image": "/images/ux-polaroid.jpg",
+          "items": [
+            "wireframes",
+            "prototyping",
+            "information architecture"
+          ],
+          "image": "https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=800&q=80",
           "heading": "ux design",
           "description": "Creating intuitive workflows and seamless user experiences."
         }
@@ -33,8 +43,12 @@
         "color": "#6371BA",
         "textColor": "#FFFFFF",
         "content": {
-          "items": ["visual design", "interaction design", "design systems"],
-          "image": "/images/ui-polaroid.jpg",
+          "items": [
+            "visual design",
+            "interaction design",
+            "design systems"
+          ],
+          "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
           "heading": "ui design",
           "description": "Crafting beautiful interfaces that engage and convert."
         }
@@ -44,12 +58,92 @@
         "color": "#D3CDB9",
         "textColor": "#1C1D21",
         "content": {
-          "items": ["usability testing", "a/b testing", "analytics review"],
-          "image": "/images/testing-polaroid.jpg",
+          "items": [
+            "usability testing",
+            "a/b testing",
+            "analytics review"
+          ],
+          "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
           "heading": "testing",
           "description": "Validating designs with real users to ensure success."
         }
       }
     ]
-  }
+  },
+  "process": [
+    {
+      "step": "01",
+      "title": "Discovery & Audit",
+      "description": "We dive deep into your product, analyzing existing user flows, interviewing key stakeholders, and identifying immediate areas for churn reduction and UX improvements."
+    },
+    {
+      "step": "02",
+      "title": "UX Architecture",
+      "description": "We map out intuitive user journeys and create high-level wireframes. This ensures the logical structure of your app is bulletproof before we touch any visuals."
+    },
+    {
+      "step": "03",
+      "title": "UI & Design System",
+      "description": "We craft pixel-perfect, premium interfaces. Simultaneously, we build a scalable component library (Design System) so your engineering team can build faster in the future."
+    },
+    {
+      "step": "04",
+      "title": "Handoff & Support",
+      "description": "We don't just throw files over the wall. We provide comprehensive developer handoff, annotated specs, and ongoing design QA during your implementation phase."
+    }
+  ],
+  "arsenal": [
+    {
+      "name": "Figma",
+      "category": "UI / Design Systems",
+      "description": "The core engine for our pixel-perfect interfaces and scalable component libraries."
+    },
+    {
+      "name": "Framer",
+      "category": "Prototyping",
+      "description": "High-fidelity, physics-based prototypes that feel exactly like the final product."
+    },
+    {
+      "name": "React / Next.js",
+      "category": "Frontend Architecture",
+      "description": "Production-ready component handoffs structured for modern JS frameworks."
+    },
+    {
+      "name": "GSAP",
+      "category": "Motion Design",
+      "description": "Complex, performant scroll animations and micro-interactions."
+    },
+    {
+      "name": "Tailwind CSS",
+      "category": "Styling",
+      "description": "Utility-first design tokens translated directly from our design systems."
+    },
+    {
+      "name": "Spline",
+      "category": "3D & WebGL",
+      "description": "Interactive 3D elements and immersive browser-based spatial designs."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How long does a typical SaaS design project take?",
+      "answer": "A standard SaaS redesign or new product design takes between 6 to 12 weeks. This includes deep discovery, UX architecture, UI design, and building a scalable design system."
+    },
+    {
+      "question": "Do you also build the frontend (code)?",
+      "answer": "Yes. While our core is product design, we offer premium frontend implementation using React, Next.js, and Tailwind CSS. We ensure the final coded product looks exactly like the Figma file."
+    },
+    {
+      "question": "How do you ensure the design actually improves metrics?",
+      "answer": "We don't design based on guesswork. We conduct thorough UX audits, interview your users, analyze heatmaps, and rely on proven UX patterns that specifically reduce friction and churn."
+    },
+    {
+      "question": "What do we receive at the end of the project?",
+      "answer": "You receive a highly organized Figma file containing all screens, prototypes, and a comprehensive Design System (components, tokens, guidelines) ready for your engineers to use."
+    },
+    {
+      "question": "Can you integrate with our existing engineering team?",
+      "answer": "Absolutely. We act as an extension of your team. We maintain tight feedback loops and provide detailed technical handoffs so your engineers are never left guessing."
+    }
+  ]
 }
