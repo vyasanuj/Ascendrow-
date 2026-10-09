@@ -2,6 +2,7 @@
 	"$schema": "./node_modules/wrangler/config-schema.json",
 	"name": "ascendrow",
 	"compatibility_date": "2026-09-08",
+	"compatibility_flags": [ "nodejs_compat" ],
 
 	// Static site: Cloudflare serves ./dist straight from the edge. There is no
 	// Worker script, so no `main` entry. When the contact form lands and the
