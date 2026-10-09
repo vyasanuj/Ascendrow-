@@ -25,42 +25,69 @@
     "title": "About the project",
     "highlightText": "eHack Academy wanted to launch a premium digital marketing program in a highly saturated market.",
     "bodyText": "At ₹1 lakh, the program couldn't compete on price against cheap courses. We helped them rebuild their curriculum and messaging around transformation and value. By building a high-converting acquisition system, they generated ₹3L+ in confirmed sales within the first month.",
-    "industry": ["EdTech", "Online Education"],
-    "services": ["Performance Marketing", "Funnel Design", "Conversion Rate Optimization"]
+    "industry": [
+      "EdTech",
+      "Online Education"
+    ],
+    "services": [
+      "Performance Marketing",
+      "Funnel Design",
+      "Conversion Rate Optimization"
+    ]
   },
   "leftContent": [
     {
-      "type": "section",
-      "title": "The Challenge",
-      "paragraphs": [
-        "Digital marketing education is already a highly saturated market. Users can find hundreds of courses from established platforms such as Coursera, Udemy and other major education brands — often at a fraction of the price.",
-        "Our client wanted to sell a premium digital marketing program priced at <strong>₹1 lakh</strong>. The challenge was simple: Why would someone pay ₹1 lakh when they can learn digital marketing for a few thousand rupees? We had to build the answer into the product, positioning, messaging and funnel."
-      ]
+      "discriminant": "section",
+      "value": {
+        "title": "The Challenge",
+        "paragraphs": [
+          "Digital marketing education is already a highly saturated market. Users can find hundreds of courses from established platforms such as Coursera, Udemy and other major education brands — often at a fraction of the price.",
+          "Our client wanted to sell a premium digital marketing program priced at <strong>₹1 lakh</strong>. The challenge was simple: Why would someone pay ₹1 lakh when they can learn digital marketing for a few thousand rupees? We had to build the answer into the product, positioning, messaging and funnel."
+        ]
+      }
     },
     {
-      "type": "resultBox",
-      "title": "The Result",
-      "description": "The biggest proof came in the first month. Despite operating in one of the most competitive education categories, the funnel started generating serious buying intent immediately.",
-      "stats": [
-        { "value": "₹3L+", "label": "Confirmed Sales" },
-        { "value": "~70%", "label": "Landing Page Conversion" }
-      ],
-      "footer": "Plus 5 highly interested prospects actively in the sales pipeline."
+      "discriminant": "resultBox",
+      "value": {
+        "title": "The Result",
+        "description": "The biggest proof came in the first month. Despite operating in one of the most competitive education categories, the funnel started generating serious buying intent immediately.",
+        "stats": [
+          {
+            "value": "₹3L+",
+            "label": "Confirmed Sales"
+          },
+          {
+            "value": "~70%",
+            "label": "Landing Page Conversion"
+          }
+        ],
+        "footer": "Plus 5 highly interested prospects actively in the sales pipeline."
+      }
     },
     {
-      "type": "section",
-      "title": "The Strategy & Outcome",
-      "paragraphs": [
-        "Instead of competing on price, we competed on <strong>positioning, depth, perceived value and transformation.</strong> We rebuilt the offer around the principles used by leading marketers (like Alex Hormozi and Seth Godin).",
-        "The funnel proved that a premium digital marketing program can compete in a low-cost, highly saturated market when the offer, positioning and acquisition system are built correctly."
-      ]
+      "discriminant": "section",
+      "value": {
+        "title": "The Strategy & Outcome",
+        "paragraphs": [
+          "Instead of competing on price, we competed on <strong>positioning, depth, perceived value and transformation.</strong> We rebuilt the offer around the principles used by leading marketers (like Alex Hormozi and Seth Godin).",
+          "The funnel proved that a premium digital marketing program can compete in a low-cost, highly saturated market when the offer, positioning and acquisition system are built correctly."
+        ]
+      }
     },
     {
-      "type": "images",
-      "items": [
-        { "src": "/mockups/digi-marketing-ui.png", "alt": "Digital Marketing Program UI" },
-        { "src": "/mockups/digi-marketing-ui-1.png", "alt": "Digital Marketing Program Alternate UI" }
-      ]
+      "discriminant": "images",
+      "value": {
+        "items": [
+          {
+            "src": "/mockups/digi-marketing-ui.png",
+            "alt": "Digital Marketing Program UI"
+          },
+          {
+            "src": "/mockups/digi-marketing-ui-1.png",
+            "alt": "Digital Marketing Program Alternate UI"
+          }
+        ]
+      }
     }
   ],
   "rightTimeline": [

@@ -147,55 +147,55 @@ const highlightMetrics = (text: string) => {
         <!-- Left Column: The Story -->
         <article class="story-column">
           {data.leftContent.map((block: any) => {
-            if (block.type === 'text') {
+            if (block.discriminant === 'text') {
               return (
                 <div class="story-section">
                   <div class="story-left"></div>
                   <div class="story-middle">
-                    <p class="story-text" set:html={highlightMetrics(block.content)}></p>
+                    <p class="story-text" set:html={highlightMetrics(block.value.content)}></p>
                   </div>
                 </div>
               );
             }
-            if (block.type === 'section') {
+            if (block.discriminant === 'section') {
               return (
                 <div class="story-section">
                   <div class="story-left">
-                    <h3 class="section-title">{block.title}</h3>
+                    <h3 class="section-title">{block.value.title}</h3>
                   </div>
                   <div class="story-middle">
-                    {block.paragraphs.map((p: string) => (
+                    {block.value.paragraphs.map((p: string) => (
                       <p class="story-text" set:html={highlightMetrics(p)}></p>
                     ))}
                   </div>
                 </div>
               );
             }
-            if (block.type === 'resultBox') {
+            if (block.discriminant === 'resultBox') {
               return (
                 <div class="result-box clean-panel story-section">
                   <div class="story-left">
-                    <h3 class="result-box-title">{block.title}</h3>
+                    <h3 class="result-box-title">{block.value.title}</h3>
                   </div>
                   <div class="story-middle">
-                    <p class="result-box-desc" set:html={highlightMetrics(block.description)}></p>
+                    <p class="result-box-desc" set:html={highlightMetrics(block.value.description)}></p>
                     <div class="result-stats">
-                      {block.stats.map((stat: any) => (
+                      {block.value.stats.map((stat: any) => (
                         <div class="stat-item">
                           <span class="stat-value">{stat.value}</span>
                           <span class="stat-label">{stat.label}</span>
                         </div>
                       ))}
                     </div>
-                    {block.footer && <div class="result-box-footer">{block.footer}</div>}
+                    {block.value.footer && <div class="result-box-footer">{block.value.footer}</div>}
                   </div>
                 </div>
               );
             }
-            if (block.type === 'images') {
+            if (block.discriminant === 'images') {
               return (
                 <div class="image-gallery">
-                  {block.items.map((img: any) => (
+                  {block.value.items.map((img: any) => (
                     <div class="image-wrapper clean-panel">
                       <img src={img.src} alt={img.alt} loading="lazy" />
                     </div>

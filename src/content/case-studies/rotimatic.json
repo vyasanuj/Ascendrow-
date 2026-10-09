@@ -28,13 +28,22 @@
     "title": "About the project",
     "highlightText": "Rotimatic is an innovative kitchen appliance that fully automates the process of making fresh flatbreads.",
     "bodyText": "The machine takes away the hassle of measuring, kneading, and cooking. By simply adding flour, water, and oil, users can enjoy warm, fresh rotis in minutes. We partnered with them to scale their global sales pipeline, handling objections and closing deals with high-consideration buyers.",
-    "industry": ["Consumer Electronics", "Smart Appliances"],
-    "services": ["Sales Outsourcing", "Pipeline Management", "CRM Automation"]
+    "industry": [
+      "Consumer Electronics",
+      "Smart Appliances"
+    ],
+    "services": [
+      "Sales Outsourcing",
+      "Pipeline Management",
+      "CRM Automation"
+    ]
   },
   "leftContent": [
     {
-      "type": "text",
-      "content": "By integrating directly as an extension of the team, we completely transformed the sales pipeline. From automating support to closing high-consideration buyers across global markets, here is the tangible revenue we drove."
+      "discriminant": "text",
+      "value": {
+        "content": "By integrating directly as an extension of the team, we completely transformed the sales pipeline. From automating support to closing high-consideration buyers across global markets, here is the tangible revenue we drove."
+      }
     }
   ],
   "rightTimeline": [

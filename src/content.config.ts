@@ -36,26 +36,34 @@ const caseStudiesCollection = defineCollection({
       industry: z.array(z.string()).optional(),
       services: z.array(z.string()).optional(),
     }).optional(),
-    leftContent: z.array(z.discriminatedUnion('type', [
+    leftContent: z.array(z.discriminatedUnion('discriminant', [
       z.object({
-        type: z.literal('text'),
-        content: z.string(),
+        discriminant: z.literal('text'),
+        value: z.object({
+          content: z.string(),
+        })
       }),
       z.object({
-        type: z.literal('section'),
-        title: z.string(),
-        paragraphs: z.array(z.string()),
+        discriminant: z.literal('section'),
+        value: z.object({
+          title: z.string(),
+          paragraphs: z.array(z.string()),
+        })
       }),
       z.object({
-        type: z.literal('resultBox'),
-        title: z.string(),
-        description: z.string(),
-        stats: z.array(z.object({ value: z.string(), label: z.string() })),
-        footer: z.string().optional(),
+        discriminant: z.literal('resultBox'),
+        value: z.object({
+          title: z.string(),
+          description: z.string(),
+          stats: z.array(z.object({ value: z.string(), label: z.string() })),
+          footer: z.string().optional(),
+        })
       }),
       z.object({
-        type: z.literal('images'),
-        items: z.array(z.object({ src: z.string(), alt: z.string() })),
+        discriminant: z.literal('images'),
+        value: z.object({
+          items: z.array(z.object({ src: z.string(), alt: z.string() })),
+        })
       }),
     ])), // Typed content blocks: text | section | resultBox | images
     rightTimeline: z.array(z.object({
