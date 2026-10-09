@@ -73,7 +73,7 @@ const highlightMetrics = (text: string) => {
       <!-- New Hero Section: Logo, Headline, Description -->
       <section class="cs-hero-grid">
         <div class="cs-hero-left">
-          <div class="cs-client-logo" style={`display: inline-flex; margin-bottom: 32px; ${entry.id === 'rotimatic' ? 'background: rgba(255, 255, 255, 0.95); padding: 12px 20px; border-radius: 8px;' : ''}`}>
+          <div class="cs-client-logo" style={`display: inline-flex; margin-bottom: 32px; ${data.metadata.client.logoNeedsWhiteBackground ? 'background: rgba(255, 255, 255, 0.95); padding: 12px 20px; border-radius: 8px;' : ''}`}>
             <img src={data.metadata.client.logo} alt={`${data.metadata.client.name} Logo`} style="height: 60px; width: auto; max-width: 220px; object-fit: contain;" />
           </div>
           <h1 class="cs-hero-headline">

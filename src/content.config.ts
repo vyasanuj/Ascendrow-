@@ -21,6 +21,7 @@ const caseStudiesCollection = defineCollection({
         name: z.string(),
         url: z.string().optional(),
         urlLabel: z.string().optional(),
+        logoNeedsWhiteBackground: z.boolean().optional(),
       }),
       role: z.string(),
       contact: z.object({
@@ -35,7 +36,28 @@ const caseStudiesCollection = defineCollection({
       industry: z.array(z.string()).optional(),
       services: z.array(z.string()).optional(),
     }).optional(),
-    leftContent: z.array(z.any()), // Array of flexible content blocks (text, section, resultBox, images)
+    leftContent: z.array(z.discriminatedUnion('type', [
+      z.object({
+        type: z.literal('text'),
+        content: z.string(),
+      }),
+      z.object({
+        type: z.literal('section'),
+        title: z.string(),
+        paragraphs: z.array(z.string()),
+      }),
+      z.object({
+        type: z.literal('resultBox'),
+        title: z.string(),
+        description: z.string(),
+        stats: z.array(z.object({ value: z.string(), label: z.string() })),
+        footer: z.string().optional(),
+      }),
+      z.object({
+        type: z.literal('images'),
+        items: z.array(z.object({ src: z.string(), alt: z.string() })),
+      }),
+    ])), // Typed content blocks: text | section | resultBox | images
     rightTimeline: z.array(z.object({
       title: z.string(),
       subtitle: z.string().optional(),
@@ -55,6 +77,7 @@ const servicesCollection = defineCollection({
     }),
     hero: z.object({
       mainHeading: z.string().optional(),
+      mainHeadingHighlight: z.string().optional(),
       folders: z.array(z.object({
         title: z.string(),
         color: z.string(),
@@ -80,7 +103,24 @@ const servicesCollection = defineCollection({
     faq: z.array(z.object({
       question: z.string(),
       answer: z.string()
-    })).optional()
+    })).optional(),
+    growthSection: z.object({
+      headlinePrimary: z.string(),
+      headlineSecondary: z.string(),
+      metrics: z.array(z.object({
+        value: z.string(),
+        label: z.string(),
+        color: z.string(),
+        colorRgb: z.string(),
+        barHeight: z.string(),
+      })),
+    }).optional(),
+    cta: z.object({
+      headline: z.string(),
+      subtext: z.string(),
+      buttonText: z.string(),
+      buttonHref: z.string(),
+    }).optional(),
   }),
 });
 

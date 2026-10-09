@@ -15,7 +15,8 @@
       "logo": "/brands/Rotimatic_Logo_.png",
       "name": "Rotimatic",
       "url": "https://rotimatic.com",
-      "urlLabel": "(rotimatic.com)"
+      "urlLabel": "(rotimatic.com)",
+      "logoNeedsWhiteBackground": true
     },
     "role": "Sales",
     "contact": {
