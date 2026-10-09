@@ -45,13 +45,11 @@ const { title, description } = Astro.props;
   <body>
     <slot />
 
-    <style is:global define:vars={{ accent: theme.accent, cta: theme.cta }}>
+    <style is:inline set:html={`:root { --asc-accent: ${theme.accent}; --asc-cta: ${theme.cta}; }`}></style>
+    <style is:global>
       /* Every section in the design set --asc-accent / --asc-cta to the same
          two values. Hoisted to :root here — identical computed styles. */
       :root {
-        --asc-accent: var(--accent);
-        --asc-cta: var(--cta);
-
         /* Body copy. The design used clamp(15px, 1.05vw, 17px), but 1.05vw is
            only ~15px at 1440px wide, so body text never actually grew past its
            floor on a normal laptop. These scale for real between 1024–1600px.

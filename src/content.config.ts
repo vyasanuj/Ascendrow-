@@ -35,7 +35,36 @@ const caseStudiesCollection = defineCollection({
       industry: z.array(z.string()).optional(),
       services: z.array(z.string()).optional(),
     }).optional(),
-    leftContent: z.array(z.any()), // Array of flexible content blocks (text, section, resultBox, images)
+    leftContent: z.array(z.discriminatedUnion('discriminant', [
+      z.object({
+        discriminant: z.literal('text'),
+        value: z.object({
+          content: z.string(),
+        })
+      }),
+      z.object({
+        discriminant: z.literal('section'),
+        value: z.object({
+          title: z.string(),
+          paragraphs: z.array(z.string()),
+        })
+      }),
+      z.object({
+        discriminant: z.literal('resultBox'),
+        value: z.object({
+          title: z.string(),
+          description: z.string(),
+          stats: z.array(z.object({ value: z.string(), label: z.string() })),
+          footer: z.string().optional(),
+        })
+      }),
+      z.object({
+        discriminant: z.literal('images'),
+        value: z.object({
+          items: z.array(z.object({ src: z.string(), alt: z.string() })),
+        })
+      }),
+    ])), // Typed content blocks: text | section | resultBox | images
     rightTimeline: z.array(z.object({
       title: z.string(),
       subtitle: z.string().optional(),
