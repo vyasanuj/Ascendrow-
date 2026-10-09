@@ -16,6 +16,10 @@
 		"not_found_handling": "404-page"
 	},
 
+	"vars": {
+		"KEYSTATIC_GITHUB_CLIENT_ID": "Iv23lizRxNAU1OYvmYQp",
+		"PUBLIC_KEYSTATIC_GITHUB_APP_SLUG": "vyasanuj-keystatic"
+	},
 	"observability": {
 		"enabled": true
 	}
