@@ -9,12 +9,16 @@ export const prerender = false;
 export const ALL = async (context: APIContext) => {
   const pEnv = (globalThis as any).process?.env || {};
   
-  const handler = makeGenericAPIRouteHandler({
-    config: keystaticConfig,
-    clientId: env.KEYSTATIC_GITHUB_CLIENT_ID || pEnv.KEYSTATIC_GITHUB_CLIENT_ID,
-    clientSecret: env.KEYSTATIC_GITHUB_CLIENT_SECRET || pEnv.KEYSTATIC_GITHUB_CLIENT_SECRET,
-    secret: env.KEYSTATIC_SECRET || pEnv.KEYSTATIC_SECRET,
-  });
-  
-  return handler(context.request);
+  try {
+    const handler = makeGenericAPIRouteHandler({
+      config: keystaticConfig,
+      clientId: env.KEYSTATIC_GITHUB_CLIENT_ID || pEnv.KEYSTATIC_GITHUB_CLIENT_ID,
+      clientSecret: env.KEYSTATIC_GITHUB_CLIENT_SECRET || pEnv.KEYSTATIC_GITHUB_CLIENT_SECRET,
+      secret: env.KEYSTATIC_SECRET || pEnv.KEYSTATIC_SECRET,
+    });
+    
+    return await handler(context.request);
+  } catch (e: any) {
+    return new Response(`Keystatic API Error: ${e.message}\n\nStack:\n${e.stack}`, { status: 500 });
+  }
 };
