@@ -17,7 +17,16 @@ export const ALL = async (context: APIContext) => {
       secret: env.KEYSTATIC_SECRET || pEnv.KEYSTATIC_SECRET,
     });
     
-    return await handler(context.request);
+    const keystaticResponse = await handler(context.request);
+    
+    if (!keystaticResponse) {
+      return new Response('Not Found', { status: 404 });
+    }
+    
+    return new Response(keystaticResponse.body as any, {
+      status: keystaticResponse.status,
+      headers: keystaticResponse.headers,
+    });
   } catch (e: any) {
     return new Response(`Keystatic API Error: ${e.message}\n\nStack:\n${e.stack}`, { status: 500 });
   }
