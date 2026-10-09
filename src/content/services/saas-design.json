@@ -5,7 +5,7 @@
     "description": "Expert SaaS design services to build engaging digital products."
   },
   "hero": {
-    "mainHeading": "Design that converts trials, reduces churn, and <span style=\"color: #FF6B4A;\">makes the product sell itself.</span>",
+    "mainHeading": "Design that converts trials, reduces churn, and <span style=\"color: #FF6B4A;\">makes the product sell .</span>",
     "folders": [
       {
         "title": "RESEARCH",
@@ -145,5 +145,9 @@
       "question": "Can you integrate with our existing engineering team?",
       "answer": "Absolutely. We act as an extension of your team. We maintain tight feedback loops and provide detailed technical handoffs so your engineers are never left guessing."
     }
-  ]
+  ],
+  "growthSection": {
+    "metrics": []
+  },
+  "cta": {}
 }
