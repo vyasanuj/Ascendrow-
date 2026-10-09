@@ -146,9 +146,5 @@
       "question": "Can you integrate with our existing engineering team?",
       "answer": "Absolutely. We act as an extension of your team. We maintain tight feedback loops and provide detailed technical handoffs so your engineers are never left guessing."
     }
-  ],
-  "growthSection": {
-    "metrics": []
-  },
-  "cta": {}
+  ]
 }
