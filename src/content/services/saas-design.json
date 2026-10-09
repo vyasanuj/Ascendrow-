@@ -148,18 +148,7 @@
     }
   ],
   "growthSection": {
-    "headlinePrimary": "Design isn't just art.",
-    "headlineSecondary": "It's a growth engine.",
-    "metrics": [
-      { "value": "98%", "label": "Customer Satisfaction", "color": "#4A90E2", "colorRgb": "74,144,226", "barHeight": "35%" },
-      { "value": "10x", "label": "Faster Time-to-Market", "color": "#A895FF", "colorRgb": "168,149,255", "barHeight": "65%" },
-      { "value": "+$2.4M", "label": "Additional Revenue", "color": "#FF6B4A", "colorRgb": "255,107,74", "barHeight": "100%" }
-    ]
+    "metrics": []
   },
-  "cta": {
-    "headline": "Ready to scale?",
-    "subtext": "Stop losing users to friction. Let's design an experience that converts.",
-    "buttonText": "Start your project",
-    "buttonHref": "/contact"
-  }
+  "cta": {}
 }
